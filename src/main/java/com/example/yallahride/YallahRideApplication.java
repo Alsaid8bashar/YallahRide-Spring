@@ -8,6 +8,7 @@ public class YallahRideApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(YallahRideApplication.class, args);
+
     }
 
 }

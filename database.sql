@@ -5,9 +5,7 @@ create table User
     last_name  varchar(1000) NOT NULL,
     image_path varchar(4000),
     email      varchar(4000),
-    role_fk    MEDIUMINT,
-    PRIMARY KEY (user_pk),
-    FOREIGN KEY (role_fk) REFERENCES Role (role_pk) ON DELETE CASCADE
+    PRIMARY KEY (user_pk)
 );
 
 create table Role
@@ -16,6 +14,25 @@ create table Role
     role_name varchar(100) NOT NULL,
     PRIMARY KEY (role_pk)
 );
+
+# EDITED
+# ALTER TABLE User
+    # DROP CONSTRAINT User_ibfk_1;
+# ALTER TABLE User
+    # DROP COLUMN role_fk;
+# EDITED
+
+
+create table User_Role
+(
+    user_role_pk   MEDIUMINT    NOT NULL AUTO_INCREMENT,
+    user_fk    MEDIUMINT,
+    role_fk    MEDIUMINT,
+    PRIMARY KEY (user_role_pk),
+    FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
+    FOREIGN KEY (role_fk) REFERENCES Role (role_pk) ON DELETE CASCADE
+);
+
 create table Login
 (
     login_pk      MEDIUMINT NOT NULL AUTO_INCREMENT,
