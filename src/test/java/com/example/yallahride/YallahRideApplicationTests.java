@@ -14,7 +14,7 @@ class YallahRideApplicationTests {
 
     @Test
     void contextLoads() {
-        userService.save(new User("Bashar", "AlSaid", "no image", "b@email"));
+        userService.saveUser(new User("Bashar", "AlSaid", "no image", "b@email"));
     }
 
 }

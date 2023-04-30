@@ -26,11 +26,12 @@ public class Car {
 
     @Column(name = "model_year", nullable = false)
     private int modelYear;
-    private Date data;
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     private User user;
     @OneToMany(mappedBy = "car")
     private List<CarImage> carImages;
+
+
 
 }
