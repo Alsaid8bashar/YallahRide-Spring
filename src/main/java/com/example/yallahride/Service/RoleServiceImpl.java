@@ -1,0 +1,45 @@
+package com.example.yallahride.Service;
+
+import com.example.yallahride.Entity.Role;
+import com.example.yallahride.Repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class RoleServiceImpl implements RoleService {
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Override
+    public void saveRole(Role role) {
+        roleRepository.save(role);
+    }
+
+    @Override
+    public Optional<Role> findRoleById(Long id) {
+        return roleRepository.findById(id);
+    }
+
+    @Override
+    public List<Role> findAllRoles() {
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public void deleteAllRoles() {
+        roleRepository.deleteAll();
+    }
+
+    @Override
+    public void deleteRoleById(Long id) {
+        roleRepository.deleteById(id);
+    }
+
+    @Override
+    public long getNumberOfRole() {
+        return 0;
+    }
+}
