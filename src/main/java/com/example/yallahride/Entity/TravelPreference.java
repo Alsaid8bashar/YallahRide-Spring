@@ -17,7 +17,7 @@ public class TravelPreference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pk")
-    private Long idPk;
+    private Long id;
     @NonNull
     private String description;
     @ManyToMany

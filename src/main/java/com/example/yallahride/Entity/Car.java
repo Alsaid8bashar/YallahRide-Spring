@@ -17,7 +17,7 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_pk", nullable = false)
-    private Long carPk;
+    private Long id;
     @NonNull
     private String color, make, model;
 
