@@ -16,9 +16,11 @@ import java.util.Date;
 public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rate_pk", nullable = false)
+    @Column(name = "rate_pk")
     private Long ratePk;
+    @NonNull
     private Date date;
+    @NonNull
     private int rate;
     @ManyToOne
     @JoinColumn(name="rater_fk")

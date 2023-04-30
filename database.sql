@@ -189,7 +189,3 @@ create table Page_Video
     PRIMARY KEY (page_video_pk)
 
 );
-
-
-
-

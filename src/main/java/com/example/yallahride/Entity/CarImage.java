@@ -14,9 +14,10 @@ import lombok.*;
 public class CarImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pk", nullable = false)
+    @Column(name = "id_pk")
     private Long id;
     @Column(name = "image_path", nullable = false)
+    @NonNull
     private String imagePath;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_fk")

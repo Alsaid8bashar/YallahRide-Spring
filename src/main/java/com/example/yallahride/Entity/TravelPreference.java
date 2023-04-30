@@ -16,14 +16,15 @@ import java.util.Set;
 public class TravelPreference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pk", nullable = false)
+    @Column(name = "id_pk")
     private Long idPk;
+    @NonNull
     private String description;
-    @ManyToMany
-    @JoinTable(
-            name = "User_Preference",
-            joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
-    )
-    private Set<User> users;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "User_Preference",
+//            joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
+//            inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
+//    )
+//    private Set<User> users;
 }

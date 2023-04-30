@@ -16,19 +16,19 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_pk", nullable = false)
+    @Column(name = "user_pk")
     private Long userPk;
 
     @Column(name = "first_name")
+    @NonNull
     private String firstName;
     @Column(name = "last_name")
+    @NonNull
     private String lastName;
     private String email;
     @Column(name = "image_path")
+    @NonNull
     private String imagePath;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_fk")
-    private Car car;
     @ManyToMany
     @JoinTable(
             name = "User_Preference",
@@ -36,6 +36,4 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
     )
     private Set<TravelPreference> travelPreferences;
-    @OneToMany(mappedBy = "rater")
-    private java.util.List<Rate> givenRates;
 }

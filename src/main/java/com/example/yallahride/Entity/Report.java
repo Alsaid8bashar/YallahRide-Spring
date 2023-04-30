@@ -16,9 +16,11 @@ import java.util.Date;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "report_pk", nullable = false)
+    @Column(name = "report_pk")
     private Long reportPk;
+    @NonNull
     private String title, description;
+    @NonNull
     private Date data;
     @ManyToOne(optional = false)
     @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")

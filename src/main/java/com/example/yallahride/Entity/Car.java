@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -31,6 +31,6 @@ public class Car {
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     private User user;
     @OneToMany(mappedBy = "car")
-    private java.util.List<CarImage> carImages;
+    private List<CarImage> carImages;
 
 }
