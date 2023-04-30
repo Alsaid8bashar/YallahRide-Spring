@@ -3,26 +3,24 @@ package com.example.yallahride.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
+@Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "Report")
-public class Report {
+@Table(name = "Page_Video")
+public class PageVideo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "report_pk")
+    @Column(name = "page_video_pk")
     private Long id;
+    @Column(name = "video_path")
     @NonNull
-    private String title, description;
-    @NonNull
-    private Date data;
+    private String videoPath;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
-    private Ride ride;
+    @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
+    private Page page;
+
 }

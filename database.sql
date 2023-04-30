@@ -90,12 +90,13 @@ create table Page
     PRIMARY KEY (page_pk)
 );
 
+
 create table Page_Image
 (
-    image_pk   MEDIUMINT NOT NULL AUTO_INCREMENT,
+    page_image_pk   MEDIUMINT NOT NULL AUTO_INCREMENT,
     image_path varchar(4000),
     page_fk    MEDIUMINT,
-    PRIMARY KEY (image_pk),
+    PRIMARY KEY (page_image_pk),
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE
 );
 
@@ -189,3 +190,6 @@ create table Page_Video
     PRIMARY KEY (page_video_pk)
 
 );
+
+###############     ALTERATION      ###############
+

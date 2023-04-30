@@ -17,14 +17,13 @@ public class TravelPreference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pk")
-    private Long idPk;
+    private Long id;
     @NonNull
     private String description;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "User_Preference",
-//            joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
-//            inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
-//    )
-//    private Set<User> users;
+    @ManyToMany
+    @JoinTable(
+            name = "User_Preference",
+            joinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"),
+            inverseJoinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"))
+    private Set<User> users;
 }

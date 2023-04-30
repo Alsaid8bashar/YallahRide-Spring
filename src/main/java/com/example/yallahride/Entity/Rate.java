@@ -17,7 +17,7 @@ public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rate_pk")
-    private Long ratePk;
+    private Long id;
     @NonNull
     private Date date;
     @NonNull

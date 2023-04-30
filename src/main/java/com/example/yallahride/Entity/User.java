@@ -17,7 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_pk")
-    private Long userPk;
+    private Long id;
 
     @Column(name = "first_name")
     @NonNull
@@ -37,4 +37,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
     )
     private Set<TravelPreference> travelPreferences;
+
+    @ManyToMany
+    @JoinTable(
+            name = "User_Role",
+            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
+            inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk")
+    )
+    private Set<Role>roles;
 }
