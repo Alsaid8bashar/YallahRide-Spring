@@ -11,9 +11,10 @@ class YallahRideApplicationTests {
 
     @Autowired
     UserService userService;
+
     @Test
     void contextLoads() {
-        userService.save(new User("Bashar","AlSaid","no image"));
+        userService.save(new User("Bashar", "AlSaid", "no image", "b@email"));
     }
 
 }
