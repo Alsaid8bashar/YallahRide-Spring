@@ -22,7 +22,7 @@ public class RateServiceImpl implements RateService {
 
     @Override
     public Optional<Rate> findRateById(Long id) {
-        return rateRepository.findById(id);;
+        return rateRepository.findById(id);
     }
 
     @Override
