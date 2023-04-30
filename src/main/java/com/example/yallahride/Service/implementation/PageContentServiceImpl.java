@@ -1,7 +1,8 @@
-package com.example.yallahride.Service;
+package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.PageContent;
 import com.example.yallahride.Repository.PageContentRepository;
+import com.example.yallahride.Service.Interface.PageContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PageContentServiceImpl implements PageContentService{
+public class PageContentServiceImpl implements PageContentService {
 
     @Autowired
     PageContentRepository pageContentRepository;

@@ -1,4 +1,4 @@
-package com.example.yallahride.Service;
+package com.example.yallahride.Service.Interface;
 
 import com.example.yallahride.Entity.Ride;
 

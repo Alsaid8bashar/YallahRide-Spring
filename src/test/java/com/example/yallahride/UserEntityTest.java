@@ -2,7 +2,7 @@ package com.example.yallahride;
 
 
 import com.example.yallahride.Entity.User;
-import com.example.yallahride.Service.UserService;
+import com.example.yallahride.Service.Interface.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

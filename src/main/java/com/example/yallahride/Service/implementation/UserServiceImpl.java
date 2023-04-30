@@ -1,7 +1,8 @@
-package com.example.yallahride.Service;
+package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Repository.UserRepository;
+import com.example.yallahride.Service.Interface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

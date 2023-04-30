@@ -1,7 +1,8 @@
-package com.example.yallahride.Service;
+package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Repository.PageVideoRepository;
+import com.example.yallahride.Service.Interface.PageVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PageVideoServiceImpl implements PageVideoService{
+public class PageVideoServiceImpl implements PageVideoService {
 
     @Autowired
     PageVideoRepository pageVideoRepository;

@@ -1,8 +1,9 @@
-package com.example.yallahride.Service;
+package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Repository.PageImagesRepository;
 import com.example.yallahride.Repository.PageRepository;
+import com.example.yallahride.Service.Interface.PageImageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

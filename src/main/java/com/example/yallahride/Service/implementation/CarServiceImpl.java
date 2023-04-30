@@ -1,8 +1,8 @@
-package com.example.yallahride.Service;
+package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.Car;
-import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Repository.CarRepository;
+import com.example.yallahride.Service.Interface.CarService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
