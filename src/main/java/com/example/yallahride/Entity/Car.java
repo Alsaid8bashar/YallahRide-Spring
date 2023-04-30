@@ -3,7 +3,6 @@ package com.example.yallahride.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
-import java.util.Date;
 import java.util.List;
 
 @Getter
