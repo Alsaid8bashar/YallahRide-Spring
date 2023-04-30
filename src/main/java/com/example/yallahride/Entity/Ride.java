@@ -25,6 +25,7 @@ public class Ride {
     private Date date;
     @NonNull
     private int seats;
+
     @OneToMany(mappedBy = "ride")
     private java.util.List<Report> reports;
 }
