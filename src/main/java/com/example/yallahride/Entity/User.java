@@ -25,6 +25,7 @@ public class User {
     @Column(name = "last_name")
     @NonNull
     private String lastName;
+    @NonNull
     private String email;
     @Column(name = "image_path")
     @NonNull
