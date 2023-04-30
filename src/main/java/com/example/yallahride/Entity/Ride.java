@@ -1,7 +1,7 @@
 package com.example.yallahride.Entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.;
+import lombok.;
 import org.springframework.lang.NonNull;
 
 import java.util.Date;
@@ -15,11 +15,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "Ride")
 public class Ride {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ride_pk", nullable = false)
-    private Long id;
+    private Long ridePk;
     @NonNull
     private String from, to;
     @NonNull
