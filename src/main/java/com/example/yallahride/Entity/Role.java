@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Role {
     @Column(name = "role_name")
     @NonNull
     private String rollName;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "User_Role",

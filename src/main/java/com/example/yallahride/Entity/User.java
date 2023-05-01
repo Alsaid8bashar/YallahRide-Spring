@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,7 @@ public class User {
     @NonNull
     private String imagePath;
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "User_Preference",
             joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
@@ -39,6 +41,7 @@ public class User {
     private Set<TravelPreference> travelPreferences;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "User_Role",
             joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
