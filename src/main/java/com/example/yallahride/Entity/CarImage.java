@@ -5,9 +5,9 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "Car_Images")
@@ -19,7 +19,9 @@ public class CarImage {
     @Column(name = "image_path", nullable = false)
     @NonNull
     private String imagePath;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_fk")
+    @ToString.Exclude
     private Car car;
+
 }

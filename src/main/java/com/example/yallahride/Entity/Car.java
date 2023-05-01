@@ -3,16 +3,15 @@ package com.example.yallahride.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "Car")
 public class Car {
@@ -36,21 +35,31 @@ public class Car {
     private int modelYear;
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
+    @ToString.Exclude
     private User user;
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
-    private List<CarImage> carImages;
+    @ToString.Include
+    private Set<CarImage> carImages = new HashSet<>();
 
-    @Transactional
     public void addCarImage(CarImage carImage) {
-        if (carImages == null) {
-            carImages = new ArrayList<>();
-        }
         carImages.add(carImage);
+        carImage.setCar(this);
     }
 
     public boolean deleteCarImage(CarImage carImage) {
-        return carImages.remove(carImage);
+        if (carImages.contains(carImage)) {
+            carImage.setCar(null);
+            return carImages.remove(carImage);
+        }
+        return false;
     }
 
+    public boolean deleteCarImages(java.util.Collection<CarImage> carImages) {
+        if (carImages.containsAll(carImages)) {
+            System.out.println(carImages);
+            return carImages.removeAll(carImages);
+        }
+        return false;
+    }
 
 }

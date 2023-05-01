@@ -7,8 +7,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @Entity
+@ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,4 +45,5 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk")
     )
     private Set<Role>roles;
+
 }

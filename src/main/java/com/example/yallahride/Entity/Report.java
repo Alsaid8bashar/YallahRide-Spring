@@ -2,6 +2,7 @@ package com.example.yallahride.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class Report {
     private Long id;
     @NonNull
     private String title, description;
-    @NonNull
+    @CreationTimestamp
     private Date data;
     @ManyToOne(optional = false)
     @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
