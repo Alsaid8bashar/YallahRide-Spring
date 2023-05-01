@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+
 @SpringBootTest
 public class CarEntityTest {
 
@@ -29,23 +31,22 @@ public class CarEntityTest {
         car.setModel("Fusion");
         car.setColor("black");
         car.setUser(user);
-        CarImage carImage = new CarImage("newImage2/");
-        carImage.setCar(car);
-        car.addCarImage(carImage);
-        CarImage carImage2 = new CarImage("newImage100/");
-        car.addCarImage(carImage2);
-        carImage2.setCar(car);
         carService.saveCar(car);
-        System.out.println("car.deleteCarImage(carImage) = " + car.deleteCarImage(carImage));
-        carImage.setCar(null);
-        carService.saveCar(car);
+        java.util.List<CarImage> carImageList = new ArrayList<>();
+        carImageList.add(new CarImage("newImageHasan"));
+        carImageList.add(new CarImage("newImageBashar"));
+        carService.addCarImages(car.getId(), carImageList);
+        java.util.Set<CarImage> carImageList2 = car.getCarImages();
+        System.out.println(carImageList2 + "hello");
+        carService.deleteCarImages(car.getId(), carImageList2);
+//        carService.deleteCarImages(car.getId());
     }
 
     @Test
     @Order(1)
     public void testDeleteCarImage() {
-
-
+        Car car = carService.findCarById(80L).get();
+        System.out.println("car.getMake() = " + car.getMake());
     }
 
 }

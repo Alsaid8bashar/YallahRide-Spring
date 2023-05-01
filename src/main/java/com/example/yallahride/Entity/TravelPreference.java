@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class TravelPreference {
     private Long id;
     @NonNull
     private String description;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "User_Preference",
