@@ -2,6 +2,7 @@ package com.example.yallahride.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class Rate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rate_pk")
     private Long id;
-    @NonNull
+    @CreationTimestamp
     private Date date;
     @NonNull
     private int rate;

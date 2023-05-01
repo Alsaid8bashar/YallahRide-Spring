@@ -6,9 +6,9 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "Car_Images")
@@ -23,5 +23,7 @@ public class CarImage {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_fk")
+    @ToString.Exclude
     private Car car;
+
 }

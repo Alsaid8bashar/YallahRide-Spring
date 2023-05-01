@@ -2,6 +2,7 @@ package com.example.yallahride.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 import java.util.Date;
@@ -21,7 +22,8 @@ public class Ride {
     private Long ridePk;
     @NonNull
     private String from, to;
-    @NonNull
+
+    @CreationTimestamp
     private Date date;
     @NonNull
     private int seats;

@@ -24,7 +24,7 @@ public class UserEntityTest {
     @Test
     @Order(2)
     public void testFindUserById() {
-        Assertions.assertThat(userService.findUserById(7L)).isNotNull();
+        Assertions.assertThat(userService.findUserById(71L)).isNotNull();
     }
 
     @Test
