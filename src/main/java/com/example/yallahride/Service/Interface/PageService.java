@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface PageService {
 
-    void savePage(Page page);
+    Page savePage(Page page);
 
     Optional<Page> findPageById(Long id);
 
@@ -37,5 +37,9 @@ public interface PageService {
     Collection<PageVideo> getPageVideos(Long pageId);
 
 
+    List<PageImage> getAllPageImagesByPage(Page page);
 
+    List<PageVideo> getAllPageVideosByPage(Page page);
+
+    List<PageContent> getAllPageContentsByPage(Page page);
 }

@@ -27,6 +27,7 @@ public interface CarService {
 
     void addCarImage(Long carId, CarImage carImage);
 
+    void deleteCarImages(Long id);
 
     void deleteCarImage(Long id);
 

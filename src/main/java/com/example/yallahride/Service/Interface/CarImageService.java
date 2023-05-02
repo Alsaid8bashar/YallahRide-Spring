@@ -14,7 +14,7 @@ public interface CarImageService {
     List<CarImage> findAllCarImages();
 
     void deleteAllCarImages();
-
     void deleteCarImageById(Long id);
+    void removeImageTEST(Long id);
 
 }

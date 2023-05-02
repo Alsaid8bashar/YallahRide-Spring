@@ -1,8 +1,10 @@
 package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.User;
+import com.example.yallahride.Repository.TravelPreferenceRepository;
 import com.example.yallahride.Repository.UserRepository;
 import com.example.yallahride.Service.Interface.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,13 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    @Autowired
+    TravelPreferenceRepository travelPreferenceRepository;
+
 
     @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
@@ -45,4 +50,29 @@ public class UserServiceImpl implements UserService {
     public long getNumberOfUser() {
         return userRepository.count();
     }
+
+    @Override
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User activateUserById(User user) {
+        user.setActive(true);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User DeactivateUserById(User user) {
+        user.setActive(false);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User addTravelPreferenceToUser(User user, Long travelPreferenceID) {
+        user.getTravelPreferences().add(travelPreferenceRepository.findById(travelPreferenceID).get());
+        return userRepository.save(user);
+    }
+
+
 }

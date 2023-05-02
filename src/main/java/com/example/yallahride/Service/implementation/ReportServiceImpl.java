@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class ReportServiceImpl implements ReportService {
 
@@ -16,9 +17,10 @@ public class ReportServiceImpl implements ReportService {
         this.reportRepository = reportRepository;
     }
 
+
     @Override
-    public void saveReport(Report report) {
-        reportRepository.save(report);
+    public Report saveReport(Report report) {
+        return reportRepository.save(report);
     }
 
     @Override

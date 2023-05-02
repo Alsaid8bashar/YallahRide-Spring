@@ -5,6 +5,7 @@ create table User
     last_name  varchar(1000) NOT NULL,
     image_path varchar(4000),
     email      varchar(4000),
+    is_active boolean default true,
     PRIMARY KEY (user_pk)
 );
 

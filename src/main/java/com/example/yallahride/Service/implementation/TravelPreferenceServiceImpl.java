@@ -17,9 +17,15 @@ public class TravelPreferenceServiceImpl implements TravelPreferenceService {
         this.travelPreferenceRepository = travelPreferenceRepository;
     }
 
+
     @Override
-    public void saveTravelPreference(TravelPreference TravelPreference) {
-        travelPreferenceRepository.save(TravelPreference);
+    public TravelPreference saveTravelPreference(TravelPreference travelPreference) {
+        return travelPreferenceRepository.save(travelPreference);
+    }
+
+    @Override
+    public TravelPreference updateTravelPreference(TravelPreference travelPreference) {
+        return travelPreferenceRepository.save(travelPreference);
     }
 
     @Override
@@ -44,6 +50,6 @@ public class TravelPreferenceServiceImpl implements TravelPreferenceService {
 
     @Override
     public long getNumberOfTravelPreference() {
-        return 0;
+        return travelPreferenceRepository.count();
     }
 }

@@ -19,8 +19,8 @@ public class PageContentServiceImpl implements PageContentService {
     }
 
     @Override
-    public void savePageContent(PageContent pageContent) {
-        pageContentRepository.save(pageContent);
+    public PageContent savePageContent(PageContent pageContent) {
+        return pageContentRepository.save(pageContent);
     }
 
     @Override
@@ -33,6 +33,11 @@ public class PageContentServiceImpl implements PageContentService {
         return pageContentRepository.findAll();
     }
 
+
+    @Override
+    public PageContent updatePageContent(PageContent pageContent) {
+        return pageContentRepository.save(pageContent);
+    }
 
     @Override
     public void deleteAllPageContents() {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +73,14 @@ public class CarServiceImpl implements CarService {
         return carRepository.count();
     }
 
-
+    @Override
+    public void deleteCarImages(Long id) {
+        Car car = findCarById(id).get();
+        Iterator<CarImage> carImageIterator = car.getCarImages().iterator();
+        while (carImageIterator.hasNext()) {
+            CarImage element = carImageIterator.next();
+            carImageIterator.remove();
+        }
+        saveCar(car);
+    }
 }

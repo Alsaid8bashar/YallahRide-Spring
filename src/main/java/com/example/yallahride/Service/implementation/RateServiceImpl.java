@@ -18,8 +18,8 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public void saveRate(Rate rate) {
-        rateRepository.save(rate);
+    public Rate saveRate(Rate rate) {
+        return rateRepository.save(rate);
     }
 
     @Override

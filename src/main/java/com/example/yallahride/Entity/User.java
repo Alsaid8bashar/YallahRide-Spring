@@ -26,11 +26,15 @@ public class User {
     @Column(name = "last_name")
     @NonNull
     private String lastName;
+    @Column(name = "email")
     @NonNull
     private String email;
     @Column(name = "image_path")
     @NonNull
     private String imagePath;
+    @Column(name = "is_active")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private boolean isActive;
     @ManyToMany
     @JsonIgnore
     @JoinTable(
@@ -48,5 +52,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk")
     )
     private Set<Role>roles;
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "Passenger",
+            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
+            inverseJoinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
+    )
+    private Set<Ride>rides;
 
 }

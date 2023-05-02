@@ -19,8 +19,8 @@ public class PageVideoServiceImpl implements PageVideoService {
 
     @Override
 
-    public void savePageVideo(PageVideo pageVideo) {
-        pageVideoRepository.save(pageVideo);
+    public PageVideo savePageVideo(PageVideo pageVideo) {
+        return pageVideoRepository.save(pageVideo);
     }
 
     @Override
@@ -31,6 +31,11 @@ public class PageVideoServiceImpl implements PageVideoService {
     @Override
     public List<PageVideo> findAllPageVideos() {
         return pageVideoRepository.findAll();
+    }
+
+    @Override
+    public PageVideo updatePageVideo(PageVideo pageVideo) {
+        return pageVideoRepository.save(pageVideo);
     }
 
     @Override

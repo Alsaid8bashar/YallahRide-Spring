@@ -2,7 +2,6 @@ package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Repository.PageImagesRepository;
-import com.example.yallahride.Repository.PageRepository;
 import com.example.yallahride.Service.Interface.PageImageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +18,8 @@ public class PageImageServiceImpl implements PageImageService {
     }
 
     @Override
-    public void savePageImage(PageImage pageImage) {
-        pageImagesRepository.save(pageImage);
+    public PageImage savePageImage(PageImage pageImage) {
+        return pageImagesRepository.save(pageImage);
     }
 
     @Override
@@ -31,6 +30,11 @@ public class PageImageServiceImpl implements PageImageService {
     @Override
     public List<PageImage> findAllPageImages() {
         return pageImagesRepository.findAll();
+    }
+
+    @Override
+    public PageImage updatePageImage(PageImage pageImage) {
+        return pageImagesRepository.save(pageImage);
     }
 
     @Override

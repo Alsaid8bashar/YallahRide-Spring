@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReportService {
-    void saveReport(Report report);
+    Report saveReport(Report report);
 
     Optional<Report> findReportById(Long id);
 
