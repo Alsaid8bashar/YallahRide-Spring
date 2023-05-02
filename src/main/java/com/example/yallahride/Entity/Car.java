@@ -37,9 +37,13 @@ public class Car {
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
     private User user;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "car", cascade = CascadeType.ALL)
     @ToString.Include
     private Set<CarImage> carImages = new HashSet<>();
+
+
+
+
 
     public void addCarImage(CarImage carImage) {
         carImages.add(carImage);
@@ -52,6 +56,10 @@ public class Car {
             return carImages.remove(carImage);
         }
         return false;
+    }
+
+    public boolean removeCarImageV2(CarImage carImage){
+        return this.carImages.remove(carImage);
     }
 
     public boolean deleteCarImages(java.util.Collection<CarImage> carImages) {

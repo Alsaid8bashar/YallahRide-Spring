@@ -7,11 +7,12 @@ import java.util.Optional;
 
 public interface PageImageService {
 
-    void savePageImage(PageImage car);
+    PageImage savePageImage(PageImage pageImage);
 
     Optional<PageImage> findPageImageById(Long id);
 
     List<PageImage> findAllPageImages();
+    PageImage updatePageImage(PageImage pageImage);
 
     void deleteAllPageImages();
 }

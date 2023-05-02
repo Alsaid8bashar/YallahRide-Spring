@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PageContentService {
-    void savePageContent(PageContent pageContent);
+    PageContent savePageContent(PageContent pageContent);
 
     Optional<PageContent> findPageContentById(Long id);
 
     List<PageContent> findAllPageContents();
+    PageContent updatePageContent(PageContent pageContent);
 
     void deleteAllPageContents();
 

@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TravelPreferenceService {
-    void saveTravelPreference(TravelPreference TravelPreference);
+    TravelPreference saveTravelPreference(TravelPreference travelPreference);
+    TravelPreference updateTravelPreference(TravelPreference travelPreference);
 
     Optional<TravelPreference> findTravelPreferenceById(Long id);
 
