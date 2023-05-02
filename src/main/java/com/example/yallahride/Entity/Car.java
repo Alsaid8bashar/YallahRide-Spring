@@ -37,8 +37,8 @@ public class Car {
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
     private User user;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
-    @ToString.Include
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ToString.Exclude
     private Set<CarImage> carImages = new HashSet<>();
 
     public void addCarImage(CarImage carImage) {
@@ -46,20 +46,8 @@ public class Car {
         carImage.setCar(this);
     }
 
-    public boolean deleteCarImage(CarImage carImage) {
-        if (carImages.contains(carImage)) {
-            carImage.setCar(null);
-            return carImages.remove(carImage);
-        }
-        return false;
-    }
-
-    public boolean deleteCarImages(java.util.Collection<CarImage> carImages) {
-        if (carImages.containsAll(carImages)) {
-            System.out.println(carImages);
-            return carImages.removeAll(carImages);
-        }
-        return false;
+    public void deleteCarImage(CarImage carImage) {
+        carImages.remove(carImage);
     }
 
 }

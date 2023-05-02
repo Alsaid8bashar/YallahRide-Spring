@@ -36,5 +36,10 @@ public class CarImageServiceImpl implements CarImageService {
         carImageRepository.deleteAll();
     }
 
+    @Override
+    public void deleteCarImageById(Long id) {
+        carImageRepository.deleteById(id);
+    }
+
 
 }

@@ -14,4 +14,6 @@ public interface PageImageService {
     List<PageImage> findAllPageImages();
 
     void deleteAllPageImages();
+
+    void deleteImageById(Long id);
 }

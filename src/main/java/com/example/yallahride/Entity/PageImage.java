@@ -14,12 +14,18 @@ import lombok.*;
 public class PageImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "page_image_pk")
+    @Column(name = "image_pk")
     private Long id;
     @Column(name = "image_path")
     @NonNull
     private String imagePath;
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
+    @ToString.Exclude
     private Page page;
+    @PreRemove
+    private void deleteImageFromPage() {
+        page.deleteImage(this);
+    }
+
 }

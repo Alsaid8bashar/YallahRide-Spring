@@ -1,4 +1,4 @@
-package com.example.yallahride;
+package com.example.yallahride.ServiceTest;
 
 
 import com.example.yallahride.Entity.User;
@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class UserEntityTest {
+public class UserServiceTest {
     @Autowired
     UserService userService;
+
 
     @Test
     @Order(1)

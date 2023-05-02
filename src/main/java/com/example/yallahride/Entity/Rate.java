@@ -29,5 +29,5 @@ public class Rate {
 
     @ManyToOne
     @JoinColumn(name="subject_fk")
-    private User subject ;
+    private User subject;
 }

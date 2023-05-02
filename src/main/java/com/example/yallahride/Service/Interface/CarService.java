@@ -20,13 +20,14 @@ public interface CarService {
 
     void deleteCarById(Long id);
 
+    Collection<CarImage> getAllCarImages(Long carId);
+
     long getNumberOfCars();
 
-    void addCarImages(Long id, List<CarImage> carImages);
 
-    void deleteCarImages(Long id, Collection<CarImage> carImages);
+    void addCarImage(Long carId, CarImage carImage);
 
-    void deleteCarImages(Long id);
 
-//    List<CarImage> getCarsImagesByCarId(Long id);
+    void deleteCarImage(Long id);
+
 }

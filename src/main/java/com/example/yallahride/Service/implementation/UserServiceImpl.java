@@ -3,7 +3,6 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Repository.UserRepository;
 import com.example.yallahride.Service.Interface.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    UserRepository userRepository;
+    final private UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void saveUser(User user) {

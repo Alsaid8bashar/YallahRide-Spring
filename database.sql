@@ -17,17 +17,17 @@ create table Role
 
 # EDITED
 # ALTER TABLE User
-    # DROP CONSTRAINT User_ibfk_1;
+# DROP CONSTRAINT User_ibfk_1;
 # ALTER TABLE User
-    # DROP COLUMN role_fk;
+# DROP COLUMN role_fk;
 # EDITED
 
 
 create table User_Role
 (
-    user_role_pk   MEDIUMINT    NOT NULL AUTO_INCREMENT,
-    user_fk    MEDIUMINT,
-    role_fk    MEDIUMINT,
+    user_role_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user_fk      MEDIUMINT,
+    role_fk      MEDIUMINT,
     PRIMARY KEY (user_role_pk),
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
     FOREIGN KEY (role_fk) REFERENCES Role (role_pk) ON DELETE CASCADE
@@ -93,9 +93,9 @@ create table Page
 
 create table Page_Image
 (
-    page_image_pk   MEDIUMINT NOT NULL AUTO_INCREMENT,
-    image_path varchar(4000),
-    page_fk    MEDIUMINT,
+    page_image_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    image_path    varchar(4000),
+    page_fk       MEDIUMINT,
     PRIMARY KEY (page_image_pk),
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE
 );
@@ -172,9 +172,7 @@ create table Page_Content
     page_content_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
     page_fk         MEDIUMINT NOT NULL,
     content         varchar(4000),
-    FOREIGN KEY (page_fk)
-        REFERENCES Page (page_pk)
-        ON DELETE CASCADE,
+    FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_content_pk)
 
 );
@@ -184,12 +182,11 @@ create table Page_Video
     page_video_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
     page_fk       MEDIUMINT NOT NULL,
     video_path    varchar(4000),
-    FOREIGN KEY (page_fk)
-        REFERENCES Page (page_pk)
-        ON DELETE CASCADE,
+    FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_video_pk)
-
 );
+
+
 
 ###############     ALTERATION      ###############
 

@@ -3,7 +3,6 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Service.Interface.RideService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,12 @@ import java.util.Optional;
 
 @Service
 public class RideServiceImpl implements RideService {
-    @Autowired
-    RideRepository rideRepository;
+    final private RideRepository rideRepository;
+
+    public RideServiceImpl(RideRepository rideRepository) {
+        this.rideRepository = rideRepository;
+    }
+
     @Override
     public void saveRide(Ride ride) {
         rideRepository.save(ride);

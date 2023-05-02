@@ -3,17 +3,20 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.PageContent;
 import com.example.yallahride.Repository.PageContentRepository;
 import com.example.yallahride.Service.Interface.PageContentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
+@Transactional
 public class PageContentServiceImpl implements PageContentService {
 
-    @Autowired
-    PageContentRepository pageContentRepository;
+    final PageContentRepository pageContentRepository;
+
+    public PageContentServiceImpl(PageContentRepository pageContentRepository) {
+        this.pageContentRepository = pageContentRepository;
+    }
 
     @Override
     public void savePageContent(PageContent pageContent) {
@@ -29,6 +32,7 @@ public class PageContentServiceImpl implements PageContentService {
     public List<PageContent> findAllPageContents() {
         return pageContentRepository.findAll();
     }
+
 
     @Override
     public void deleteAllPageContents() {

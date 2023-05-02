@@ -3,7 +3,6 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Repository.TravelPreferenceRepository;
 import com.example.yallahride.Service.Interface.TravelPreferenceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.Optional;
 @Service
 public class TravelPreferenceServiceImpl implements TravelPreferenceService {
 
-    @Autowired
-    TravelPreferenceRepository travelPreferenceRepository;
+    final private TravelPreferenceRepository travelPreferenceRepository;
+
+    public TravelPreferenceServiceImpl(TravelPreferenceRepository travelPreferenceRepository) {
+        this.travelPreferenceRepository = travelPreferenceRepository;
+    }
 
     @Override
     public void saveTravelPreference(TravelPreference TravelPreference) {

@@ -3,7 +3,6 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Repository.RoleRepository;
 import com.example.yallahride.Service.Interface.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    RoleRepository roleRepository;
+    final private RoleRepository roleRepository;
+
+    public RoleServiceImpl(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public void saveRole(Role role) {

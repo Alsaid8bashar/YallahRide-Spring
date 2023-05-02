@@ -5,18 +5,17 @@ import com.example.yallahride.Repository.PageImagesRepository;
 import com.example.yallahride.Repository.PageRepository;
 import com.example.yallahride.Service.Interface.PageImageService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
 public class PageImageServiceImpl implements PageImageService {
     final PageImagesRepository pageImagesRepository;
-    private final PageRepository pageRepository;
 
-    public PageImageServiceImpl(PageImagesRepository pageImagesRepository, PageRepository pageRepository) {
+    public PageImageServiceImpl(PageImagesRepository pageImagesRepository) {
         this.pageImagesRepository = pageImagesRepository;
-        this.pageRepository = pageRepository;
     }
 
     @Override
@@ -36,6 +35,11 @@ public class PageImageServiceImpl implements PageImageService {
 
     @Override
     public void deleteAllPageImages() {
-        pageRepository.deleteAll();
+        pageImagesRepository.deleteAll();
+    }
+
+    @Override
+    public void deleteImageById(Long id) {
+        pageImagesRepository.deleteById(id);
     }
 }
