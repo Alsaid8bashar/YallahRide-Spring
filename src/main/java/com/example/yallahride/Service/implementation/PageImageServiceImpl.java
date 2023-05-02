@@ -20,8 +20,8 @@ public class PageImageServiceImpl implements PageImageService {
     }
 
     @Override
-    public void savePageImage(PageImage pageImage) {
-        pageImagesRepository.save(pageImage);
+    public PageImage savePageImage(PageImage pageImage) {
+        return pageImagesRepository.save(pageImage);
     }
 
     @Override
@@ -32,6 +32,11 @@ public class PageImageServiceImpl implements PageImageService {
     @Override
     public List<PageImage> findAllPageImages() {
         return pageImagesRepository.findAll();
+    }
+
+    @Override
+    public PageImage updatePageImage(PageImage pageImage) {
+        return pageImagesRepository.save(pageImage);
     }
 
     @Override

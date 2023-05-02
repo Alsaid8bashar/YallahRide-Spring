@@ -28,5 +28,5 @@ public interface CarService {
 
     void deleteCarImages(Long id);
 
-//    List<CarImage> getCarsImagesByCarId(Long id);
+    void removeCarImage(Long id);
 }

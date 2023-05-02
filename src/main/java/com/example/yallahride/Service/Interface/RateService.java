@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RateService {
-    void saveRate(Rate rate);
+    Rate saveRate(Rate rate);
 
     Optional<Rate> findRateById(Long id);
 

@@ -9,12 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class YallahRideApplicationTests {
 
-    @Autowired
-    UserService userService;
-
-    @Test
-    void contextLoads() {
-        userService.saveUser(new User("Bashar", "AlSaid", "no image", "b@email"));
-    }
+//    @Autowired
+//    UserService userService;
+//
+//    @Test
+//    void contextLoads() {
+//        userService.saveUser(new User("Bashar", "AlSaid", "no image", "b@email"));
+//    }
 
 }

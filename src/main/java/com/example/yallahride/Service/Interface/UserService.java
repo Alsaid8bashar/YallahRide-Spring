@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    void saveUser(User user);
+    User saveUser(User user);
 
     Optional<User> findUserById(Long id);
 
@@ -17,4 +17,8 @@ public interface UserService {
     void deleteUserById(Long id);
 
     long getNumberOfUser();
+    User updateUser(User user);
+    User activateUserById(User user);
+    User DeactivateUserById(User user);
+    User addTravelPreferenceToUser(User user, Long travelPreferenceID);
 }

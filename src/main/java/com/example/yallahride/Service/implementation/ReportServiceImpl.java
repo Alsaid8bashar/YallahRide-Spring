@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class ReportServiceImpl implements ReportService {
 
     @Autowired
     ReportRepository reportRepository;
+
     @Override
-    public void saveReport(Report report) {
-        reportRepository.save(report);
+    public Report saveReport(Report report) {
+        return reportRepository.save(report);
     }
 
     @Override

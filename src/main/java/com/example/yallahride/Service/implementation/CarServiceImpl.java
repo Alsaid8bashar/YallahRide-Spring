@@ -79,8 +79,10 @@ public class CarServiceImpl implements CarService {
         }
         saveCar(car);
     }
-//    @Override
-//    public List<CarImage> getCarsImagesByCarId(Long id) {
-//        return findCarById(id).get().getCarImages();
-//    }
+
+    @Override
+    public void removeCarImage(Long id) {
+
+    }
+
 }
