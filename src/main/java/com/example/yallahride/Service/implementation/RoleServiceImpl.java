@@ -48,6 +48,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public long getNumberOfRole() {
-        return 0;
+        return roleRepository.count();
     }
 }

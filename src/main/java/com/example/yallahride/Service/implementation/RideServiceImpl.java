@@ -7,7 +7,6 @@ import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +62,7 @@ public class RideServiceImpl implements RideService {
         for (Report element : ride.getReports()) {
             reportIds.add(element.getId());
         }
+
         return reportRepository.findAllById(reportIds);
     }
 
