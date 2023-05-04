@@ -20,7 +20,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_pk")
     private Long id;
-
     @Column(name = "first_name")
     @NonNull
     private String firstName;
@@ -34,37 +33,23 @@ public class User {
     @NonNull
     private String imagePath;
     @Column(name = "is_active")
-    @Getter
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private boolean isActive;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @ToString.Exclude
-    @JoinTable(
-            name = "User_Preference",
-            joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
-    )
+    @JoinTable(name = "User_Preference", joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"))
     private Set<TravelPreference> travelPreferences = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ToString.Exclude
+    @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"))
+    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @ToString.Exclude
+    @JoinTable(name = "Passenger", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk"))
+    private Set<Ride> rides = new HashSet<>();
 
-    @ManyToMany
-    @JsonIgnore
-    @ToString.Exclude
-    @JoinTable(
-            name = "User_Role",
-            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk")
-    )
-    private Set<Role>roles;
-    @ManyToMany
-    @JsonIgnore
-    @ToString.Exclude
-    @JoinTable(
-            name = "Passenger",
-            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
-    )
-    private Set<Ride>rides;
     public void addRole(Role role) {
         roles.add(role);
     }
@@ -77,6 +62,7 @@ public class User {
         return rides.add(ride);
     }
 
+
     public boolean deleteRide(Ride ride) {
         return rides.remove(ride);
     }
@@ -88,7 +74,6 @@ public class User {
     public boolean deleteTravelPreference(TravelPreference travelPreference) {
         return travelPreferences.remove(travelPreference);
     }
-
 
 
 }

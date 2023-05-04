@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -25,11 +26,23 @@ public class Role {
     @NonNull
     private String rollName;
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "User_Role",
             joinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"),
             inverseJoinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     )
     private Set<User> users;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role role)) return false;
+        return Objects.equals(getId(), role.getId()) && getRollName().equals(role.getRollName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getRollName());
+    }
 }

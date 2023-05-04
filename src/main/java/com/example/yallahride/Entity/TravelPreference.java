@@ -24,18 +24,20 @@ public class TravelPreference {
     private String description;
     @JsonIgnore
     @ManyToMany
+    @ToString.Exclude
     @JoinTable(
             name = "User_Preference",
             joinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"),
             inverseJoinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"))
     private Set<User> users;
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TravelPreference that = (TravelPreference) o;
-        return Objects.equals(id, that.id) && description.equals(that.description);
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        return ((TravelPreference) o).getDescription().equals(this.description);
     }
 
     @Override

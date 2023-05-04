@@ -5,7 +5,7 @@ create table User
     last_name  varchar(1000) NOT NULL,
     image_path varchar(4000),
     email      varchar(4000),
-    is_active boolean default true,
+    is_active  boolean default true,
     PRIMARY KEY (user_pk)
 );
 
@@ -112,9 +112,9 @@ create table Ride
 (
     ride_pk MEDIUMINT     NOT NULL AUTO_INCREMENT,
     user_fk MEDIUMINT,
-    from    varchar(1000) NOT NULL,
-    to      varchar(1000) NOT NULL,
-    date    DATE          NOT NULL,
+    `from`  varchar(1000) NOT NULL,
+    `to`    varchar(1000) NOT NULL,
+    `date`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     seats   INT           NOT NULL,
     FOREIGN KEY (user_fk)
         REFERENCES User (user_pk)
@@ -124,18 +124,16 @@ create table Ride
 
 create table Report
 (
-    report_pk   MEDIUMINT     NOT NULL AUTO_INCREMENT,
-    ride_fk     MEDIUMINT,
-    title       varchar(250)  NOT NULL,
-    description varchar(1000) NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    report_pk     MEDIUMINT     NOT NULL AUTO_INCREMENT,
+    ride_fk       MEDIUMINT,
+    title         varchar(250)  NOT NULL,
+    `description` varchar(1000) NOT NULL,
+    `date`        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ride_fk)
         REFERENCES Ride (ride_pk)
         ON DELETE CASCADE,
     PRIMARY KEY (report_pk)
 );
-drop table Report;
-
 create table Passenger
 (
     passenger_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -151,11 +149,10 @@ create table Passenger
 
 );
 
-drop table Rate;
 create table Rate
 (
     rate_pk    MEDIUMINT NOT NULL AUTO_INCREMENT,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     rater_fk   MEDIUMINT,
     subject_fk MEDIUMINT,
     rate       int,
@@ -187,7 +184,6 @@ create table Page_Video
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_video_pk)
 );
-
 
 
 ###############     ALTERATION      ###############
