@@ -1,16 +1,21 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.Ride;
+import com.example.yallahride.Entity.Role;
+import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Repository.TravelPreferenceRepository;
 import com.example.yallahride.Repository.UserRepository;
 import com.example.yallahride.Service.Interface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
     @Autowired
@@ -56,40 +61,61 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User activateUserById(User user) {
-        user.setActive(true);
-        return userRepository.save(user);
-    }
-
-    public User activateUserById(Long id) {
-        User user = findUserById(id).get();
-        user.setActive(true);
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User DeactivateUserById(User user) {
-        user.setActive(false);
-        return userRepository.save(user);
-    }
-
-    public User DeactivateUserById(Long id) {
-        User user = findUserById(id).get();
-        user.setActive(false);
-        return userRepository.save(user);
-    }
-
-
-    @Override
-    public User addTravelPreferenceToUser(User user, Long travelPreferenceID) {
-        user.getTravelPreferences().add(travelPreferenceRepository.findById(travelPreferenceID).get());
-        return userRepository.save(user);
-    }
-
-    public User addTravelPreferenceToUser(Long userId, Long travelPreferenceID) {
+    public User activateUserById(Long userId) {
         User user = findUserById(userId).get();
-        user.getTravelPreferences().add(travelPreferenceRepository.findById(travelPreferenceID).get());
+        user.setActive(true);
         return userRepository.save(user);
     }
+
+    @Override
+    public User deactivateUserById(Long userId) {
+        User user = findUserById(userId).get();
+        user.setActive(false);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User addTravelPreference(Long userId, TravelPreference travelPreference) {
+        User user = findUserById(userId).get();
+        user.addTravelPreference(travelPreference);
+        return saveUser(user);
+    }
+
+    @Override
+    public User deleteTravelPreference(Long userId, TravelPreference travelPreference) {
+        User user = findUserById(userId).get();
+        user.deleteTravelPreference(travelPreference);
+        return saveUser(user);
+    }
+
+    @Override
+    public User addRole(Long userId, Role role) {
+        User user = findUserById(userId).get();
+        user.addRole(role);
+        return saveUser(user);
+    }
+
+    @Override
+    public User deleteRole(Long userId, Role role) {
+        User user = findUserById(userId).get();
+        user.deleteRole(role);
+        return saveUser(user);
+    }
+
+    @Override
+    public User addRide(Long userId, Ride ride) {
+        User user = findUserById(userId).get();
+        user.addRide(ride);
+        return saveUser(user);
+    }
+
+    @Override
+    public User deleteRide(Long userId, Ride ride) {
+        User user = findUserById(userId).get();
+
+        user.deleteRide(ride);
+        return saveUser(user);
+    }
+
 
 }

@@ -77,7 +77,7 @@ public class CarRepositoryTest {
 
     @Test
     @Order(6)
-    public void testDeleteAllPages() {
+    public void testDeleteAllCars() {
         carRepository.deleteAll();
         Assertions.assertTrue(carRepository.count() == 0);
     }

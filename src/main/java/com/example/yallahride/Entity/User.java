@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,7 +20,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_pk")
     private Long id;
-
     @Column(name = "first_name")
     @NonNull
     private String firstName;
@@ -33,40 +33,49 @@ public class User {
     @NonNull
     private String imagePath;
     @Column(name = "is_active")
-    @Getter
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private boolean isActive;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @ToString.Exclude
-    @JoinTable(
-            name = "User_Preference",
-            joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
-    )
-    private Set<TravelPreference> travelPreferences;
+    @JoinTable(name = "User_Preference", joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"))
+    private Set<TravelPreference> travelPreferences = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ToString.Exclude
+    @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"))
+    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @ToString.Exclude
+    @JoinTable(name = "Passenger", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk"))
+    private Set<Ride> rides = new HashSet<>();
 
-    @ManyToMany
-    @JsonIgnore
-    @ToString.Exclude
-    @JoinTable(
-            name = "User_Role",
-            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk")
-    )
-    private Set<Role>roles;
-    @ManyToMany
-    @JsonIgnore
-    @ToString.Exclude
-    @JoinTable(
-            name = "Passenger",
-            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
-            inverseJoinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
-    )
-    private Set<Ride>rides;
     public void addRole(Role role) {
-
+        roles.add(role);
     }
 
+    public boolean deleteRole(Role role) {
+        return roles.remove(role);
+    }
+
+    public boolean addRide(Ride ride) {
+        return rides.add(ride);
+    }
+
+
+    public boolean deleteRide(Ride ride) {
+        System.out.println("ride = " + ride);
+        System.out.println("rides.contains(ride) = " + rides.contains(ride));
+        System.out.println("rides = " + rides);
+        return rides.remove(ride);
+    }
+
+    public boolean addTravelPreference(TravelPreference travelPreference) {
+        return travelPreferences.add(travelPreference);
+    }
+
+    public boolean deleteTravelPreference(TravelPreference travelPreference) {
+        return travelPreferences.remove(travelPreference);
+    }
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -23,9 +24,24 @@ public class TravelPreference {
     private String description;
     @JsonIgnore
     @ManyToMany
+    @ToString.Exclude
     @JoinTable(
             name = "User_Preference",
             joinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"),
             inverseJoinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"))
     private Set<User> users;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        return ((TravelPreference) o).getDescription().equals(this.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description);
+    }
 }

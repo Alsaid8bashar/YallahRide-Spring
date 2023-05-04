@@ -7,7 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -31,19 +32,36 @@ public class Ride {
     private String to;
 
     @Column(name = "`date`")
+    @CreationTimestamp
     private Date date;
     @NonNull
     @Column(name = "seats")
     private int seats;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
+    @ToString.Exclude
     @JoinTable(
             name = "Passenger",
             joinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk"),
             inverseJoinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     )
-    private Set<User> userSet;
+    private Set<User> userSet = new HashSet<>();
 
     @OneToMany(mappedBy = "ride", fetch = FetchType.LAZY)
-    private List<Report> reports;
+    @ToString.Exclude
+    private Set<Report> reports = new HashSet<>();
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ride ride)) return false;
+        return getSeats() == ride.getSeats() && Objects.equals(getId(), ride.getId()) && getFrom().equals(ride.getFrom()) && getTo().equals(ride.getTo());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFrom(), getTo(), getDate(), getSeats());
+    }
 }
