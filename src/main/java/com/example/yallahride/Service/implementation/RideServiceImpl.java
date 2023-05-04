@@ -66,9 +66,5 @@ public class RideServiceImpl implements RideService {
         return reportRepository.findAllById(reportIds);
     }
 
-    @Override
-    public List<Ride> searchRidesByCriteria(String fromLocation, String toLocation,
-                                            LocalDate date, int numSeats) {
-        return rideRepository.searchRidesByCriteria(fromLocation, toLocation, date, numSeats);
-    }
+
 }

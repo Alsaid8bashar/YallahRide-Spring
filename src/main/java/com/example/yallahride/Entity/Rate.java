@@ -20,6 +20,7 @@ public class Rate {
     @Column(name = "rate_pk")
     private Long id;
     @CreationTimestamp
+    @Column(name = "date")
     private Date date;
     @NonNull
     private int rate;
