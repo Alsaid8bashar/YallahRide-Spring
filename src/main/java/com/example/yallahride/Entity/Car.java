@@ -10,33 +10,36 @@ import java.util.Set;
 
 @Getter
 @Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
 @Entity
 @Table(name = "Car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "car_pk", nullable = false)
+    @Column(name = "car_pk")
     private Long id;
     @NonNull
+    @Column(name="color")
     private String color;
     @NonNull
     private String make;
     @NonNull
     private String model;
 
-    @Column(name = "license_plate", nullable = false)
+    @Column(name = "license_plate")
     @NonNull
     private String licensePlate;
 
-    @Column(name = "model_year", nullable = false)
+    @Column(name = "model_year")
     @NonNull
     private int modelYear;
-    @OneToOne(optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
+    @NonNull
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "car", cascade = CascadeType.ALL)

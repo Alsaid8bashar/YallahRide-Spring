@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "User")
+@Table(name = "`User`")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +45,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
             inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk")
     )
-    private Set<TravelPreference> travelPreferences;
+    private Set<TravelPreference> travelPreferences = new HashSet<>();
 
     @ManyToMany
     @JsonIgnore
@@ -65,8 +66,29 @@ public class User {
     )
     private Set<Ride>rides;
     public void addRole(Role role) {
-
+        roles.add(role);
     }
+
+    public boolean deleteRole(Role role) {
+        return roles.remove(role);
+    }
+
+    public boolean addRide(Ride ride) {
+        return rides.add(ride);
+    }
+
+    public boolean deleteRide(Ride ride) {
+        return rides.remove(ride);
+    }
+
+    public boolean addTravelPreference(TravelPreference travelPreference) {
+        return travelPreferences.add(travelPreference);
+    }
+
+    public boolean deleteTravelPreference(TravelPreference travelPreference) {
+        return travelPreferences.remove(travelPreference);
+    }
+
 
 
 }

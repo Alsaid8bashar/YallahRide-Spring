@@ -26,26 +26,15 @@ public class CarRepositoryTest {
     @BeforeAll
     public void setup() {
         User user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
-
-        Car car = new Car();
-        car.setMake("Ford");
-        car.setModel("Fusion");
-        car.setColor("black");
-        car.setUser(user);
+        Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
         carRepository.save(car);
-
     }
 
     @Test
     @Order(1)
     public void testCreateCar() {
-        User user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
-
-        Car car = new Car();
-        car.setMake("Ford");
-        car.setModel("Fusion");
-        car.setColor("black");
-        car.setUser(user);
+        User user = userRepository.save(new User("Bashar", "Al-Said", "basharalsaid@gmail.com", "image2"));
+        Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
         carRepository.save(car);
         Assertions.assertTrue(carRepository.findAll().contains(car));
     }

@@ -22,7 +22,7 @@ public class Report {
     @NonNull
     private String title, description;
     @CreationTimestamp
-    private Date data;
+    private Date date;
     @ManyToOne
     @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
     private Ride ride;
