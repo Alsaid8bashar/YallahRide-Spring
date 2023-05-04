@@ -13,7 +13,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "User")
+@Table(name = "Userr")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +33,12 @@ public class User {
     @NonNull
     private String imagePath;
     @Column(name = "is_active")
+    @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private boolean isActive;
     @ManyToMany
     @JsonIgnore
+    @ToString.Exclude
     @JoinTable(
             name = "User_Preference",
             joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"),
@@ -46,6 +48,7 @@ public class User {
 
     @ManyToMany
     @JsonIgnore
+    @ToString.Exclude
     @JoinTable(
             name = "User_Role",
             joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),
@@ -54,6 +57,7 @@ public class User {
     private Set<Role>roles;
     @ManyToMany
     @JsonIgnore
+    @ToString.Exclude
     @JoinTable(
             name = "Passenger",
             joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"),

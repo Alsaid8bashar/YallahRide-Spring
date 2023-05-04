@@ -21,14 +21,19 @@ import java.util.Set;
 public class Ride {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ride_pk", nullable = false)
-    private Long ridePk;
+    @Column(name = "ride_pk")
+    private Long id;
     @NonNull
-    private String from, to;
+    @Column(name = "`from`")
+    private String from;
+    @NonNull
+    @Column(name = "`to`")
+    private String to;
 
-    @CreationTimestamp
+    @Column(name = "`date`")
     private Date date;
     @NonNull
+    @Column(name = "seats")
     private int seats;
     @ManyToMany
     @JsonIgnore
@@ -39,6 +44,6 @@ public class Ride {
     )
     private Set<User> userSet;
 
-    @OneToMany(mappedBy = "ride")
+    @OneToMany(mappedBy = "ride", fetch = FetchType.LAZY)
     private List<Report> reports;
 }

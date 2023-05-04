@@ -15,6 +15,7 @@ public interface RideService {
     Optional<Ride> findRideById(Long id);
 
     List<Ride> findAllRides();
+
     Ride updateRide(Ride ride);
 
     void deleteAllRides();
@@ -22,6 +23,6 @@ public interface RideService {
     void deleteRideById(Long id);
 
     long getNumberOfRide();
+
     List<Report> findRideReports(Ride ride);
-    List<Ride>searchRidesByCriteria(String fromLocation,String toLocation, LocalDate date, int numSeats);
 }

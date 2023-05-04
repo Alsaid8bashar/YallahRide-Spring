@@ -128,12 +128,13 @@ create table Report
     ride_fk     MEDIUMINT,
     title       varchar(250)  NOT NULL,
     description varchar(1000) NOT NULL,
-    date        DATE          NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ride_fk)
         REFERENCES Ride (ride_pk)
         ON DELETE CASCADE,
     PRIMARY KEY (report_pk)
 );
+drop table Report;
 
 create table Passenger
 (
@@ -150,11 +151,11 @@ create table Passenger
 
 );
 
-
+drop table Rate;
 create table Rate
 (
     rate_pk    MEDIUMINT NOT NULL AUTO_INCREMENT,
-    date       DATE      NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     rater_fk   MEDIUMINT,
     subject_fk MEDIUMINT,
     rate       int,
