@@ -42,6 +42,6 @@ public class TravelPreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(description);
+        return Objects.hash(id, description);
     }
 }

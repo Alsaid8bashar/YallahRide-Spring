@@ -19,12 +19,12 @@ public class CarImage {
     @Column(name = "image_path", nullable = false)
     @NonNull
     private String imagePath;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "car_fk")
-    @ToString.Exclude
     private Car car;
     @PreRemove
     private void deleteImageFromCar() {
+        System.out.println("car = " + car);
         car.deleteCarImage(this);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.yallahride.RepostioryTest;
 
+import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
+import com.example.yallahride.Repository.TravelPreferenceRepository;
 import com.example.yallahride.Repository.UserRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TravelPreferenceRepository travelPreferenceRepository;
     User user;
     @BeforeAll
     public void setup(){
@@ -25,8 +29,15 @@ public class UserRepositoryTest {
     @Order(1)
     @Rollback(value = false)
     public void testCreateUser() {
-        User user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
-        Assertions.assertTrue(user.getId() > 0);
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        TravelPreference travelPreference = new TravelPreference("test");
+        travelPreferenceRepository.save(travelPreference);
+        user.addTravelPreference(travelPreference);
+        User tempUser = userRepository.save(user);
+        Assertions.assertTrue(userRepository.findById(tempUser.getId()).get().getTravelPreferences().size() > 0);
+        tempUser.deleteTravelPreference(travelPreference);
+        User tempUser2 = userRepository.save(tempUser);
+        Assertions.assertTrue(userRepository.findById(tempUser2.getId()).get().getTravelPreferences().size() == 0);
     }
 
 

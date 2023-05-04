@@ -50,15 +50,6 @@ public class CarImageServiceImpl implements CarImageService {
     }
 
 
-    @Override
-    @Transactional
-    public void removeImageTEST(Long id) {
-        Car car = carRepository.getById(id);
-        List<CarImage> carImageSet =  findAllCarImages();
-        System.out.println("carImageSet.iterator().next() = " + carImageSet.iterator().next());
-        carImageSet.remove(0);
-        carImageRepository.flush();
-    }
 
 
 }

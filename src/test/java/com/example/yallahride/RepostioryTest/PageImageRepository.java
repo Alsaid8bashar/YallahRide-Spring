@@ -3,7 +3,6 @@ package com.example.yallahride.RepostioryTest;
 import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Repository.PageImagesRepository;
-import com.example.yallahride.Repository.PageRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,17 +15,13 @@ import java.util.Optional;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PageImageRepository {
     @Autowired
-    PageRepository pageRepository;
-    @Autowired
     PageImagesRepository pageImagesRepository;
     PageImage pageImage;
-    Page page;
 
     @BeforeAll
     public void setup() {
-        page = new Page();
         pageImage = new PageImage("newImage");
-        pageImage.setPage(page);
+        pageImage.setPage(new Page());
         pageImagesRepository.save(pageImage);
     }
 
@@ -34,7 +29,7 @@ public class PageImageRepository {
     @Order(1)
     public void testCreatePageImage() {
         PageImage pageImage = new PageImage("newImage");
-//        Page page = new Page();
+        Page page = new Page();
         pageImage.setPage(page);
         pageImagesRepository.save(pageImage);
         Assertions.assertTrue(pageImagesRepository.findAll().contains(pageImage));

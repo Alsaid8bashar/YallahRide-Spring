@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -104,30 +103,4 @@ public class PageServiceImpl implements PageService {
         return findPageById(pageId).get().getPageVideoSet();
     }
 
-    @Override
-    public List<PageImage> getAllPageImagesByPage(Page page) {
-        List<Long> pageVideoIds = new ArrayList<>();
-        for (PageImage element : page.getPageImageSet()) {
-            pageVideoIds.add(element.getId());
-        }
-        return pageImagesRepository.findAllById(pageVideoIds);
-    }
-
-    @Override
-    public List<PageVideo> getAllPageVideosByPage(Page page) {
-        List<Long> pageVideoIds = new ArrayList<>();
-        for (PageVideo element : page.getPageVideoSet()) {
-            pageVideoIds.add(element.getId());
-        }
-        return pageVideoRepository.findAllById(pageVideoIds);
-    }
-
-    @Override
-    public List<PageContent> getAllPageContentsByPage(Page page) {
-        List<Long> pageVideoIds = new ArrayList<>();
-        for (PageContent element : page.getPageContentSet()) {
-            pageVideoIds.add(element.getId());
-        }
-        return pageContentRepository.findAllById(pageVideoIds);
-    }
 }

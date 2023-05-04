@@ -51,6 +51,7 @@ public class UserServiceTest {
         Assertions.assertFalse(tempUser.getRoles().contains(travelPreference));
     }
 
+
     @Test
     @Order(3)
     public void addRole() {
@@ -65,11 +66,8 @@ public class UserServiceTest {
     @Test
     @Order(4)
     public void deleteRole() {
-        System.out.println("user.getRoles() = " + user.getRoles());
         Role role = user.getRoles().iterator().next();
         user = userService.deleteRole(user.getId(), role);
-        System.out.println("user.getRoles() = " + user.getRoles());
-
 
         User tempUser = userService.findUserById(user.getId()).get();
         Assertions.assertFalse(tempUser.getRoles().contains(role));

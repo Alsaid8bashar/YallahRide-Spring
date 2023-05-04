@@ -14,7 +14,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "User")
+@Table(name = "`User`")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,9 +64,6 @@ public class User {
 
 
     public boolean deleteRide(Ride ride) {
-        System.out.println("ride = " + ride);
-        System.out.println("rides.contains(ride) = " + rides.contains(ride));
-        System.out.println("rides = " + rides);
         return rides.remove(ride);
     }
 
@@ -77,5 +74,6 @@ public class User {
     public boolean deleteTravelPreference(TravelPreference travelPreference) {
         return travelPreferences.remove(travelPreference);
     }
+
 
 }
