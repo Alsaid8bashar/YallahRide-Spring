@@ -20,14 +20,12 @@ public class Page {
     @Column(name = "page_pk")
     private Long id;
 
-
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PageContent> pageContentSet = new HashSet<>();
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PageImage> pageImageSet = new HashSet<>();
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PageVideo> pageVideoSet = new HashSet<>();
-
 
     public void addContent(PageContent pageContent) {
         pageContentSet.add(pageContent);

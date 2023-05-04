@@ -13,13 +13,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
+    @Autowired
+    TravelPreferenceRepository travelPreferenceRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    @Autowired
-    TravelPreferenceRepository travelPreferenceRepository;
-
 
     @Override
     public User saveUser(User user) {
@@ -62,11 +61,24 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public User activateUserById(Long id) {
+        User user = findUserById(id).get();
+        user.setActive(true);
+        return userRepository.save(user);
+    }
+
     @Override
     public User DeactivateUserById(User user) {
         user.setActive(false);
         return userRepository.save(user);
     }
+
+    public User DeactivateUserById(Long id) {
+        User user = findUserById(id).get();
+        user.setActive(false);
+        return userRepository.save(user);
+    }
+
 
     @Override
     public User addTravelPreferenceToUser(User user, Long travelPreferenceID) {
@@ -74,5 +86,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public User addTravelPreferenceToUser(Long userId, Long travelPreferenceID) {
+        User user = findUserById(userId).get();
+        user.getTravelPreferences().add(travelPreferenceRepository.findById(travelPreferenceID).get());
+        return userRepository.save(user);
+    }
 
 }

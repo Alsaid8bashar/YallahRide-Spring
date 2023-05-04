@@ -13,7 +13,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Userr")
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class User {
     private String imagePath;
     @Column(name = "is_active")
     @Getter
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private boolean isActive;
     @ManyToMany
     @JsonIgnore
@@ -64,5 +64,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
     )
     private Set<Ride>rides;
+    public void addRole(Role role) {
+
+    }
+
 
 }

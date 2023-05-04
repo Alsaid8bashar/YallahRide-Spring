@@ -28,6 +28,9 @@ public class UserServiceTest {
         Assertions.assertThat(userService.findUserById(71L)).isNotNull();
     }
 
+
+
+
     @Test
     @Order(3)
     public void testFindAllUsers() {
@@ -47,4 +50,6 @@ public class UserServiceTest {
         userService.deleteAllUsers();
         Assertions.assertThat(userService.findAllUsers()).isEmpty();
     }
+
+
 }

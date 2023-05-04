@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.lang.NonNull;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -39,7 +40,7 @@ public class Car {
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "car", cascade = CascadeType.ALL)
-    @ToString.Include
+    @ToString.Exclude
     private Set<CarImage> carImages = new HashSet<>();
 
 
@@ -68,4 +69,15 @@ public class Car {
             return false;
         }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car car)) return false;
+        return getModelYear() == car.getModelYear() && Objects.equals(getId(), car.getId()) && getColor().equals(car.getColor()) && getMake().equals(car.getMake()) && getModel().equals(car.getModel()) && getLicensePlate().equals(car.getLicensePlate());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getColor(), getMake(), getModel(), getLicensePlate(), getModelYear());
+    }
+}

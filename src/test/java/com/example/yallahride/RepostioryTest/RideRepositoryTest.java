@@ -21,7 +21,6 @@ public class RideRepositoryTest {
     @BeforeAll
     public void setup() {
         ride = rideRepository.save(new Ride("Irbid", "Amman", 3));
-
     }
 
     @Test
