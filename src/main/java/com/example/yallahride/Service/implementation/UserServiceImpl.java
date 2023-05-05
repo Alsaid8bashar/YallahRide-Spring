@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,6 +83,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Collection<TravelPreference> getUserTravelPreferences(Long userId) {
+        return findUserById(userId).get().getTravelPreferences();
+    }
+
+    @Override
     public User deleteTravelPreference(Long userId, TravelPreference travelPreference) {
         User user = findUserById(userId).get();
         user.deleteTravelPreference(travelPreference);
@@ -96,6 +102,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Collection<Role> getUserRoles(Long userId) {
+        return findUserById(userId).get().getRoles();
+
+    }
+
+    @Override
     public User deleteRole(Long userId, Role role) {
         User user = findUserById(userId).get();
         user.deleteRole(role);
@@ -107,6 +119,12 @@ public class UserServiceImpl implements UserService {
         User user = findUserById(userId).get();
         user.addRide(ride);
         return saveUser(user);
+    }
+
+    @Override
+    public Collection<Ride> getUserRides(Long userId) {
+        return findUserById(userId).get().getRides();
+
     }
 
     @Override

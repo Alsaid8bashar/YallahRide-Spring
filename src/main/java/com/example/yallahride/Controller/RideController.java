@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(name = "ride")
+@RequestMapping( "ride")
 public class RideController {
 
     @Autowired
@@ -21,37 +21,37 @@ public class RideController {
 
     @PostMapping("/create")
     public ResponseEntity<Ride>createRide(@RequestBody Ride ride){
-        return new ResponseEntity<Ride>(rideService.saveRide(ride), HttpStatus.OK);
+        return new ResponseEntity<>(rideService.saveRide(ride), HttpStatus.OK);
     }
     @PutMapping("/update")
     public ResponseEntity<Ride>updateRide(@RequestBody Ride ride){
-        return new ResponseEntity<Ride>(rideService.updateRide(ride),HttpStatus.OK);
+        return new ResponseEntity<>(rideService.updateRide(ride), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Ride>>findRideById(@PathVariable("id") Long id){
-        return new ResponseEntity<Optional<Ride>>(rideService.findRideById(id),HttpStatus.OK);
+        return new ResponseEntity<>(rideService.findRideById(id), HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Ride>>findAllRides(){
-        return new ResponseEntity<List<Ride>>(rideService.findAllRides(),HttpStatus.OK);
+        return new ResponseEntity<>(rideService.findAllRides(), HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<HttpStatus>deleteRideById(@PathVariable("id") Long id){
         rideService.deleteRideById(id);
-        return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("delete/all")
     public ResponseEntity<HttpStatus>deleteAllRides(){
         rideService.deleteAllRides();
-        return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/reports/")
     public ResponseEntity<Set<Report>>findAllRideReports(@RequestBody Ride ride){
-        return new ResponseEntity<Set<Report>>(rideService.findRideReports(ride),HttpStatus.OK);
+        return new ResponseEntity<>(rideService.findRideReports(ride), HttpStatus.OK);
     }
 
 

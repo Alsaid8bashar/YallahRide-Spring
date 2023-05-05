@@ -116,9 +116,7 @@ create table Ride
     `to`    varchar(1000) NOT NULL,
     `date`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     seats   INT           NOT NULL,
-    FOREIGN KEY (user_fk)
-        REFERENCES User (user_pk)
-        ON DELETE CASCADE,
+    FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
     PRIMARY KEY (ride_pk)
 );
 
@@ -129,9 +127,10 @@ create table Report
     title         varchar(250)  NOT NULL,
     `description` varchar(1000) NOT NULL,
     `date`        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (ride_fk)
-        REFERENCES Ride (ride_pk)
-        ON DELETE CASCADE,
+    user_fk       MEDIUMINT,
+
+    FOREIGN KEY (ride_fk) REFERENCES Ride (ride_pk) ON DELETE CASCADE,
+    FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
     PRIMARY KEY (report_pk)
 );
 create table Passenger
@@ -187,4 +186,3 @@ create table Page_Video
 
 
 ###############     ALTERATION      ###############
-

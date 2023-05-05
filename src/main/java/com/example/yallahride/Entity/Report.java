@@ -25,5 +25,11 @@ public class Report {
     private Date date;
     @ManyToOne
     @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
+    @ToString.Exclude
     private Ride ride;
+
+    @ManyToOne
+    @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
+    @ToString.Exclude
+    private User user;
 }
