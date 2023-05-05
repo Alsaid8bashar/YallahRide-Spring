@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping( "ride")
+@RequestMapping("ride")
 public class RideController {
 
     @Autowired

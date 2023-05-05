@@ -31,6 +31,7 @@ public class RoleController {
         return new ResponseEntity<>(roleService.findAllRoles(), HttpStatus.OK);
     }
 
+
     @PutMapping("/update")
     public ResponseEntity<Role>updateRole(@RequestBody  Role role){
         return new ResponseEntity<>(roleService.updateRole(role), HttpStatus.OK);
