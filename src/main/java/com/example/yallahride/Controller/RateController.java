@@ -29,12 +29,12 @@ public class RateController {
         return new ResponseEntity<>(rateService.findRateById(id).get(), OK);
     }
 
-    @PostMapping("/save_page_rate")
+    @PostMapping("/create")
     public ResponseEntity<Rate> savePage(@Valid @RequestBody Rate Rate) {
         return new ResponseEntity<>(rateService.saveRate(Rate), CREATED);
     }
 
-    @DeleteMapping("/delete_rate/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteRate(@PathVariable Long id) {
         rateService.deleteRateById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,24 +45,24 @@ public class RateController {
         return new ResponseEntity<>(rateService.findAllRates(), HttpStatus.OK);
     }
 
-    @GetMapping("/user_rates/{id}")
+    @GetMapping("/user-rates/{id}")
     public ResponseEntity<Collection<Rate>> getUserRates(@PathVariable Long id) {
         return new ResponseEntity<>(rateService.findUserRates(id), HttpStatus.OK);
     }
 
-    @GetMapping("/user_rate/{id}")
+    @GetMapping("/user-rate/{id}")
     public ResponseEntity<Double> getUserRate(@PathVariable Long id) {
         return new ResponseEntity<>(rateService.getUserRateByUserId(id), HttpStatus.OK);
     }
 
 
-    @DeleteMapping("/delete_all_rate")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<HttpStatus> deleteAllRats() {
         rateService.deleteAllRates();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/number_of_rates")
+    @GetMapping("/statistics")
     public ResponseEntity<Long> getNumberOfRate() {
         return new ResponseEntity<>(rateService.getNumberOfRate(), HttpStatus.OK);
     }

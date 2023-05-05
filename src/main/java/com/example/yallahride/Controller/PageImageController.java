@@ -23,12 +23,12 @@ public class PageImageController {
         return new ResponseEntity<>(pageImageService.findPageImageById(id).get(), OK);
     }
 
-    @PostMapping("/save_page_images")
+    @PostMapping("/create")
     public ResponseEntity<PageImage> savePage(@Valid @RequestBody PageImage PageImage) {
         return new ResponseEntity<>(pageImageService.savePageImage(PageImage), CREATED);
     }
 
-    @DeleteMapping("/delete_page_images/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePageImage(@PathVariable Long id) {
         pageImageService.deleteImageById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -39,7 +39,7 @@ public class PageImageController {
         return new ResponseEntity<>(pageImageService.findAllPageImages(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_all_pages_images")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<HttpStatus> deletePagesImages() {
         pageImageService.deleteAllPageImages();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

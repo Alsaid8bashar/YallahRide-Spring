@@ -7,9 +7,9 @@ import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RideServiceImpl implements RideService {
@@ -57,14 +57,10 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public List<Report> findRideReports(Ride ride) {
-        List<Long> reportIds = new ArrayList<Long>();
-        for (Report element : ride.getReports()) {
-            reportIds.add(element.getId());
-        }
-
-        return reportRepository.findAllById(reportIds);
+    public Set<Report> findRideReports(Ride ride) {
+        return ride.getReports();
     }
+
 
 
 }

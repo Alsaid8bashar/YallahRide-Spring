@@ -31,12 +31,12 @@ public class CarController {
         return new ResponseEntity<>(carService.findCarById(id).get(), OK);
     }
 
-    @PostMapping("/save_car")
+    @PostMapping("/create")
     public ResponseEntity<Car> saveCar(@Valid @RequestBody Car car) {
         return new ResponseEntity<>(carService.saveCar(car), CREATED);
     }
 
-    @DeleteMapping("/delete_car/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCar(@PathVariable Long id) {
         carService.deleteCarById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -47,29 +47,29 @@ public class CarController {
         return new ResponseEntity<>(carService.findAllCars(), HttpStatus.OK);
     }
 
-    @PostMapping("/add_car_image")
+    @PostMapping("/add/image")
     public ResponseEntity<Car> addCarImage(@RequestBody Long id, CarImage carImage) {
         return new ResponseEntity<>(carService.addCarImage(id, carImage), CREATED);
     }
 
-    @GetMapping("/all_car_image")
+    @GetMapping("/all/images")
     public ResponseEntity<Collection<CarImage>> getCarImages(@RequestParam Long carId) {
         return new ResponseEntity<>(carService.getAllCarImages(carId), HttpStatus.OK);
     }
 
-    @DeleteMapping("delete_image/{imageId}")
+    @DeleteMapping("delete/{imageId}")
     public ResponseEntity<HttpStatus> deleteCarImage(@PathVariable Long imageId) {
         carService.deleteCarImage(imageId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/deleteCars")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<HttpStatus> deleteCars() {
         carService.deleteAllCars();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/number_of_cars")
+    @GetMapping("/statistics")
     public ResponseEntity<Long> getNumberOfCars() {
         return new ResponseEntity<>(carService.getNumberOfCars(), HttpStatus.OK);
     }

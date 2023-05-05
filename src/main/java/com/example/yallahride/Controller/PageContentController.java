@@ -25,12 +25,12 @@ public class PageContentController {
         return new ResponseEntity<>(pageContentService.findPageContentById(id).get(), OK);
     }
 
-    @PostMapping("/save_page_content")
+    @PostMapping("/create")
     public ResponseEntity<PageContent> savePage(@Valid @RequestBody PageContent pageContent) {
         return new ResponseEntity<>(pageContentService.savePageContent(pageContent), CREATED);
     }
 
-    @DeleteMapping("/delete_page_content/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePageContent(@PathVariable Long id) {
         pageContentService.deletePageContentById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -41,7 +41,7 @@ public class PageContentController {
         return new ResponseEntity<>(pageContentService.findAllPageContents(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_all_pages_contents")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<HttpStatus> deletePagesContents() {
         pageContentService.deleteAllPageContents();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

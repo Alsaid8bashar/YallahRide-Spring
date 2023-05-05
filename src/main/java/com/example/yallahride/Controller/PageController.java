@@ -29,12 +29,12 @@ public class PageController {
         return new ResponseEntity<>(pageService.findPageById(id).get(), OK);
     }
 
-    @PostMapping("save_page")
+    @PostMapping("/create")
     public ResponseEntity<Page> savePage(@Valid @RequestBody Page page) {
         return new ResponseEntity<>(pageService.savePage(page), CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePage(@PathVariable Long id) {
         pageService.deletePageById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,37 +45,37 @@ public class PageController {
         return new ResponseEntity<>(pageService.findAllPages(), HttpStatus.OK);
     }
 
-    @PostMapping("add_content")
+    @PostMapping("add/content")
     public ResponseEntity<Page> addContent(@PathVariable Long id, PageContent pageContent) {
         return new ResponseEntity<>(pageService.addContent(id, pageContent), CREATED);
     }
 
-    @PostMapping("add_image")
+    @PostMapping("/add-image")
     public ResponseEntity<Page> addImage(@PathVariable Long id, PageImage pageImage) {
         return new ResponseEntity<>(pageService.addImage(id, pageImage), CREATED);
     }
 
-    @PostMapping("add_video")
+    @PostMapping("/add-video")
     public ResponseEntity<Page> addVideo(@PathVariable Long id, PageVideo pageVideo) {
         return new ResponseEntity<>(pageService.addVideo(id, pageVideo), CREATED);
     }
 
-    @GetMapping("contents/{pageId}")
+    @GetMapping("/contents/{pageId}")
     public ResponseEntity<Collection<PageContent>> getPageContents(@PathVariable Long pageId) {
         return new ResponseEntity<>(pageService.getPageContents(pageId), HttpStatus.OK);
     }
 
-    @GetMapping("images/{pageId}")
+    @GetMapping("/images/{pageId}")
     public ResponseEntity<Collection<PageImage>> getPageImages(@PathVariable Long pageId) {
         return new ResponseEntity<>(pageService.getPageImages(pageId), HttpStatus.OK);
     }
 
-    @GetMapping("videos/{pageId}")
+    @GetMapping("/videos/{pageId}")
     public ResponseEntity<Collection<PageVideo>> getPageVideos(@PathVariable Long pageId) {
         return new ResponseEntity<>(pageService.getPageVideos(pageId), HttpStatus.OK);
     }
 
-    @GetMapping("/number_Of_pages")
+    @GetMapping("/statistics")
     public ResponseEntity<Long> getNumberOfPage() {
         return new ResponseEntity<>(pageService.getNumberOfPages(), HttpStatus.OK);
     }

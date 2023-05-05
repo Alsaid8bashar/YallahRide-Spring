@@ -21,17 +21,17 @@ public class CarImageController {
     public CarImageController(CarImageService carImageService) {
         this.carImageService = carImageService;
     }
-    @GetMapping("/car_image/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CarImage> getCarImage(@PathVariable Long id) {
         return new ResponseEntity<>(carImageService.findCarImageById(id).get(), OK);
     }
 
-    @PostMapping("/save_car_image")
+    @PostMapping("/create")
     public ResponseEntity<CarImage> saveCarImage(@Valid @RequestBody CarImage carImage) {
         return new ResponseEntity<>(carImageService.saveCarImage(carImage), CREATED);
     }
 
-    @DeleteMapping("/delete_car_image/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCarImage(@PathVariable Long id) {
         carImageService.deleteCarImageById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

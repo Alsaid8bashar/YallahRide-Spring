@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface RideService {
 
@@ -24,5 +25,5 @@ public interface RideService {
 
     long getNumberOfRide();
 
-    List<Report> findRideReports(Ride ride);
+    Set<Report> findRideReports(Ride ride);
 }

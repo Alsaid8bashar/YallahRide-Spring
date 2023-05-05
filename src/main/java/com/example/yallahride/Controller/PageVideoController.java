@@ -25,12 +25,12 @@ public class PageVideoController {
         return new ResponseEntity<>(pageVideoService.findPageVideoById(id).get(), OK);
     }
 
-    @PostMapping("/save_page_videos")
+    @PostMapping("/create")
     public ResponseEntity<PageVideo> savePage(@Valid @RequestBody PageVideo PageVideo) {
         return new ResponseEntity<>(pageVideoService.savePageVideo(PageVideo), CREATED);
     }
 
-    @DeleteMapping("/delete_page_videos/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePageVideo(@PathVariable Long id) {
         pageVideoService.deletePageVideoById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -41,7 +41,7 @@ public class PageVideoController {
         return new ResponseEntity<>(pageVideoService.findAllPageVideos(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_all_pages_videos")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<HttpStatus> deletePagesVideos() {
         pageVideoService.deleteAllPageVideos();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
