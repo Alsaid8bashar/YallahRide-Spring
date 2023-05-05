@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CarService {
 
-    void saveCar(Car car);
+    Car saveCar(Car car);
 
 
     Optional<Car> findCarById(Long id);
@@ -25,7 +25,7 @@ public interface CarService {
     long getNumberOfCars();
 
 
-    void addCarImage(Long carId, CarImage carImage);
+    Car addCarImage(Long carId, CarImage carImage);
 
     void deleteCarImages(Long id);
 

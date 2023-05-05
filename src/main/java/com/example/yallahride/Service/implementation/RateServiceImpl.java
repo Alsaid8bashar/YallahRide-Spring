@@ -5,6 +5,8 @@ import com.example.yallahride.Repository.RateRepository;
 import com.example.yallahride.Service.Interface.RateService;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,21 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
+    public Collection<Rate> findUserRates(Long userId) {
+        return rateRepository.findUserRates(userId);
+    }
+
+    @Override
+    public double getUserRateByUserId(Long userId) {
+        DecimalFormat df = new DecimalFormat("#.#");
+        return Double.parseDouble(df.format(rateRepository.findUserRates(userId)
+                .stream()
+                .mapToDouble(Rate::getRate)
+                .average()
+                .orElse(0)));
+    }
+
+    @Override
     public void deleteAllRates() {
         rateRepository.deleteAll();
     }
@@ -46,4 +63,6 @@ public class RateServiceImpl implements RateService {
     public long getNumberOfRate() {
         return rateRepository.count();
     }
+
+
 }

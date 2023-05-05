@@ -1,7 +1,9 @@
 package com.example.yallahride.RepostioryTest;
 
 import com.example.yallahride.Entity.Ride;
+import com.example.yallahride.Entity.User;
 import com.example.yallahride.Repository.RideRepository;
+import com.example.yallahride.Repository.UserRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,17 +18,23 @@ public class RideRepositoryTest {
 
     @Autowired
     RideRepository rideRepository;
+
+    @Autowired
+    UserRepository userRepository;
     Ride ride;
 
     @BeforeAll
     public void setup() {
-        ride = rideRepository.save(new Ride("Irbid", "Amman", 3));
+        User   user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com", "imagePath1"));
+        ride = rideRepository.save(new Ride("Irbid", "Amman", 3,user));
     }
 
     @Test
     @Order(1)
     public void testCreateRide() {
-        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3));
+        User   user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com", "imagePath1"));
+
+        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3,user));
         Assertions.assertTrue(ride.getId() > 0);
     }
 

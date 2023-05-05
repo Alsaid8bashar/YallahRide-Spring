@@ -23,12 +23,11 @@ public interface PageService {
 
     long getNumberOfPages();
 
-    void addContent(Long pageId, PageContent pageContent);
+    Page addContent(Long pageId, PageContent pageContent);
 
-    void addImage(Long pageId, PageImage pageImage);
+    Page addImage(Long pageId, PageImage pageImage);
 
-    void addVideo(Long pageId, PageVideo pageVideo);
-
+    Page addVideo(Long pageId, PageVideo pageVideo);
 
     Collection<PageContent> getPageContents(Long pageId);
 

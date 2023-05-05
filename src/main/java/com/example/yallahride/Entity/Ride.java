@@ -37,6 +37,11 @@ public class Ride {
     @NonNull
     @Column(name = "seats")
     private int seats;
+    @ManyToOne
+    @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
+    @NonNull
+    private User driver;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     @ToString.Exclude
@@ -50,7 +55,6 @@ public class Ride {
     @OneToMany(mappedBy = "ride", fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Report> reports = new HashSet<>();
-
 
 
     @Override

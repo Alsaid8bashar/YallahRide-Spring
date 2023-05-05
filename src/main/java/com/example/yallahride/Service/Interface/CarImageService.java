@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CarImageService {
 
-    void saveCarImage(CarImage car);
+    CarImage saveCarImage(CarImage car);
 
     Optional<CarImage> findCarImageById(Long id);
 

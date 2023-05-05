@@ -65,26 +65,26 @@ public class PageServiceImpl implements PageService {
 
 
     @Override
-    public void addContent(Long pageId, PageContent pageContent) {
+    public Page addContent(Long pageId, PageContent pageContent) {
         Page page = findPageById(pageId).get();
         page.addContent(pageContent);
-        savePage(page);
+        return savePage(page);
     }
 
     @Transactional
     @Override
-    public void addImage(Long pageId, PageImage pageImage) {
+    public Page addImage(Long pageId, PageImage pageImage) {
         Page page = findPageById(pageId).get();
         page.addImage(pageImage);
-        savePage(page);
+        return savePage(page);
     }
 
     @Transactional
     @Override
-    public void addVideo(Long pageId, PageVideo pageVideo) {
+    public Page addVideo(Long pageId, PageVideo pageVideo) {
         Page page = findPageById(pageId).get();
         page.addVideo(pageVideo);
-        savePage(page);
+        return savePage(page);
     }
 
     @Transactional

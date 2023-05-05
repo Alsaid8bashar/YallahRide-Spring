@@ -23,12 +23,14 @@ public class Rate {
     @Column(name = "date")
     private Date date;
     @NonNull
-    private int rate;
+    private Double rate;
     @ManyToOne
-    @JoinColumn(name="rater_fk")
+    @ToString.Exclude
+    @JoinColumn(name = "rater_fk")
     private User rater;
 
     @ManyToOne
-    @JoinColumn(name="subject_fk")
+    @ToString.Exclude
+    @JoinColumn(name = "subject_fk")
     private User subject;
 }

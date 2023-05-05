@@ -1,6 +1,7 @@
 package com.example.yallahride.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -22,13 +23,15 @@ public class Car {
     @Column(name = "car_pk")
     private Long id;
     @NonNull
-    @Column(name="color")
+    @Column(name = "color")
     private String color;
     @NonNull
     private String make;
     @NonNull
     private String model;
 
+
+    @NotBlank
     @Column(name = "license_plate")
     @NonNull
     private String licensePlate;
@@ -52,25 +55,25 @@ public class Car {
         carImage.setCar(this);
     }
 
-        public boolean deleteCarImage (CarImage carImage){
-            if (carImages.contains(carImage)) {
-                carImage.setCar(null);
-                return carImages.remove(carImage);
-            }
-            return false;
+    public boolean deleteCarImage(CarImage carImage) {
+        if (carImages.contains(carImage)) {
+            carImage.setCar(null);
+            return carImages.remove(carImage);
         }
+        return false;
+    }
 
-        public boolean removeCarImageV2 (CarImage carImage){
-            return this.carImages.remove(carImage);
-        }
+    public boolean removeCarImageV2(CarImage carImage) {
+        return this.carImages.remove(carImage);
+    }
 
-        public boolean deleteCarImages (java.util.Collection < CarImage > carImages) {
-            if (carImages.containsAll(carImages)) {
-                System.out.println(carImages);
-                return carImages.removeAll(carImages);
-            }
-            return false;
+    public boolean deleteCarImages(java.util.Collection<CarImage> carImages) {
+        if (carImages.containsAll(carImages)) {
+            System.out.println(carImages);
+            return carImages.removeAll(carImages);
         }
+        return false;
+    }
 
     @Override
     public boolean equals(Object o) {

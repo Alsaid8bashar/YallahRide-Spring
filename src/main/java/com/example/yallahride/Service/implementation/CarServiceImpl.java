@@ -27,8 +27,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void saveCar(Car car) {
-        carRepository.save(car);
+    public Car saveCar(Car car) {
+        return carRepository.save(car);
     }
 
     @Override
@@ -57,10 +57,10 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void addCarImage(Long carId, CarImage carImage) {
+    public Car addCarImage(Long carId, CarImage carImage) {
         Car car = findCarById(carId).get();
         car.addCarImage(carImage);
-        saveCar(car);
+        return saveCar(car);
     }
 
     @Override

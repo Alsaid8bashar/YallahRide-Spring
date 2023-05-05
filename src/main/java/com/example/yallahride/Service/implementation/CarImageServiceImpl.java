@@ -1,18 +1,14 @@
 package com.example.yallahride.Service.implementation;
 
-import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Repository.CarImageRepository;
 import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class CarImageServiceImpl implements CarImageService {
@@ -25,8 +21,8 @@ public class CarImageServiceImpl implements CarImageService {
     }
 
     @Override
-    public void saveCarImage(CarImage car) {
-        carImageRepository.save(car);
+    public CarImage saveCarImage(CarImage car) {
+       return carImageRepository.save(car);
     }
 
     @Override

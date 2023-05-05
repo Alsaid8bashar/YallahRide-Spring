@@ -76,7 +76,7 @@ public class UserServiceTest {
     @Test
     @Order(5)
     public void addRide() {
-        Ride ride = new Ride("Irbid", "Amman", 5);
+        Ride ride = new Ride("Irbid", "Amman", 5, user);
         rideService.saveRide(ride);
         user = userService.addRide(user.getId(), ride);
 
