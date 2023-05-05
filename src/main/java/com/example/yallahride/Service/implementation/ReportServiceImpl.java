@@ -5,6 +5,7 @@ import com.example.yallahride.Repository.ReportRepository;
 import com.example.yallahride.Service.Interface.ReportService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,11 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Optional<Report> findReportById(Long id) {
         return reportRepository.findById(id);
+    }
+
+    @Override
+    public Collection<Report> findUserReports(Long userId) {
+        return reportRepository.findUserReport(userId);
     }
 
     @Override

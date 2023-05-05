@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id) {
-        return new ResponseEntity<Optional<User>>(userService.findUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/create")
@@ -44,7 +45,7 @@ public class UserController {
 
     @PostMapping("/statistics")
     public ResponseEntity<Long> getNumberOfUsers(@RequestBody User user) {
-        return new ResponseEntity<Long>(userService.getNumberOfUser(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getNumberOfUser(), HttpStatus.OK);
     }
 
     @PutMapping("/update")
@@ -76,6 +77,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/travel-preferences")
+    public ResponseEntity<Collection<TravelPreference>> getTravelPreference(@RequestBody Long userId) {
+        return new ResponseEntity<>(userService.getUserTravelPreferences(userId), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete_travel_preferences/{id}")
     public ResponseEntity<HttpStatus> deleteTravelPreference(@PathVariable Long id, @RequestBody TravelPreference travelPreference) {
         userService.deleteTravelPreference(id, travelPreference);
@@ -88,6 +94,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/Roles")
+    public ResponseEntity<Collection<Role>> getRoles(@RequestBody Long userId) {
+        return new ResponseEntity<>(userService.getUserRoles(userId), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete_role/{id}")
     public ResponseEntity<HttpStatus> deleteRole(@PathVariable Long id, @RequestBody Role role) {
         userService.deleteRole(id, role);
@@ -98,6 +109,11 @@ public class UserController {
     public ResponseEntity<HttpStatus> addRide(@PathVariable Long id, @RequestBody Ride ride) {
         userService.addRide(id, ride);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/Roles")
+    public ResponseEntity<Collection<Ride>> getRides(@RequestBody Long userId) {
+        return new ResponseEntity<>(userService.getUserRides(userId), HttpStatus.OK);
     }
 
     @PostMapping("/delete_ride/{id}")
