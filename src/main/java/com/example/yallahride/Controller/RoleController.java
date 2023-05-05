@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(name = "role")
+@RequestMapping("role")
 public class RoleController {
     @Autowired
     RoleService roleService;
@@ -31,10 +31,10 @@ public class RoleController {
         return new ResponseEntity<List<Role>>(roleService.findAllRoles(),HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Role>updateRole(@RequestBody Role role){
-        return new ResponseEntity<Role>(roleService.updateRole(role),HttpStatus.OK);
-    }
+//    @PutMapping("/update")
+//    public ResponseEntity<Role>updateRole(@RequestBody Role role){
+//        return new ResponseEntity<Role>(roleService.updateRole(role),HttpStatus.OK);
+//    }
 
     @DeleteMapping("/delete/all")
     public ResponseEntity<HttpStatus>deleteAllRoles(){
