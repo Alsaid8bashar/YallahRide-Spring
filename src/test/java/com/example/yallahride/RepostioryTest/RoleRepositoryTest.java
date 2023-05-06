@@ -44,9 +44,9 @@ public class RoleRepositoryTest {
     @Rollback(value = false)
     public void testUpdateRole() {
         Optional<Role> optionalRole = roleRepository.findById(role.getId());
-        role.setRollName("Driver");
+        role.setRoleName("Driver");
         Role roleUpdated = roleRepository.save(role);
-        Assertions.assertEquals(role.getRollName(), roleUpdated.getRollName());
+        Assertions.assertEquals(role.getRoleName(), roleUpdated.getRoleName());
     }
 
     @Test

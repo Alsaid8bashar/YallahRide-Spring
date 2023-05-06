@@ -4,7 +4,6 @@ package com.example.yallahride.Controller;
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Service.Interface.CarService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +31,10 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Car> saveCar(@Valid @RequestBody Car car) {
+    public ResponseEntity<Car> saveCar(@RequestBody Car car) {
         return new ResponseEntity<>(carService.saveCar(car), CREATED);
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCar(@PathVariable Long id) {
@@ -48,7 +48,7 @@ public class CarController {
     }
 
     @PostMapping("/add/image")
-    public ResponseEntity<Car> addCarImage(@RequestBody Long id, CarImage carImage) {
+    public ResponseEntity<Car> addCarImage(@RequestParam Long id, @RequestBody CarImage carImage) {
         return new ResponseEntity<>(carService.addCarImage(id, carImage), CREATED);
     }
 
@@ -57,7 +57,7 @@ public class CarController {
         return new ResponseEntity<>(carService.getAllCarImages(carId), HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{imageId}")
+    @DeleteMapping("/delete-image/{imageId}")
     public ResponseEntity<HttpStatus> deleteCarImage(@PathVariable Long imageId) {
         carService.deleteCarImage(imageId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -73,5 +73,6 @@ public class CarController {
     public ResponseEntity<Long> getNumberOfCars() {
         return new ResponseEntity<>(carService.getNumberOfCars(), HttpStatus.OK);
     }
+
 
 }

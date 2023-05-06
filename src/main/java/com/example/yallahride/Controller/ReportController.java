@@ -40,7 +40,7 @@ public class ReportController {
     }
 
     @GetMapping("/user/reports")
-    public ResponseEntity<Collection<Report>> findUserReports(@RequestBody Long id) {
+    public ResponseEntity<Collection<Report>> findUserReports(@RequestParam Long id) {
         return new ResponseEntity<>(reportService.findUserReports(id), HttpStatus.OK);
     }
 

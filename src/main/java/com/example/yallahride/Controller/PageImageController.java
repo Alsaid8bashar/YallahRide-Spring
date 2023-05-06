@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 @RestController
-@RequestMapping("page_image")
+@RequestMapping("page-image")
 public class PageImageController {
     @Autowired
     private PageImageService pageImageService;

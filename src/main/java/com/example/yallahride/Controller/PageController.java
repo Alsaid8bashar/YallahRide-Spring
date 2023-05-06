@@ -5,7 +5,6 @@ import com.example.yallahride.Entity.PageContent;
 import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Service.Interface.PageService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class PageController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Page> savePage(@Valid @RequestBody Page page) {
+    public ResponseEntity<Page> savePage(@RequestBody Page page) {
         return new ResponseEntity<>(pageService.savePage(page), CREATED);
     }
 
@@ -46,32 +45,32 @@ public class PageController {
     }
 
     @PostMapping("add/content")
-    public ResponseEntity<Page> addContent(@PathVariable Long id, PageContent pageContent) {
+    public ResponseEntity<Page> addContent(@RequestParam Long id, PageContent pageContent) {
         return new ResponseEntity<>(pageService.addContent(id, pageContent), CREATED);
     }
 
-    @PostMapping("/add-image")
-    public ResponseEntity<Page> addImage(@PathVariable Long id, PageImage pageImage) {
+    @PostMapping("/add/image")
+    public ResponseEntity<Page> addImage(@RequestParam Long id, PageImage pageImage) {
         return new ResponseEntity<>(pageService.addImage(id, pageImage), CREATED);
     }
 
-    @PostMapping("/add-video")
-    public ResponseEntity<Page> addVideo(@PathVariable Long id, PageVideo pageVideo) {
+    @PostMapping("/add/video")
+    public ResponseEntity<Page> addVideo(@RequestParam Long id, PageVideo pageVideo) {
         return new ResponseEntity<>(pageService.addVideo(id, pageVideo), CREATED);
     }
 
-    @GetMapping("/contents/{pageId}")
-    public ResponseEntity<Collection<PageContent>> getPageContents(@PathVariable Long pageId) {
+    @GetMapping("/contents")
+    public ResponseEntity<Collection<PageContent>> getPageContents(@RequestParam Long pageId) {
         return new ResponseEntity<>(pageService.getPageContents(pageId), HttpStatus.OK);
     }
 
-    @GetMapping("/images/{pageId}")
-    public ResponseEntity<Collection<PageImage>> getPageImages(@PathVariable Long pageId) {
+    @GetMapping("/images")
+    public ResponseEntity<Collection<PageImage>> getPageImages(@RequestParam Long pageId) {
         return new ResponseEntity<>(pageService.getPageImages(pageId), HttpStatus.OK);
     }
 
-    @GetMapping("/videos/{pageId}")
-    public ResponseEntity<Collection<PageVideo>> getPageVideos(@PathVariable Long pageId) {
+    @GetMapping("/videos")
+    public ResponseEntity<Collection<PageVideo>> getPageVideos(@RequestParam Long pageId) {
         return new ResponseEntity<>(pageService.getPageVideos(pageId), HttpStatus.OK);
     }
 

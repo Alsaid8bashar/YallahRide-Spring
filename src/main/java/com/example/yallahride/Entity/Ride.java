@@ -54,6 +54,7 @@ public class Ride {
 
     @OneToMany(mappedBy = "ride", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private Set<Report> reports = new HashSet<>();
 
 

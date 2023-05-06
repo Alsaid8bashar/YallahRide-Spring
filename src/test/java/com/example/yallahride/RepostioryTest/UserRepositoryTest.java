@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 
+
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserRepositoryTest {
@@ -38,6 +39,8 @@ public class UserRepositoryTest {
         tempUser.deleteTravelPreference(travelPreference);
         User tempUser2 = userRepository.save(tempUser);
         Assertions.assertTrue(userRepository.findById(tempUser2.getId()).get().getTravelPreferences().size() == 0);
+
+
     }
 
 

@@ -14,7 +14,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("page_content")
+@RequestMapping("page-content")
 public class PageContentController {
     @Autowired
     private PageContentService pageContentService;

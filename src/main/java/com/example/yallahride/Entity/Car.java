@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -41,6 +42,7 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
+    @JsonIgnore
     @NonNull
     private User user;
 

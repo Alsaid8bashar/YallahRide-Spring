@@ -16,7 +16,7 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @PostMapping("save/role")
+    @PostMapping("/save")
     public ResponseEntity<Role>saveRole(@RequestBody Role role){
         return new ResponseEntity<>(roleService.saveRole(role), HttpStatus.OK);
     }
@@ -43,7 +43,7 @@ public class RoleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus>deleteRoleById(@PathVariable Long id){
         roleService.deleteRoleById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -2,7 +2,6 @@ package com.example.yallahride.Controller;
 
 import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Service.Interface.CarImageService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("car_image")
+@RequestMapping("car-image")
 public class CarImageController {
 
     private final CarImageService carImageService;
@@ -27,7 +26,7 @@ public class CarImageController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CarImage> saveCarImage(@Valid @RequestBody CarImage carImage) {
+    public ResponseEntity<CarImage> saveCarImage(@RequestBody CarImage carImage) {
         return new ResponseEntity<>(carImageService.saveCarImage(carImage), CREATED);
     }
 
@@ -38,7 +37,7 @@ public class CarImageController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CarImage>> getCars() {
+    public ResponseEntity<List<CarImage>> getCarsImages() {
         return new ResponseEntity<>(carImageService.findAllCarImages(), HttpStatus.OK);
     }
 }

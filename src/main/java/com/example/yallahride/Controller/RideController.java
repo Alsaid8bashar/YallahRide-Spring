@@ -49,7 +49,7 @@ public class RideController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/reports/")
+    @GetMapping("/reports")
     public ResponseEntity<Set<Report>>findAllRideReports(@RequestBody Ride ride){
         return new ResponseEntity<>(rideService.findRideReports(ride), HttpStatus.OK);
     }

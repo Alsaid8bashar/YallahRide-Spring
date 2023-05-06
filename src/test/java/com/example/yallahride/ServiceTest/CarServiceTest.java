@@ -3,6 +3,7 @@ package com.example.yallahride.ServiceTest;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
+import com.example.yallahride.Entity.User;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.UserService;
@@ -27,7 +28,9 @@ public class CarServiceTest {
 
     @BeforeEach
     public void setCar() {
-//        car = carService.findCarById(181L).get();
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
+        carService.saveCar(car);
     }
 
     @Test

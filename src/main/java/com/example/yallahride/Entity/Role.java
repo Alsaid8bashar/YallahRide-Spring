@@ -24,7 +24,7 @@ public class Role {
 
     @Column(name = "role_name")
     @NonNull
-    private String rollName;
+    private String roleName;
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
@@ -38,11 +38,11 @@ public class Role {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Role role)) return false;
-        return Objects.equals(getId(), role.getId()) && getRollName().equals(role.getRollName());
+        return Objects.equals(getId(), role.getId()) && getRoleName().equals(role.getRoleName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRollName());
+        return Objects.hash(getId(), getRoleName());
     }
 }
