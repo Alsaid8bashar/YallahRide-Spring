@@ -21,37 +21,47 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> user = userService.findUserById(id);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<HttpStatus> createUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
-        userService.deleteUserById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            userService.deleteUserById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @DeleteMapping("/delete_all")
+    @DeleteMapping("/delete-all")
     public ResponseEntity<HttpStatus> deleteAllUsers() {
         userService.deleteAllUsers();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/statistics")
-    public ResponseEntity<Long> getNumberOfUsers(@RequestBody User user) {
+    @GetMapping("/statistics")
+    public ResponseEntity<Long> getNumberOfUsers() {
         return new ResponseEntity<>(userService.getNumberOfUser(), HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<HttpStatus> updateUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id) {
+        Optional<User> user = userService.findUserById(id);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(userService.updateUser(user.get()), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/all")
@@ -59,66 +69,60 @@ public class UserController {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    @PostMapping("/activate")
-    public ResponseEntity<HttpStatus> activateUserById(@RequestBody Long id) {
-        userService.activateUserById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/activate/{id}")
+    public ResponseEntity<User> activateUserById(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.activateUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/deactivate/{id}")
-    public ResponseEntity<HttpStatus> deactivateUserById(@PathVariable Long id) {
-        userService.deactivateUserById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> deactivateUserById(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.deactivateUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/travel_preferences/{id}")
-    public ResponseEntity<HttpStatus> addTravelPreference(@PathVariable Long id, @RequestBody TravelPreference travelPreference) {
-        userService.addTravelPreference(id, travelPreference);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> addTravelPreference(@PathVariable Long id, @RequestBody TravelPreference travelPreference) {
+        return new ResponseEntity<>(userService.addTravelPreference(id, travelPreference), HttpStatus.OK);
     }
 
-    @GetMapping("/travel-preferences")
-    public ResponseEntity<Collection<TravelPreference>> getTravelPreference(@RequestBody Long userId) {
-        return new ResponseEntity<>(userService.getUserTravelPreferences(userId), HttpStatus.OK);
+    @GetMapping("/{id}/travel-preferences")
+    public ResponseEntity<Collection<TravelPreference>> getTravelPreference(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserTravelPreferences(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_travel_preferences/{id}")
-    public ResponseEntity<HttpStatus> deleteTravelPreference(@PathVariable Long id, @RequestBody TravelPreference travelPreference) {
+    @DeleteMapping("/{id}/delete/travel-preferences")
+    public ResponseEntity<User> deleteTravelPreference(@PathVariable Long id, @RequestBody TravelPreference travelPreference) {
         userService.deleteTravelPreference(id, travelPreference);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(userService.deleteTravelPreference(id, travelPreference),HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/role/{id}")
-    public ResponseEntity<HttpStatus> addRole(@PathVariable Long id, @RequestBody Role role) {
-        userService.addRole(id, role);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/{id}/add/role")
+    public ResponseEntity<User> addRole(@PathVariable Long id, @RequestBody Role role) {
+        return new ResponseEntity<>(userService.addRole(id, role), HttpStatus.OK);
     }
 
-    @GetMapping("/Roles")
-    public ResponseEntity<Collection<Role>> getRoles(@RequestBody Long userId) {
-        return new ResponseEntity<>(userService.getUserRoles(userId), HttpStatus.OK);
+    @GetMapping("/{id}/roles")
+    public ResponseEntity<Collection<Role>> getRoles(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserRoles(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_role/{id}")
-    public ResponseEntity<HttpStatus> deleteRole(@PathVariable Long id, @RequestBody Role role) {
-        userService.deleteRole(id, role);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}/delete/role")
+    public ResponseEntity<User> deleteRole(@PathVariable Long id, @RequestBody Role role) {
+        return new ResponseEntity<>(userService.deleteRole(id, role),HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/ride/{id}")
-    public ResponseEntity<HttpStatus> addRide(@PathVariable Long id, @RequestBody Ride ride) {
-        userService.addRide(id, ride);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("{id}/add/ride")
+    public ResponseEntity<User> addRide(@PathVariable Long id, @RequestBody Ride ride) {
+        return new ResponseEntity<>(userService.addRide(id, ride), HttpStatus.OK);
     }
 
-    @GetMapping("/Roles")
-    public ResponseEntity<Collection<Ride>> getRides(@RequestBody Long userId) {
-        return new ResponseEntity<>(userService.getUserRides(userId), HttpStatus.OK);
+    @GetMapping("{id}/rides")
+    public ResponseEntity<Collection<Ride>> getRides(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserRides(id), HttpStatus.OK);
     }
 
-    @PostMapping("/delete_ride/{id}")
-    public ResponseEntity<HttpStatus> deleteRide(@PathVariable Long id, @RequestBody Ride ride) {
-        userService.deleteRide(id, ride);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}/delete/ride")
+    public ResponseEntity<User> deleteRide(@PathVariable Long id, @RequestBody Ride ride) {
+        return new ResponseEntity<>(userService.deleteRide(id, ride),HttpStatus.NO_CONTENT);
     }
+
 }
