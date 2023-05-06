@@ -111,7 +111,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/Roles")
+    @GetMapping("/Rides")
     public ResponseEntity<Collection<Ride>> getRides(@RequestBody Long userId) {
         return new ResponseEntity<>(userService.getUserRides(userId), HttpStatus.OK);
     }

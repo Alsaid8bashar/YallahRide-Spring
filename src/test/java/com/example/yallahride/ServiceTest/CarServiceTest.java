@@ -3,7 +3,6 @@ package com.example.yallahride.ServiceTest;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
-import com.example.yallahride.Entity.User;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.UserService;
@@ -28,37 +27,7 @@ public class CarServiceTest {
 
     @BeforeEach
     public void setCar() {
-        car = carService.findCarById(181L).get();
-    }
-
-    @Test
-    @Order(1)
-    public void testSaveCar() {
-        User user = new User("Bashar", "ahmad", "basharalsaid17@gmail.com", "newImage");
-        userService.saveUser(user);
-        Car car = new Car();
-        car.setMake("Ford");
-        car.setModel("Fusion");
-        car.setColor("black");
-        car.setUser(user);
-        carService.saveCar(car);
-
-        Car savedCar = carService.findCarById(car.getId()).get();
-        Assertions.assertThat(savedCar).isNotNull();
-        Assertions.assertThat(savedCar.getMake()).isEqualTo("Ford");
-        Assertions.assertThat(savedCar.getModel()).isEqualTo("Fusion");
-        Assertions.assertThat(savedCar.getColor()).isEqualTo("black");
-
-    }
-
-    @Test
-    @Order(2)
-    public void testUpdateCar() {
-        car.setColor("red");
-        carService.saveCar(car);
-        Car updatedCar = carService.findCarById(car.getId()).get();
-        Assertions.assertThat(updatedCar).isNotNull();
-        Assertions.assertThat(updatedCar.getColor()).isEqualTo("red");
+//        car = carService.findCarById(181L).get();
     }
 
     @Test

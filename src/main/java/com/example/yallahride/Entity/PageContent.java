@@ -30,7 +30,8 @@ public class PageContent {
 
     @PreRemove
     private void deleteContentFromPage() {
-        page.deleteContent(this);
+        if (page != null)
+            page.deleteContent(this);
     }
 
     @Override

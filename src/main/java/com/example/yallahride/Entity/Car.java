@@ -23,7 +23,6 @@ public class Car {
     @Column(name = "car_pk")
     private Long id;
     @NonNull
-    @Column(name = "color")
     private String color;
     @NonNull
     private String make;
@@ -39,7 +38,7 @@ public class Car {
     @Column(name = "model_year")
     @NonNull
     private int modelYear;
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
     @NonNull

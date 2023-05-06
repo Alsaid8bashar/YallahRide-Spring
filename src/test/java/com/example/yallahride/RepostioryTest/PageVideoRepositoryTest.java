@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PageVideoRepositoryTest {
     @Autowired
     PageVideoRepository pageVideoRepository;

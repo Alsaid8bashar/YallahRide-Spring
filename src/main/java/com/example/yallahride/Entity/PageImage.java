@@ -19,13 +19,15 @@ public class PageImage {
     @Column(name = "image_path")
     @NonNull
     private String imagePath;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
     @ToString.Exclude
     private Page page;
+
     @PreRemove
     private void deleteImageFromPage() {
-        page.deleteImage(this);
+        if (page != null)
+            page.deleteImage(this);
     }
 
 }

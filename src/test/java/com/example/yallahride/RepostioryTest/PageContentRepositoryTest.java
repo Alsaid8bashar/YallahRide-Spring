@@ -1,7 +1,7 @@
 package com.example.yallahride.RepostioryTest;
 
-import com.example.yallahride.Entity.PageVideo;
-import com.example.yallahride.Repository.PageVideoRepository;
+import com.example.yallahride.Entity.PageContent;
+import com.example.yallahride.Repository.PageContentRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,60 +14,59 @@ import java.util.Optional;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PageContentRepositoryTest {
     @Autowired
-    PageVideoRepository pageVideoRepository;
-    PageVideo pageVideo;
+    PageContentRepository pageContentRepository;
+    PageContent pageContent;
 
     @BeforeAll
     public void setup() {
-        pageVideo = pageVideoRepository.save(new PageVideo("VideoPath1"));
+        pageContent = pageContentRepository.save(new PageContent("VideoPath1"));
     }
 
     @Test
     @Order(1)
-    public void testCreateRide() {
-        PageVideo pageVideo = pageVideoRepository.save(new PageVideo("VideoPath2"));
-        Assertions.assertTrue(pageVideo.getId() > 0);
+    public void testCreatePageContent() {
+        PageContent PageContent = pageContentRepository.save(new PageContent("VideoPath2"));
+        Assertions.assertTrue(PageContent.getId() > 0);
     }
 
 
     @Test
     @Order(2)
-    public void testFindRideById() {
-        Optional<PageVideo> optionalRide = pageVideoRepository.findById(pageVideo.getId());
-        PageVideo tempRide = optionalRide.get();
-        Assertions.assertEquals(tempRide.getId(), pageVideo.getId());
+    public void testFindPageContentById() {
+        Optional<PageContent> optionalRide = pageContentRepository.findById(pageContent.getId());
+        PageContent tempRide = optionalRide.get();
+        Assertions.assertEquals(tempRide.getId(), pageContent.getId());
     }
 
     @Test
     @Order(3)
     @Rollback(value = false)
-    public void testUpdateRide() {
-        Optional<PageVideo> optionalRide = pageVideoRepository.findById(pageVideo.getId());
-        pageVideo.setVideoPath("UpdatedVideoPath");
-        PageVideo rideUpdated = pageVideoRepository.save(pageVideo);
-        Assertions.assertEquals(pageVideo.getVideoPath(), rideUpdated.getVideoPath());
+    public void testUpdatePageContent() {
+        pageContent.setContent("UpdatedContent");
+        PageContent contentUpdated = pageContentRepository.save(pageContent);
+        Assertions.assertEquals(pageContent.getContent(), contentUpdated.getContent());
     }
 
     @Test
     @Order(4)
     @Rollback(value = false)
-    public void testFindAllRides() {
-        List<PageVideo> rideList = pageVideoRepository.findAll();
+    public void testFindAllPageContents() {
+        List<PageContent> rideList = pageContentRepository.findAll();
         Assertions.assertTrue(rideList.size() > 0);
     }
 
     @Test
     @Order(5)
-    public void testDeleteRideByID() {
-        pageVideoRepository.deleteById(pageVideo.getId());
-        Optional<PageVideo> optionalRide = pageVideoRepository.findById(pageVideo.getId());
+    public void testDeletePageContentByID() {
+        pageContentRepository.deleteById(pageContent.getId());
+        Optional<PageContent> optionalRide = pageContentRepository.findById(pageContent.getId());
         Assertions.assertTrue(!optionalRide.isPresent());
     }
 
     @Test
     @Order(6)
-    public void testDeleteAllRides() {
-        pageVideoRepository.deleteAll();
-        Assertions.assertTrue(pageVideoRepository.count() == 0);
+    public void testDeleteAllPageContent() {
+        pageContentRepository.deleteAll();
+        Assertions.assertTrue(pageContentRepository.count() == 0);
     }
 }
