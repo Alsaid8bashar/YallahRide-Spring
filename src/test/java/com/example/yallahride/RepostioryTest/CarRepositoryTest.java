@@ -25,8 +25,8 @@ public class CarRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        User user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
-        Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
         carRepository.save(car);
     }
 
