@@ -39,7 +39,7 @@ public class CarControllerTest {
         Car car = new Car("Black", "Ford", "Fusion", "10-100", 2016, new User());
         car.setId(1L);
 
-        when(carService.findCarById(1L)).thenReturn(java.util.Optional.of(car));
+        when(carService.findCarById(1L)).thenReturn(car);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/car/1")
                         .contentType(MediaType.APPLICATION_JSON))

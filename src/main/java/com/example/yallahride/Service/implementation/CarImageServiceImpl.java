@@ -1,6 +1,7 @@
 package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.CarImage;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.CarImageRepository;
 import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
@@ -22,12 +23,13 @@ public class CarImageServiceImpl implements CarImageService {
 
     @Override
     public CarImage saveCarImage(CarImage car) {
-       return carImageRepository.save(car);
+        return carImageRepository.save(car);
     }
 
     @Override
-    public Optional<CarImage> findCarImageById(Long id) {
-        return carImageRepository.findById(id);
+    public CarImage findCarImageById(Long id) {
+        Optional<CarImage> carImage = carImageRepository.findById(id);
+        return unwrapUser(carImage, id);
     }
 
     @Override
@@ -45,7 +47,10 @@ public class CarImageServiceImpl implements CarImageService {
         carImageRepository.deleteById(id);
     }
 
-
+    static CarImage unwrapUser(Optional<CarImage> entity, Long id) {
+        if (entity.isPresent()) return entity.get();
+        else throw new EntityNotFoundException(id, CarImage.class);
+    }
 
 
 }

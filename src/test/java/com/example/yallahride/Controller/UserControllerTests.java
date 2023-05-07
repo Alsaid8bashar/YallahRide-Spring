@@ -47,7 +47,7 @@ public class UserControllerTests {
         User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
         user.setId(id);
 
-        when(userService.findUserById(id)).thenReturn(Optional.of(user));
+        when(userService.findUserById(id)).thenReturn(user);
 
         mockMvc.perform(get("/user/{id}", id)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
@@ -100,7 +100,7 @@ public class UserControllerTests {
     void findByUserIdNotFoundTest() throws Exception {
         long id = 1L;
 
-        when(userService.findUserById(id)).thenReturn(Optional.empty());
+        when(userService.findUserById(id)).thenReturn(null);
         mockMvc.perform(get("/user/{id}", id))
                 .andExpect(status().isNotFound())
                 .andDo(print());
@@ -133,7 +133,7 @@ public class UserControllerTests {
         User updatedUser = new User("Hassan", "Al-Shannag", "email@hotmail.com", "image1");
         updatedUser.setId(id);
 
-        when(userService.findUserById(id)).thenReturn(Optional.of(user));
+        when(userService.findUserById(id)).thenReturn(user);
         when(userService.updateUser(updatedUser)).thenReturn(updatedUser);
 
         mockMvc.perform(put("/user/update/{id}", id).contentType(MediaType.APPLICATION_JSON)

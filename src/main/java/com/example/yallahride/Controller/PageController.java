@@ -25,7 +25,7 @@ public class PageController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Page> getPage(@PathVariable Long id) {
-        return new ResponseEntity<>(pageService.findPageById(id).get(), OK);
+        return new ResponseEntity<>(pageService.findPageById(id), OK);
     }
 
     @PostMapping("/create")

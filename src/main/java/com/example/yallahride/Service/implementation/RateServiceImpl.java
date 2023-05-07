@@ -1,6 +1,8 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Entity.Rate;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.RateRepository;
 import com.example.yallahride.Service.Interface.RateService;
 import org.springframework.stereotype.Service;
@@ -25,8 +27,8 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public Optional<Rate> findRateById(Long id) {
-        return rateRepository.findById(id);
+    public Rate findRateById(Long id) {
+        return unwrapRate(rateRepository.findById(id),id);
     }
 
     @Override
@@ -62,6 +64,11 @@ public class RateServiceImpl implements RateService {
     @Override
     public long getNumberOfRate() {
         return rateRepository.count();
+    }
+
+    static Rate unwrapRate(Optional<Rate> rate, Long id) {
+        if (rate.isPresent()) return rate.get();
+        else throw new EntityNotFoundException(id, Rate.class);
     }
 
 

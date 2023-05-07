@@ -34,7 +34,7 @@ public class PageContentControllerTest {
         pageContent.setId(pageContentId);
 
 
-        when(pageContentService.findPageContentById(pageContentId)).thenReturn(Optional.of(pageContent));
+        when(pageContentService.findPageContentById(pageContentId)).thenReturn(pageContent);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/page-content/{id}", pageContentId)
                         .contentType(MediaType.APPLICATION_JSON))

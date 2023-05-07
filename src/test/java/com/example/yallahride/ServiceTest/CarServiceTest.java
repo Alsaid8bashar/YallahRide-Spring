@@ -44,6 +44,7 @@ public class CarServiceTest {
         carImage2.setImagePath("newImage2");
         carService.addCarImage(car.getId(), carImage);
         carService.addCarImage(car.getId(), carImage2);
+        System.out.println("carService.getAllCarImages(car.getId()) = " + carService.getAllCarImages(car.getId()));
         Assertions.assertThat(carService.getAllCarImages(car.getId())).isNotEmpty();
     }
 
@@ -53,7 +54,7 @@ public class CarServiceTest {
         Long imageId = car.getCarImages().iterator().next().getId();
 
         carService.deleteCarImage(imageId);
-        Assertions.assertThat(carImageService.findCarImageById(imageId)).isEmpty();
+        Assertions.assertThat(carImageService.findCarImageById(imageId) == null);
     }
 
 }

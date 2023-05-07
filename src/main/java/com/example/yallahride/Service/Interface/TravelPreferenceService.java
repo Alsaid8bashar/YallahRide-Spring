@@ -9,7 +9,7 @@ public interface TravelPreferenceService {
     TravelPreference saveTravelPreference(TravelPreference travelPreference);
     TravelPreference updateTravelPreference(TravelPreference travelPreference);
 
-    Optional<TravelPreference> findTravelPreferenceById(Long id);
+    TravelPreference findTravelPreferenceById(Long id);
 
     List<TravelPreference> findAllTravelPreferences();
 

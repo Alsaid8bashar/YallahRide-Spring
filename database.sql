@@ -16,14 +16,6 @@ create table Role
     PRIMARY KEY (role_pk)
 );
 
-# EDITED
-# ALTER TABLE User
-# DROP CONSTRAINT User_ibfk_1;
-# ALTER TABLE User
-# DROP COLUMN role_fk;
-# EDITED
-
-
 create table User_Role
 (
     user_role_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -44,6 +36,7 @@ create table Login
     PRIMARY KEY (login_pk),
     FOREIGN KEY (user_id_fk) REFERENCES User (user_pk) ON DELETE CASCADE
 );
+
 create table Car
 (
     car_pk        MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -56,6 +49,7 @@ create table Car
     PRIMARY KEY (car_pk),
     FOREIGN KEY (user_id_fk) REFERENCES User (user_pk) ON DELETE CASCADE
 );
+
 create table Car_Images
 (
     id_pk      MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -84,13 +78,11 @@ create table User_Preference
 
 );
 
-
 create table Page
 (
     page_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (page_pk)
 );
-
 
 create table Page_Image
 (
@@ -108,6 +100,7 @@ create table Contact_Us
     description varchar(4000),
     PRIMARY KEY (id_pk)
 );
+
 create table Ride
 (
     ride_pk MEDIUMINT     NOT NULL AUTO_INCREMENT,
@@ -133,6 +126,7 @@ create table Report
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
     PRIMARY KEY (report_pk)
 );
+
 create table Passenger
 (
     passenger_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -183,6 +177,3 @@ create table Page_Video
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_video_pk)
 );
-
-
-###############     ALTERATION      ###############

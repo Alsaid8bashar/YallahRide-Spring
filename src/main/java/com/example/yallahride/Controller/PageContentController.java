@@ -3,7 +3,7 @@ package com.example.yallahride.Controller;
 import com.example.yallahride.Entity.PageContent;
 import com.example.yallahride.Service.Interface.PageContentService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +14,16 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("page-content")
 public class PageContentController {
-    @Autowired
+
     private PageContentService pageContentService;
 
 
     @GetMapping("/{id}")
     public ResponseEntity<PageContent> getPageContent(@PathVariable Long id) {
-        return new ResponseEntity<>(pageContentService.findPageContentById(id).get(), OK);
+        return new ResponseEntity<>(pageContentService.findPageContentById(id), OK);
     }
 
     @PostMapping("/create")

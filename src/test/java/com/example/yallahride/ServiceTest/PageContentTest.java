@@ -27,7 +27,7 @@ public class PageContentTest {
 
     @BeforeEach
     void setPage() {
-        page = pageService.findPageById(5L).get();
+        page = pageService.findPageById(5L);
     }
 
 
@@ -52,14 +52,11 @@ public class PageContentTest {
         pageContentService.savePageContent(pageContent1);
         pageContentService.savePageContent(pageContent2);
 
-        Optional<PageContent> result1 = pageContentService.findPageContentById(pageContent1.getId());
-        Optional<PageContent> result2 = pageContentService.findPageContentById(pageContent2.getId());
+        PageContent result1 = pageContentService.findPageContentById(pageContent1.getId());
+        PageContent result2 = pageContentService.findPageContentById(pageContent2.getId());
 
-        Assertions.assertTrue(result1.isPresent());
-        Assertions.assertEquals(pageContent1, result1.get());
-
-        Assertions.assertTrue(result2.isPresent());
-        Assertions.assertEquals(pageContent2, result2.get());
+        Assertions.assertEquals(pageContent1, result1);
+        Assertions.assertEquals(pageContent2, result2);
     }
 
     @Test

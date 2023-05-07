@@ -22,7 +22,7 @@ public class CarImageController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<CarImage> getCarImage(@PathVariable Long id) {
-        return new ResponseEntity<>(carImageService.findCarImageById(id).get(), OK);
+        return new ResponseEntity<>(carImageService.findCarImageById(id), OK);
     }
 
     @PostMapping("/create")

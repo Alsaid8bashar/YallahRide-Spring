@@ -41,7 +41,7 @@ public class CarImageControllerTest {
         carImage.setId(1L);
         carImageService.saveCarImage(carImage);
 
-        when(carImageService.findCarImageById(1L)).thenReturn(Optional.of(carImage));
+        when(carImageService.findCarImageById(1L)).thenReturn(carImage);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/car-image/1")
                         .contentType(MediaType.APPLICATION_JSON))

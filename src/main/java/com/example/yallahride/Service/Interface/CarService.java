@@ -12,7 +12,7 @@ public interface CarService {
     Car saveCar(Car car);
 
 
-    Optional<Car> findCarById(Long id);
+    Car findCarById(Long id);
 
     List<Car> findAllCars();
 

@@ -22,7 +22,7 @@ public class PageVideoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PageVideo> getPageVideo(@PathVariable Long id) {
-        return new ResponseEntity<>(pageVideoService.findPageVideoById(id).get(), OK);
+        return new ResponseEntity<>(pageVideoService.findPageVideoById(id), OK);
     }
 
     @PostMapping("/create")

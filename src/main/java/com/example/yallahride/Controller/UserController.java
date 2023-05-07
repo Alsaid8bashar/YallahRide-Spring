@@ -22,11 +22,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> user = userService.findUserById(id);
-        if (user.isPresent()) {
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/create")
@@ -56,12 +52,8 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id) {
-        Optional<User> user = userService.findUserById(id);
-        if (user.isPresent()) {
-            return new ResponseEntity<>(userService.updateUser(user.get()), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+            return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
     }
 
     @GetMapping("/all")
@@ -92,7 +84,7 @@ public class UserController {
     @DeleteMapping("/{id}/delete/travel-preferences")
     public ResponseEntity<User> deleteTravelPreference(@PathVariable Long id, @RequestBody TravelPreference travelPreference) {
         userService.deleteTravelPreference(id, travelPreference);
-        return new ResponseEntity<>(userService.deleteTravelPreference(id, travelPreference),HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(userService.deleteTravelPreference(id, travelPreference), HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/{id}/add/role")
@@ -107,7 +99,7 @@ public class UserController {
 
     @DeleteMapping("/{id}/delete/role")
     public ResponseEntity<User> deleteRole(@PathVariable Long id, @RequestBody Role role) {
-        return new ResponseEntity<>(userService.deleteRole(id, role),HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(userService.deleteRole(id, role), HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("{id}/add/ride")
@@ -123,7 +115,7 @@ public class UserController {
 
     @DeleteMapping("/{id}/delete/ride")
     public ResponseEntity<User> deleteRide(@PathVariable Long id, @RequestBody Ride ride) {
-        return new ResponseEntity<>(userService.deleteRide(id, ride),HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(userService.deleteRide(id, ride), HttpStatus.NO_CONTENT);
     }
 
 }

@@ -20,7 +20,7 @@ public class PageImageController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PageImage> getPageImage(@PathVariable Long id) {
-        return new ResponseEntity<>(pageImageService.findPageImageById(id).get(), OK);
+        return new ResponseEntity<>(pageImageService.findPageImageById(id), OK);
     }
 
     @PostMapping("/create")

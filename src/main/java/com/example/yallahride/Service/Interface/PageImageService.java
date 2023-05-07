@@ -9,7 +9,7 @@ public interface PageImageService {
 
     PageImage savePageImage(PageImage pageImage);
 
-    Optional<PageImage> findPageImageById(Long id);
+    PageImage findPageImageById(Long id);
 
     List<PageImage> findAllPageImages();
     PageImage updatePageImage(PageImage pageImage);

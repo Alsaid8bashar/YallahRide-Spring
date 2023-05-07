@@ -32,7 +32,7 @@ public class PageServiceTest {
 
     @BeforeEach
     void setPage() {
-        page = pageService.findPageById(5L).get();
+        page = pageService.findPageById(5L);
     }
 
     @Test

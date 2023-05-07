@@ -2,6 +2,7 @@ package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
@@ -32,8 +33,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Optional<Car> findCarById(Long id) {
-        return carRepository.findById(id);
+    public Car findCarById(Long id) {
+        Optional<Car> car = carRepository.findById(id);
+        return unwrapCar(car,id);
     }
 
     @Override
@@ -53,12 +55,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Collection<CarImage> getAllCarImages(Long carId) {
-        return findCarById(carId).get().getCarImages();
+        Optional<Car>car = carRepository.findById(carId);
+        return unwrapCar(car,carId).getCarImages();
     }
 
     @Override
     public Car addCarImage(Long carId, CarImage carImage) {
-        Car car = findCarById(carId).get();
+        Car car = unwrapCar(carRepository.findById(carId),carId);
         car.addCarImage(carImage);
         return saveCar(car);
     }
@@ -75,12 +78,17 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCarImages(Long id) {
-        Car car = findCarById(id).get();
+        Car car = unwrapCar(carRepository.findById(id),id);
         Iterator<CarImage> carImageIterator = car.getCarImages().iterator();
         while (carImageIterator.hasNext()) {
             CarImage element = carImageIterator.next();
             carImageIterator.remove();
         }
         saveCar(car);
+    }
+
+    static Car unwrapCar(Optional<Car> entity, Long id){
+        if(entity.isPresent()) return entity.get();
+        throw new EntityNotFoundException(id, Car.class);
     }
 }

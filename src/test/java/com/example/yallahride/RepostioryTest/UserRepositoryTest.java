@@ -81,7 +81,7 @@ public class UserRepositoryTest {
     @Order(6)
     public void testDeleteAllUsers(){
         userRepository.deleteAll();
-        Assertions.assertEquals(0, userRepository.count());
+        Assertions.assertTrue(userRepository.count() == 0);
     }
 
 }

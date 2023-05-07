@@ -8,9 +8,10 @@ import java.util.Optional;
 public interface PageContentService {
     PageContent savePageContent(PageContent pageContent);
 
-    Optional<PageContent> findPageContentById(Long id);
+    PageContent findPageContentById(Long id);
 
     List<PageContent> findAllPageContents();
+
     PageContent updatePageContent(PageContent pageContent);
 
     void deleteAllPageContents();

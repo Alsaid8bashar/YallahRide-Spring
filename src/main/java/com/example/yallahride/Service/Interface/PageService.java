@@ -13,7 +13,7 @@ public interface PageService {
 
     Page savePage(Page page);
 
-    Optional<Page> findPageById(Long id);
+    Page findPageById(Long id);
 
     List<Page> findAllPages();
 

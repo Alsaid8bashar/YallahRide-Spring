@@ -1,6 +1,7 @@
 package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.PageImage;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.PageImagesRepository;
 import com.example.yallahride.Service.Interface.PageImageService;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,8 @@ public class PageImageServiceImpl implements PageImageService {
     }
 
     @Override
-    public Optional<PageImage> findPageImageById(Long id) {
-        return pageImagesRepository.findById(id);
+    public PageImage findPageImageById(Long id) {
+        return unwrapPageImage(pageImagesRepository.findById(id),id);
     }
 
     @Override
@@ -45,5 +46,10 @@ public class PageImageServiceImpl implements PageImageService {
     @Override
     public void deleteImageById(Long id) {
         pageImagesRepository.deleteById(id);
+    }
+
+    static PageImage unwrapPageImage(Optional<PageImage> PageImage, Long id) {
+        if (PageImage.isPresent()) return PageImage.get();
+        else throw new EntityNotFoundException(id, PageImage.class);
     }
 }

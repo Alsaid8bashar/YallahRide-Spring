@@ -1,6 +1,8 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.Role;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.RoleRepository;
 import com.example.yallahride.Service.Interface.RoleService;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Optional<Role> findRoleById(Long id) {
-        return roleRepository.findById(id);
+    public Role findRoleById(Long id) {
+        return unwrapRole(roleRepository.findById(id),id);
     }
 
     @Override
@@ -49,5 +51,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public long getNumberOfRole() {
         return roleRepository.count();
+    }
+
+    static Role unwrapRole(Optional<Role> role, Long id) {
+        if (role.isPresent()) return role.get();
+        else throw new EntityNotFoundException(id, Ride.class);
     }
 }

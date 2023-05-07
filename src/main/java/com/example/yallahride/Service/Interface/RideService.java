@@ -13,7 +13,7 @@ public interface RideService {
 
     Ride saveRide(Ride ride);
 
-    Optional<Ride> findRideById(Long id);
+    Ride findRideById(Long id);
 
     List<Ride> findAllRides();
 

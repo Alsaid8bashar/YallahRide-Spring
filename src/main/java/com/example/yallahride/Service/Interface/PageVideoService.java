@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PageVideoService {
     PageVideo savePageVideo(PageVideo pageVideo);
 
-    Optional<PageVideo> findPageVideoById(Long id);
+    PageVideo findPageVideoById(Long id);
 
     List<PageVideo> findAllPageVideos();
     PageVideo updatePageVideo(PageVideo pageVideo);

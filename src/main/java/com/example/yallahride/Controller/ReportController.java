@@ -30,7 +30,7 @@ public class ReportController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Report>> findReportById(@PathVariable("id") Long id) {
+    public ResponseEntity<Report> findReportById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(reportService.findReportById(id), HttpStatus.OK);
     }
 

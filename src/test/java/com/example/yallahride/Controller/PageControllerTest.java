@@ -40,7 +40,7 @@ public class PageControllerTest {
         Page page = new Page();
         page.setId(1L);
 
-        when(pageService.findPageById(1L)).thenReturn(Optional.of(page));
+        when(pageService.findPageById(1L)).thenReturn(page);
         mockMvc.perform(MockMvcRequestBuilders.get("/page/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

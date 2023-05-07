@@ -4,6 +4,7 @@ import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageContent;
 import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Entity.PageVideo;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.PageContentRepository;
 import com.example.yallahride.Repository.PageImagesRepository;
 import com.example.yallahride.Repository.PageRepository;
@@ -39,8 +40,8 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Optional<Page> findPageById(Long id) {
-        return pageRepository.findById(id);
+    public Page findPageById(Long id) {
+        return unwrapPage(pageRepository.findById(id),id);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page addContent(Long pageId, PageContent pageContent) {
-        Page page = findPageById(pageId).get();
+        Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addContent(pageContent);
         return savePage(page);
     }
@@ -74,7 +75,7 @@ public class PageServiceImpl implements PageService {
     @Transactional
     @Override
     public Page addImage(Long pageId, PageImage pageImage) {
-        Page page = findPageById(pageId).get();
+        Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addImage(pageImage);
         return savePage(page);
     }
@@ -82,7 +83,7 @@ public class PageServiceImpl implements PageService {
     @Transactional
     @Override
     public Page addVideo(Long pageId, PageVideo pageVideo) {
-        Page page = findPageById(pageId).get();
+        Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addVideo(pageVideo);
         return savePage(page);
     }
@@ -90,17 +91,21 @@ public class PageServiceImpl implements PageService {
     @Transactional
     @Override
     public Collection<PageContent> getPageContents(Long pageId) {
-        return findPageById(pageId).get().getPageContentSet();
+        return unwrapPage(pageRepository.findById(pageId),pageId).getPageContentSet();
     }
 
     @Override
     public Collection<PageImage> getPageImages(Long pageId) {
-        return findPageById(pageId).get().getPageImageSet();
+        return unwrapPage(pageRepository.findById(pageId),pageId).getPageImageSet();
     }
 
     @Override
     public Collection<PageVideo> getPageVideos(Long pageId) {
-        return findPageById(pageId).get().getPageVideoSet();
+        return unwrapPage(pageRepository.findById(pageId),pageId).getPageVideoSet();
     }
 
+    static Page unwrapPage(Optional<Page> page, Long id) {
+        if (page.isPresent()) return page.get();
+        else throw new EntityNotFoundException(id, Page.class);
+    }
 }

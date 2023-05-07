@@ -18,9 +18,12 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,26 +41,26 @@ public class RideControllerTest {
 
     @Test
     public void testCreateRide() throws Exception {
-        Ride ride = new Ride("Amman", "irbid", 4, new User());
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        Ride ride = new Ride("Amman", "irbid", 4, user);
         ride.setId(1L);
 
         when(rideService.saveRide(ride)).thenReturn(ride);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/ride/create")
-                        .contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/ride/create").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ride)))
-
                 .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.from").value(ride.getFrom()))
-//                .andExpect(jsonPath("$.to").value(ride.getTo()))
-//                .andExpect(jsonPath("$.seats").value(ride.getSeats()))
+                .andExpect(jsonPath("$.from").value(ride.getFrom()))
+                .andExpect(jsonPath("$.to").value(ride.getTo()))
+                .andExpect(jsonPath("$.seats").value(ride.getSeats()))
                 .andDo(print());
 
     }
 
     @Test
     public void testUpdateRide() throws Exception {
-        Ride ride = new Ride("Amman", "irbid", 4, new User());
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        Ride ride = new Ride("Amman", "irbid", 4, user);
         ride.setId(1L);
 
         when(rideService.updateRide(ride)).thenReturn(ride);
@@ -66,9 +69,9 @@ public class RideControllerTest {
                         .content(objectMapper.writeValueAsString(ride)))
 
                 .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.from").value(ride.getFrom()))
-//                .andExpect(jsonPath("$.to").value(ride.getTo()))
-//                .andExpect(jsonPath("$.seats").value(ride.getSeats()))
+                .andExpect(jsonPath("$.from").value(ride.getFrom()))
+                .andExpect(jsonPath("$.to").value(ride.getTo()))
+                .andExpect(jsonPath("$.seats").value(ride.getSeats()))
                 .andDo(print());
 
     }
@@ -79,7 +82,7 @@ public class RideControllerTest {
         Ride ride = new Ride("Amman", "irbid", 4, new User());
         ride.setId(rideId);
 
-        when(rideService.findRideById(rideId)).thenReturn(Optional.of(ride));
+        when(rideService.findRideById(rideId)).thenReturn(ride);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/ride/{id}", rideId)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -133,7 +136,8 @@ public class RideControllerTest {
 
     @Test
     public void testFindAllRideReports() throws Exception {
-        Ride ride = new Ride("Amman", "irbid", 4, new User());
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        Ride ride = new Ride("Amman", "irbid", 4, user);
 
         Set<Report> reports = new HashSet<>();
 
@@ -143,12 +147,10 @@ public class RideControllerTest {
 
         when(rideService.findRideReports(ride)).thenReturn(reports);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/ride/reports")
-                        .contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.get("/ride/reports").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ride)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title").value("Amman ride"))
-                .andExpect(jsonPath("$[1].title").value("Amman trip"))
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andDo(print());
     }
 

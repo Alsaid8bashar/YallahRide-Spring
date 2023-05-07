@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface RateService {
     Rate saveRate(Rate rate);
 
-    Optional<Rate> findRateById(Long id);
+    Rate findRateById(Long id);
 
     List<Rate> findAllRates();
 

@@ -46,7 +46,7 @@ public class RoleControllerTest {
         Role role = new Role( "Admin");
         role.setId(1L);
 
-        when(roleService.findRoleById(1L)).thenReturn(Optional.of(role));
+        when(roleService.findRoleById(1L)).thenReturn(role);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/role/find/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON))

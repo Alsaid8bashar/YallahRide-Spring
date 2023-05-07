@@ -1,6 +1,7 @@
 package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.Report;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.ReportRepository;
 import com.example.yallahride.Service.Interface.ReportService;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Optional<Report> findReportById(Long id) {
-        return reportRepository.findById(id);
+    public Report findReportById(Long id) {
+        return unwrapReport(reportRepository.findById(id),id);
     }
 
     @Override
@@ -52,5 +53,9 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public long getNumberOfReport() {
         return reportRepository.count();
+    }
+    static Report unwrapReport(Optional<Report> report, Long id) {
+        if (report.isPresent()) return report.get();
+        else throw new EntityNotFoundException(id, Report.class);
     }
 }

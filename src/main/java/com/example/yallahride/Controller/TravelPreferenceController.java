@@ -18,42 +18,39 @@ public class TravelPreferenceController {
     TravelPreferenceService travelPreferenceService;
 
     @PostMapping("/create")
-    public ResponseEntity<TravelPreference>saveTravelPreference(@RequestBody TravelPreference travelPreference){
-        return new ResponseEntity<>(travelPreferenceService.saveTravelPreference(travelPreference) ,HttpStatus.CREATED);
+    public ResponseEntity<TravelPreference> saveTravelPreference(@RequestBody TravelPreference travelPreference) {
+        return new ResponseEntity<>(travelPreferenceService.saveTravelPreference(travelPreference), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}/update")
-    public ResponseEntity<TravelPreference>updateTravelPreference(@PathVariable Long id){
-        Optional<TravelPreference> travelPreference = travelPreferenceService.findTravelPreferenceById(id);
-        if (travelPreference.isPresent()) {
-            return new ResponseEntity<>(travelPreferenceService.updateTravelPreference(travelPreference.get()), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<TravelPreference> updateTravelPreference(@RequestBody TravelPreference travelPreference) {
+        return new ResponseEntity<>(travelPreferenceService.updateTravelPreference(travelPreference), HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Optional<TravelPreference>>findTravelPreferenceById(@PathVariable Long id){
+    public ResponseEntity<TravelPreference> findTravelPreferenceById(@PathVariable Long id) {
         return new ResponseEntity<>(travelPreferenceService.findTravelPreferenceById(id), HttpStatus.OK);
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<TravelPreference>>findAllTravelPreferences(){
+    public ResponseEntity<List<TravelPreference>> findAllTravelPreferences() {
         return new ResponseEntity<>(travelPreferenceService.findAllTravelPreferences(), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete_all")
-    public ResponseEntity<HttpStatus>deleteAllTravelPreferences(){
+    public ResponseEntity<HttpStatus> deleteAllTravelPreferences() {
         travelPreferenceService.deleteAllTravelPreferences();
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus>deleteTravelPreferenceById(@PathVariable Long id){
+    public ResponseEntity<HttpStatus> deleteTravelPreferenceById(@PathVariable Long id) {
         travelPreferenceService.deleteTravelPreferenceById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity<Long>getTravelPreferencesCount(){
+    public ResponseEntity<Long> getTravelPreferencesCount() {
         return new ResponseEntity<>(travelPreferenceService.getNumberOfTravelPreference(), HttpStatus.OK);
     }
 }

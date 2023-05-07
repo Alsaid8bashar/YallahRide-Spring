@@ -34,7 +34,7 @@ public class PageVideoControllerTest {
         PageVideo pageVideo = new PageVideo("video.mp4");
         pageVideo.setId(pageVideoId);
 
-        when(pageVideoService.findPageVideoById(pageVideoId)).thenReturn(Optional.of(pageVideo));
+        when(pageVideoService.findPageVideoById(pageVideoId)).thenReturn(pageVideo);
         mockMvc.perform(MockMvcRequestBuilders.get("/page-video/{id}", pageVideoId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

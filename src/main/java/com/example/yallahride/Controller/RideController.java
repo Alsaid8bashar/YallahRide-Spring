@@ -28,7 +28,7 @@ public class RideController {
         return new ResponseEntity<>(rideService.updateRide(ride), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Ride>>findRideById(@PathVariable("id") Long id){
+    public ResponseEntity<Ride>findRideById(@PathVariable("id") Long id){
         return new ResponseEntity<>(rideService.findRideById(id), HttpStatus.OK);
     }
 

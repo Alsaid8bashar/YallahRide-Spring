@@ -74,7 +74,7 @@ public class ReportControllerTest {
         Report report = new Report();
         report.setId(reportId);
         report.setTitle("Test Report");
-        when(reportService.findReportById(reportId)).thenReturn(Optional.of(report));
+        when(reportService.findReportById(reportId)).thenReturn(report);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/report/{id}", reportId)
                         .contentType(MediaType.APPLICATION_JSON))

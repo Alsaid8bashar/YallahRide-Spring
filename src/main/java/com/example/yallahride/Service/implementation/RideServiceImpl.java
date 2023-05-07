@@ -2,6 +2,7 @@ package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.ReportRepository;
 import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Service.Interface.RideService;
@@ -13,12 +14,11 @@ import java.util.Set;
 
 @Service
 public class RideServiceImpl implements RideService {
-    final private ReportRepository reportRepository;
+
     final private RideRepository rideRepository;
 
-    public RideServiceImpl(RideRepository rideRepository, ReportRepository reportRepository) {
+    public RideServiceImpl(RideRepository rideRepository) {
         this.rideRepository = rideRepository;
-        this.reportRepository = reportRepository;
     }
 
     @Override
@@ -27,8 +27,8 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public Optional<Ride> findRideById(Long id) {
-        return rideRepository.findById(id);
+    public Ride findRideById(Long id) {
+        return unwrapRide(rideRepository.findById(id),id);
     }
 
     @Override
@@ -61,6 +61,8 @@ public class RideServiceImpl implements RideService {
         return ride.getReports();
     }
 
-
-
+    static Ride unwrapRide(Optional<Ride> ride, Long id) {
+        if (ride.isPresent()) return ride.get();
+        else throw new EntityNotFoundException(id, Ride.class);
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ReportService {
     Report saveReport(Report report);
 
-    Optional<Report> findReportById(Long id);
+    Report findReportById(Long id);
 
     Collection<Report> findUserReports(Long userId);
 

@@ -22,7 +22,7 @@ public class RoleController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Optional<Role>>findRoleById(@PathVariable Long id){
+    public ResponseEntity<Role>findRoleById(@PathVariable Long id){
         return new ResponseEntity<>(roleService.findRoleById(id), HttpStatus.OK);
     }
 

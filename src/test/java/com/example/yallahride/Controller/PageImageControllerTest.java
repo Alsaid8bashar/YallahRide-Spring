@@ -36,7 +36,7 @@ public class PageImageControllerTest {
         pageImage.setId(pageImageId);
 
 
-        when(pageImageService.findPageImageById(pageImageId)).thenReturn(Optional.of(pageImage));
+        when(pageImageService.findPageImageById(pageImageId)).thenReturn(pageImage);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/page-image/{id}", pageImageId)
                         .contentType(MediaType.APPLICATION_JSON))

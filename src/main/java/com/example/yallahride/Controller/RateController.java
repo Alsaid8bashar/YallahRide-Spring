@@ -26,7 +26,7 @@ public class RateController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Rate> getRate(@PathVariable Long id) {
-        return new ResponseEntity<>(rateService.findRateById(id).get(), OK);
+        return new ResponseEntity<>(rateService.findRateById(id), OK);
     }
 
     @PostMapping("/create")

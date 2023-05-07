@@ -9,7 +9,7 @@ public interface CarImageService {
 
     CarImage saveCarImage(CarImage car);
 
-    Optional<CarImage> findCarImageById(Long id);
+    CarImage findCarImageById(Long id);
 
     List<CarImage> findAllCarImages();
 

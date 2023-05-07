@@ -37,7 +37,7 @@ public class UserServiceTest {
         TravelPreference travelPreference = new TravelPreference("test");
         user = userService.addTravelPreference(user.getId(), travelPreference);
 
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getTravelPreferences().isEmpty());
     }
 
@@ -47,7 +47,7 @@ public class UserServiceTest {
         TravelPreference travelPreference = user.getTravelPreferences().iterator().next();
         user = userService.deleteTravelPreference(user.getId(), travelPreference);
 
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getRoles().contains(travelPreference));
     }
 
@@ -59,7 +59,7 @@ public class UserServiceTest {
         user = userService.addRole(user.getId(), role);
 
 
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getRoles().isEmpty());
     }
 
@@ -69,7 +69,7 @@ public class UserServiceTest {
         Role role = user.getRoles().iterator().next();
         user = userService.deleteRole(user.getId(), role);
 
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getRoles().contains(role));
     }
 
@@ -80,7 +80,7 @@ public class UserServiceTest {
         rideService.saveRide(ride);
         user = userService.addRide(user.getId(), ride);
 
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getRides().isEmpty());
     }
 
@@ -89,7 +89,7 @@ public class UserServiceTest {
     public void deleteRide() {
         Ride ride = user.getRides().iterator().next();
         user = userService.deleteRide(user.getId(), ride);
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getRides().contains(ride));
     }
 
@@ -97,7 +97,7 @@ public class UserServiceTest {
     @Order(7)
     public void deactivateUser() {
         userService.deactivateUserById(user.getId());
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertSame(false, tempUser.isActive());
     }
 
@@ -106,7 +106,7 @@ public class UserServiceTest {
     @Order(7)
     public void activateUser() {
         userService.activateUserById(user.getId());
-        User tempUser = userService.findUserById(user.getId()).get();
+        User tempUser = userService.findUserById(user.getId());
         Assertions.assertSame(true, tempUser.isActive());
     }
 

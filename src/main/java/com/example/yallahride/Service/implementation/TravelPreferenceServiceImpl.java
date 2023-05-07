@@ -1,6 +1,8 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.TravelPreference;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.TravelPreferenceRepository;
 import com.example.yallahride.Service.Interface.TravelPreferenceService;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,8 @@ public class TravelPreferenceServiceImpl implements TravelPreferenceService {
     }
 
     @Override
-    public Optional<TravelPreference> findTravelPreferenceById(Long id) {
-        return travelPreferenceRepository.findById(id);
+    public TravelPreference findTravelPreferenceById(Long id) {
+        return unwrapTravelPreference(travelPreferenceRepository.findById(id),id);
     }
 
     @Override
@@ -51,5 +53,10 @@ public class TravelPreferenceServiceImpl implements TravelPreferenceService {
     @Override
     public long getNumberOfTravelPreference() {
         return travelPreferenceRepository.count();
+    }
+
+    static TravelPreference unwrapTravelPreference(Optional<TravelPreference> travelPreference, Long id) {
+        if (travelPreference.isPresent()) return travelPreference.get();
+        else throw new EntityNotFoundException(id, Ride.class);
     }
 }
