@@ -26,12 +26,12 @@ public class User {
     @Column(name = "last_name")
     @NonNull
     private String lastName;
-    @Column(name = "email")
-    @NonNull
-    private String email;
     @Column(name = "image_path")
     @NonNull
     private String imagePath;
+    @Column(name = "about")
+    @NonNull
+    private String about;
     @Column(name = "is_active")
     private boolean isActive;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
