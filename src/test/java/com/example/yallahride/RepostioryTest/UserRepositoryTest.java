@@ -39,8 +39,6 @@ public class UserRepositoryTest {
         tempUser.deleteTravelPreference(travelPreference);
         User tempUser2 = userRepository.save(tempUser);
         Assertions.assertTrue(userRepository.findById(tempUser2.getId()).get().getTravelPreferences().size() == 0);
-
-
     }
 
 

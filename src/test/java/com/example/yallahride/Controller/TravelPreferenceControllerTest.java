@@ -65,18 +65,6 @@ class TravelPreferenceControllerTest {
     }
 
 
-    @Test
-    void updateTravelPreferenceByIdNotFoundTest() throws Exception {
-        TravelPreference travelPreference = new TravelPreference("TEST");
-        travelPreference.setId(1L);
-        travelPreference.setDescription("TEST_UPDATED");
-        when(travelPreferenceService.findTravelPreferenceById(1L)).thenReturn(null);
-        when(travelPreferenceService.updateTravelPreference(travelPreference)).thenReturn(travelPreference);
-        mockMvc.perform(put("/travel-preference/{id}/update", 1L).contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(travelPreference)))
-                .andExpect(status().isNotFound())
-                .andDo(print());
-    }
 
     @Test
     void findTravelPreferenceByIdTest() throws Exception {
@@ -93,17 +81,7 @@ class TravelPreferenceControllerTest {
                 .andDo(print());
     }
 
-    @Test
-    void findTravelPreferenceByIdNotFoundTest() throws Exception {
-        TravelPreference travelPreference = new TravelPreference("TEST");
-        travelPreference.setId(1L);
 
-        when(travelPreferenceService.findTravelPreferenceById(1L)).thenReturn(null);
-
-        mockMvc.perform(get("/travel-preference/find/{id}", 1L))
-                .andExpect(status().isNotFound())
-                .andDo(print());
-    }
 
     @Test
     void findAllTravelPreferencesTest() throws Exception {

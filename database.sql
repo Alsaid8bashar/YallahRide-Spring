@@ -4,10 +4,12 @@ create table User
     first_name varchar(1000) NOT NULL,
     last_name  varchar(1000) NOT NULL,
     image_path varchar(4000),
-    email      varchar(4000),
+    about      varchar(300)  NOT NULL,
     is_active  boolean default true,
     PRIMARY KEY (user_pk)
 );
+
+
 
 create table Role
 (
@@ -15,6 +17,7 @@ create table Role
     role_name varchar(100) NOT NULL,
     PRIMARY KEY (role_pk)
 );
+
 
 create table User_Role
 (
@@ -26,16 +29,20 @@ create table User_Role
     FOREIGN KEY (role_fk) REFERENCES Role (role_pk) ON DELETE CASCADE
 );
 
-create table Login
+create table Account
 (
-    login_pk      MEDIUMINT NOT NULL AUTO_INCREMENT,
-    phone_number  long      NOT NULL,
+    account_pk    MEDIUMINT    NOT NULL AUTO_INCREMENT,
+    email         varchar(200) NOT NULL,
+    phone_number  varchar(50)  NOT NULL,
     password_hash varchar(1000),
     user_id_fk    MEDIUMINT,
-    isActive      boolean DEFAULT true,
-    PRIMARY KEY (login_pk),
+    is_Active      boolean DEFAULT true,
+    CONSTRAINT UC_Account UNIQUE (email, phone_number),
+    PRIMARY KEY (account_pk),
     FOREIGN KEY (user_id_fk) REFERENCES User (user_pk) ON DELETE CASCADE
 );
+
+
 
 create table Car
 (
@@ -44,8 +51,9 @@ create table Car
     make          varchar(1000),
     model         varchar(1000),
     model_year    integer,
-    license_plate varchar(1000),
+    license_plate varchar(30),
     user_id_fk    MEDIUMINT,
+    CONSTRAINT UC_Car UNIQUE (license_plate),
     PRIMARY KEY (car_pk),
     FOREIGN KEY (user_id_fk) REFERENCES User (user_pk) ON DELETE CASCADE
 );
@@ -121,6 +129,7 @@ create table Report
     `description` varchar(1000) NOT NULL,
     `date`        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_fk       MEDIUMINT,
+    is_solved     boolean   default false,
 
     FOREIGN KEY (ride_fk) REFERENCES Ride (ride_pk) ON DELETE CASCADE,
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,

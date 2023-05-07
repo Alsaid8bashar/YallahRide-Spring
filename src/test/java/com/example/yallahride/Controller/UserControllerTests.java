@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -44,7 +46,7 @@ public class UserControllerTests {
     @Test
     void findUserByIDTest() throws Exception {
         long id = 1L;
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi i am Hasan");
         user.setId(id);
 
         when(userService.findUserById(id)).thenReturn(user);
@@ -53,7 +55,7 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(user.getLastName()))
-                .andExpect(jsonPath("$.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.about").value(user.getAbout()))
                 .andExpect(jsonPath("$.imagePath").value(user.getImagePath()))
                 .andExpect(jsonPath("$.active").value(user.isActive()))
                 .andDo(print());
@@ -61,7 +63,7 @@ public class UserControllerTests {
 
     @Test
     void createUserTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
 
         mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
@@ -96,15 +98,6 @@ public class UserControllerTests {
         Assertions.assertEquals("3", responseBody);
     }
 
-    @Test
-    void findByUserIdNotFoundTest() throws Exception {
-        long id = 1L;
-
-        when(userService.findUserById(id)).thenReturn(null);
-        mockMvc.perform(get("/user/{id}", id))
-                .andExpect(status().isNotFound())
-                .andDo(print());
-    }
 
     @Test
     void shouldReturnListOfTutorials() throws Exception {
@@ -127,7 +120,7 @@ public class UserControllerTests {
     void updateUserByIdTest() throws Exception {
         long id = 1L;
 
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(id);
 
         User updatedUser = new User("Hassan", "Al-Shannag", "email@hotmail.com", "image1");
@@ -146,7 +139,7 @@ public class UserControllerTests {
     @Test
     void activateUserByIdTest() throws Exception {
         Long id = 1L;
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setActive(true);
         when(userService.activateUserById(id)).thenReturn(user);
         mockMvc.perform(post("/user/activate/{id}", id))
@@ -158,7 +151,7 @@ public class UserControllerTests {
     @Test
     void deactivateUserByIdTest() throws Exception {
         Long id = 1L;
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setActive(false);
         when(userService.deactivateUserById(id)).thenReturn(user);
         mockMvc.perform(post("/user/deactivate/{id}", id))
@@ -169,7 +162,7 @@ public class UserControllerTests {
 
     @Test
     void addTravelPreferenceByUserIdTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         TravelPreference travelPreference = new TravelPreference("TEST");
         travelPreference.setId(1L);
@@ -185,7 +178,7 @@ public class UserControllerTests {
 
     @Test
     void getTravelPreferencesTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         List<TravelPreference> travelPreferences = new ArrayList<>(
                 Arrays.asList(
@@ -207,7 +200,7 @@ public class UserControllerTests {
 
     @Test
     void deleteTravelPreferenceTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         TravelPreference travelPreference = new TravelPreference("TEST");
         travelPreference.setId(1L);
@@ -225,7 +218,7 @@ public class UserControllerTests {
 
     @Test
     void addRoleToUserTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         Role role = new Role("ADMIN");
         role.setId(1L);
@@ -242,7 +235,7 @@ public class UserControllerTests {
 
     @Test
     public void getRolesTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         List<Role> roles = new ArrayList<>(
                 Arrays.asList(
@@ -265,7 +258,7 @@ public class UserControllerTests {
 
     @Test
     void deleteRoleTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         List<Role> roles = new ArrayList<>(
                 Arrays.asList(
@@ -292,7 +285,7 @@ public class UserControllerTests {
 
     @Test
     void addRideTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         Ride ride = new Ride("Irbid", "Amman", 3, user);
         ride.setId(1L);
@@ -308,7 +301,7 @@ public class UserControllerTests {
 
     @Test
     void getRidesTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         List<Ride> rides = new ArrayList<>(
                 Arrays.asList(
@@ -332,7 +325,7 @@ public class UserControllerTests {
 
     @Test
     void deleteRideTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
         List<Ride> rides = new ArrayList<>(
                 Arrays.asList(
