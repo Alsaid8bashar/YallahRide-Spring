@@ -4,11 +4,9 @@ import com.example.yallahride.Entity.Account;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Service.Interface.AccountService;
 import com.example.yallahride.Service.Interface.UserService;
-import org.junit.After;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -24,8 +22,7 @@ public class AccountServiceTest {
     @BeforeAll
     public void setup() {
         user = userService.saveUser(new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!"));
-        account = accountService.saveAccount(new Account("$12$URyEGDnS0@$12$URyEGDnS0.com",
-                "+$12$URyEGDnS0", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
+        account = accountService.saveAccount(new Account("$12$URyEGDnS0@$12$URyEGDnS0.com", "+$12$URyEGDnS0", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
     }
 
     @Test
@@ -44,6 +41,19 @@ public class AccountServiceTest {
 
     @Test
     @Order(3)
+    public void isEmailExistTest() {
+        Assertions.assertTrue(accountService.isEmailExist("$12$URyEGDnS0@$12$URyEGDnS0.com"));
+    }
+
+    @Test
+    @Order(3)
+    public void isPhoneNumberExistTest() {
+        Assertions.assertTrue(accountService.isPhoneExist(account.getPhoneNumber()));
+    }
+
+
+    @Test
+    @Order(4)
     public void findAccountByPhoneNumber() {
         Account account1 = accountService.findAccountByPhoneNumber(account.getPhoneNumber());
         Assertions.assertTrue(account1.getId() > 0);

@@ -10,13 +10,20 @@ public interface AccountService {
     Account findAccountById(Long id);
 
     List<Account> findAllAccounts();
+
     Account updateAccount(Account account);
+
+    boolean isEmailExist(String email);
+
+    boolean isPhoneExist(String phoneNumber);
 
     void deleteAllAccounts();
 
     void deleteAccountById(Long id);
 
     long getNumberOfAccount();
+
     Account findAccountByEmail(String email);
+
     Account findAccountByPhoneNumber(String phoneNumber);
 }

@@ -19,6 +19,11 @@ public class AccountServiceImpl implements AccountService {
         this.accountRepository = accountRepository;
     }
 
+    static Account unwrapAccount(Optional<Account> account, Long id) {
+        if (account.isPresent()) return account.get();
+        else throw new EntityNotFoundException(id, Account.class);
+    }
+
     @Override
     public Account saveAccount(Account account) {
         return accountRepository.save(account);
@@ -26,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccountById(Long id) {
-        return unwrapAccount(accountRepository.findById(id),id);
+        return unwrapAccount(accountRepository.findById(id), id);
     }
 
     @Override
@@ -37,6 +42,20 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account updateAccount(Account account) {
         return accountRepository.save(account);
+    }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        if (accountRepository.isEmailExist(email) > 0)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean isPhoneExist(String phoneNumber) {
+        if (accountRepository.isPhoneNumberExist(phoneNumber) > 0)
+            return true;
+        return false;
     }
 
     @Override
@@ -56,16 +75,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccountByEmail(String email) {
-        return unwrapAccount(accountRepository.findByEmailIgnoreCase(email),404L);
+        return unwrapAccount(accountRepository.findByEmailIgnoreCase(email), 404L);
     }
 
     @Override
     public Account findAccountByPhoneNumber(String phoneNumber) {
         return accountRepository.findByPhoneNumber(phoneNumber);
-    }
-
-    static Account unwrapAccount(Optional<Account> account, Long id) {
-        if (account.isPresent()) return account.get();
-        else throw new EntityNotFoundException(id, Account.class);
     }
 }

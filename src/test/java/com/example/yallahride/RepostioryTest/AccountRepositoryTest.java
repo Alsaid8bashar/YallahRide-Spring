@@ -46,20 +46,21 @@ class AccountRepositoryTest {
 
     @Test
     @Order(2)
-    public void findAccountByIdTest(){
+    public void findAccountByIdTest() {
         Assertions.assertNotNull(accountRepository.findById(account.getId()));
     }
 
+
     @Test
     @Order(3)
-    public void findAllAccountsTest(){
+    public void findAllAccountsTest() {
         List<Account> accountList = accountRepository.findAll();
         Assertions.assertTrue(accountList.size() > 0);
     }
 
     @Test
     @Order(4)
-    public void updateAccountTest(){
+    public void updateAccountTest() {
         account.setEmail("shnaqhassan@gmail.com");
         Account account1 = accountRepository.save(account);
         Assertions.assertTrue(account1.getEmail().equals("shnaqhassan@gmail.com"));
@@ -67,14 +68,14 @@ class AccountRepositoryTest {
 
     @Test
     @Order(5)
-    public void getNumberOfAccountTest(){
+    public void getNumberOfAccountTest() {
         Long numberOfAccount = accountRepository.count();
         Assertions.assertTrue(numberOfAccount > 0);
     }
 
     @Test
     @Order(6)
-    public void deleteAllAccountsTest(){
+    public void deleteAllAccountsTest() {
         accountRepository.deleteAll();
         Long numberOfAccount = accountRepository.count();
         Assertions.assertTrue(numberOfAccount == 0);
@@ -82,10 +83,11 @@ class AccountRepositoryTest {
 
     @Test
     @Order(7)
-    public void deleteAccountByIdTest(){
+    public void deleteAccountByIdTest() {
         accountRepository.deleteById(account.getId());
         Long numberOfAccount = accountRepository.count();
         Assertions.assertTrue(numberOfAccount == 0);
     }
+
 
 }
