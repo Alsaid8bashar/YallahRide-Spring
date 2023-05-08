@@ -25,7 +25,7 @@ public class AccountController {
         return new ResponseEntity<>(accountService.findAccountById(id), OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
         return new ResponseEntity<>(accountService.saveAccount(account), CREATED);
     }

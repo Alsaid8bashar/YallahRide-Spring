@@ -41,7 +41,7 @@ public class User {
     private Set<TravelPreference> travelPreferences = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    @JsonIgnore
-    @ToString.Exclude
+    @ToString.Include
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"))
     private Set<Role> roles = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -4,20 +4,24 @@ import com.example.yallahride.Entity.Account;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.AccountRepository;
 import com.example.yallahride.Service.Interface.AccountService;
+import com.example.yallahride.Service.Interface.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    final
-    AccountRepository accountRepository;
 
-    public AccountServiceImpl(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+    @Autowired
+    AccountRepository accountRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    RoleService roleService;
+
 
     static Account unwrapAccount(Optional<Account> account, Long id) {
         if (account.isPresent()) return account.get();
@@ -26,6 +30,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account saveAccount(Account account) {
+        account.setPasswordHash(bCryptPasswordEncoder.encode(account.getPasswordHash()));
+        account.getUser().addRole(roleService.findRoleById(1L));
         return accountRepository.save(account);
     }
 

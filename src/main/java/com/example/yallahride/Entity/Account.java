@@ -14,6 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "Account")
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_pk")
@@ -30,7 +31,7 @@ public class Account {
     @Column(name = "password_hash", length = 1000)
     private String passwordHash;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NonNull
     @JoinColumn(name = "user_id_fk")

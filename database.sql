@@ -186,3 +186,29 @@ create table Page_Video
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_video_pk)
 );
+
+
+
+# RESTING AUTO_INCREMENT FOR ALL TABLES
+alter table Account AUTO_INCREMENT = 1;
+alter table Car AUTO_INCREMENT = 1;
+alter table Car_Images AUTO_INCREMENT = 1;
+alter table Contact_Us AUTO_INCREMENT = 1;
+
+alter table Page AUTO_INCREMENT = 1;
+alter table Page_Content AUTO_INCREMENT = 1;
+alter table Page_Image AUTO_INCREMENT = 1;
+alter table Page_Video AUTO_INCREMENT = 1;
+
+alter table Passenger AUTO_INCREMENT = 1;
+alter table Rate AUTO_INCREMENT = 1;
+alter table Report AUTO_INCREMENT = 1;
+alter table Ride AUTO_INCREMENT = 1;
+
+alter table Travel_Preference AUTO_INCREMENT = 1;
+alter table User AUTO_INCREMENT = 1;
+alter table User_Preference AUTO_INCREMENT = 1;
+alter table User_Role AUTO_INCREMENT = 1;
+
+alter table Role AUTO_INCREMENT = 1;
+# END
