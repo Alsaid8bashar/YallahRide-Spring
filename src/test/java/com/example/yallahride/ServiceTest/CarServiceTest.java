@@ -44,7 +44,6 @@ public class CarServiceTest {
         carImage2.setImagePath("newImage2");
         carService.addCarImage(car.getId(), carImage);
         carService.addCarImage(car.getId(), carImage2);
-        System.out.println("carService.getAllCarImages(car.getId()) = " + carService.getAllCarImages(car.getId()));
         Assertions.assertThat(carService.getAllCarImages(car.getId())).isNotEmpty();
     }
 
