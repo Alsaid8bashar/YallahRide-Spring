@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -27,7 +26,7 @@ public class Role implements GrantedAuthority {
     @NonNull
     private String roleName;
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(
             name = "User_Role",
             joinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"),
@@ -50,5 +49,13 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return roleName;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                '}';
     }
 }
