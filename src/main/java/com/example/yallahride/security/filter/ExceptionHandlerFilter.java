@@ -2,27 +2,17 @@ package com.example.yallahride.security.filter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
-import com.example.yallahride.Service.Interface.AccountService;
-import com.example.yallahride.Service.implementation.AccountServiceImpl;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
 
-
-@Component
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
-
-    @Bean
-    public AccountService accountService(){
-        return new AccountServiceImpl();
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,7 +22,7 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().write("Username doesn't exist");
             response.getWriter().flush();
-        } catch (JWTVerificationException e) {
+        } catch (JwtException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().write("JWT NOT VALID");
             response.getWriter().flush();
@@ -40,7 +30,6 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("BAD REQUEST");
             response.getWriter().flush();
-        }
+        }  
     }
-
 }

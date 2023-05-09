@@ -3,7 +3,10 @@ package com.example.yallahride.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -74,6 +77,4 @@ public class User {
     public boolean deleteTravelPreference(TravelPreference travelPreference) {
         return travelPreferences.remove(travelPreference);
     }
-
-
 }
