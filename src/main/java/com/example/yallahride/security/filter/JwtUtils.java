@@ -4,8 +4,6 @@ import com.example.yallahride.security.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -51,7 +49,7 @@ public class JwtUtils {
     private String createToken(Map<String, Object> claims, UserDetails userDetails) {
         return Jwts.builder().setClaims(claims)
                 .setSubject(userDetails.getUsername())
-                .claim("authorities", new SimpleGrantedAuthority("ADMIN"))
+                .claim("authorities", userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.TOKEN_EXPIRATION))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET_KEY).compact();
