@@ -82,7 +82,7 @@ public class PageServiceImpl implements PageService {
     public Page addImage(Long pageId, PageImage pageImage) {
         String key = UUID.randomUUID() + pageImage.getMultipartFile().getOriginalFilename();
         pageImage.setImagePath(key);
-        fileService.uploadFile(pageImage.getMultipartFile(), key, "car-bucket");
+        fileService.uploadFile(pageImage.getMultipartFile(), key);
 
         Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addImage(pageImage);
@@ -94,7 +94,7 @@ public class PageServiceImpl implements PageService {
     public Page addVideo(Long pageId, PageVideo pageVideo) {
         String key = UUID.randomUUID() + pageVideo.getMultipartFile().getOriginalFilename();
         pageVideo.setVideoPath(key);
-        fileService.uploadFile(pageVideo.getMultipartFile(), key, "car-bucket");
+        fileService.uploadFile(pageVideo.getMultipartFile(), key);
 
         Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addVideo(pageVideo);

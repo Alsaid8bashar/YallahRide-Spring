@@ -71,7 +71,7 @@ public class CarServiceImpl implements CarService {
     public Car addCarImage(Long carId, CarImage carImage) {
         String key = UUID.randomUUID() + carImage.getMultipartFile().getOriginalFilename();
         carImage.setImagePath(key);
-        fileService.uploadFile(carImage.getMultipartFile(), key, "car-bucket");
+        fileService.uploadFile(carImage.getMultipartFile(), key);
 
 
         Car car = unwrapCar(carRepository.findById(carId), carId);
@@ -95,7 +95,7 @@ public class CarServiceImpl implements CarService {
         Iterator<CarImage> carImageIterator = car.getCarImages().iterator();
         while (carImageIterator.hasNext()) {
             CarImage element = carImageIterator.next();
-            fileService.deleteFile(element.getImagePath(),"car-bucket");
+            fileService.deleteFile(element.getImagePath());
             carImageIterator.remove();
         }
         saveCar(car);

@@ -49,7 +49,7 @@ public class CarImageServiceImpl implements CarImageService {
     @Override
     public void deleteCarImageById(Long id) {
         CarImage carImage = unwrapUser(carImageRepository.findById(id),id);
-        fileService.deleteFile(carImage.getImagePath(), "car-bucket");
+        fileService.deleteFile(carImage.getImagePath());
 
         carImageRepository.deleteById(id);
     }
