@@ -1,4 +1,4 @@
-package com.example.yallahride.Config;
+package com.example.yallahride.Config.Twillio;
 
 import com.twilio.Twilio;
 import org.slf4j.Logger;

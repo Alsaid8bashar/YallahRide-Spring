@@ -1,4 +1,4 @@
-package com.example.yallahride.Config;
+package com.example.yallahride.Config.Twillio;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +13,9 @@ public class TwilioConfiguration {
 
     @Value( "${auth_token}" )
     private String authToken;
-    @Value( "${trial_number}" )
+    @Value( "${service_sid}" )
 
-    private String trialNumber;
+    private String serviceSid;
 
     public TwilioConfiguration() {
 
@@ -37,11 +37,11 @@ public class TwilioConfiguration {
         this.authToken = authToken;
     }
 
-    public String getTrialNumber() {
-        return trialNumber;
+    public String getServiceSid() {
+        return serviceSid;
     }
 
-    public void setTrialNumber(String trialNumber) {
-        this.trialNumber = trialNumber;
+    public void setServiceSid(String serviceSid) {
+        this.serviceSid = serviceSid;
     }
 }
