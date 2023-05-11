@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         String key = UUID.randomUUID() + user.getMultipartFile().getOriginalFilename();
         user.setImagePath(key);
-        fileService.uploadFile(user.getMultipartFile(), key, "car-bucket");
+        fileService.uploadFile(user.getMultipartFile(), key);
         return userRepository.save(user);
     }
 
