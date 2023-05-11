@@ -2,6 +2,7 @@ package com.example.yallahride.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -23,6 +24,9 @@ public class PageImage {
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
     @ToString.Exclude
     private Page page;
+
+    @Transient
+    MultipartFile multipartFile;
 
     @PreRemove
     private void deleteImageFromPage() {

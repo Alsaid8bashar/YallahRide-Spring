@@ -6,18 +6,24 @@ import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.UserRepository;
+import com.example.yallahride.Service.Interface.FileService;
 import com.example.yallahride.Service.Interface.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
     final private UserRepository userRepository;
+    @Autowired
+    FileService fileService;
+
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -25,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        String key = UUID.randomUUID() + user.getMultipartFile().getOriginalFilename();
+        user.setImagePath(key);
+        fileService.uploadFile(user.getMultipartFile(), key, "car-bucket");
         return userRepository.save(user);
     }
 

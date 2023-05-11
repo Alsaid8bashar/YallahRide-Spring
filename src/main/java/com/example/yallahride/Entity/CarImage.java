@@ -3,6 +3,7 @@ package com.example.yallahride.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -24,10 +25,11 @@ public class CarImage {
     @JoinColumn(name = "car_fk")
     @JsonIgnore
     private Car car;
+    @Transient
+    MultipartFile multipartFile;
 
     @PreRemove
     private void deleteImageFromCar() {
-        System.out.println("car = " + car);
         car.deleteCarImage(this);
     }
 }

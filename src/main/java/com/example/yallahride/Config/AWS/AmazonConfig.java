@@ -1,4 +1,4 @@
-package com.example.yallahride.Config;
+package com.example.yallahride.Config.AWS;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -23,8 +23,7 @@ public class AmazonConfig {
 
     @Bean
     public AmazonS3 s3() {
-        AWSCredentials awsCredentials =
-                new BasicAWSCredentials(accessKey, secretKey);
+        AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
         return AmazonS3ClientBuilder
                 .standard()
                 .withRegion(region)

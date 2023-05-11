@@ -9,6 +9,7 @@ import com.example.yallahride.Repository.PageContentRepository;
 import com.example.yallahride.Repository.PageImagesRepository;
 import com.example.yallahride.Repository.PageRepository;
 import com.example.yallahride.Repository.PageVideoRepository;
+import com.example.yallahride.Service.Interface.FileService;
 import com.example.yallahride.Service.Interface.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PageServiceImpl implements PageService {
@@ -28,6 +30,9 @@ public class PageServiceImpl implements PageService {
     PageContentRepository pageContentRepository;
     @Autowired
     PageVideoRepository pageVideoRepository;
+
+    @Autowired
+    FileService fileService;
 
     public PageServiceImpl(PageRepository pageRepository) {
         this.pageRepository = pageRepository;
@@ -74,13 +79,22 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page addImage(Long pageId, PageImage pageImage) {
+        String key = UUID.randomUUID() + pageImage.getMultipartFile().getOriginalFilename();
+        pageImage.setImagePath(key);
+        fileService.uploadFile(pageImage.getMultipartFile(), key, "car-bucket");
+
         Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addImage(pageImage);
+
         return savePage(page);
     }
 
     @Override
     public Page addVideo(Long pageId, PageVideo pageVideo) {
+        String key = UUID.randomUUID() + pageVideo.getMultipartFile().getOriginalFilename();
+        pageVideo.setVideoPath(key);
+        fileService.uploadFile(pageVideo.getMultipartFile(), key, "car-bucket");
+
         Page page = unwrapPage(pageRepository.findById(pageId),pageId);
         page.addVideo(pageVideo);
         return savePage(page);

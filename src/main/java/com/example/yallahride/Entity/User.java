@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -32,6 +33,8 @@ public class User {
     @Column(name = "image_path")
     @NonNull
     private String imagePath;
+    @Transient
+    MultipartFile multipartFile;
     @Column(name = "about")
     @NonNull
     private String about;

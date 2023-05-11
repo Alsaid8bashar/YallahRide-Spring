@@ -5,6 +5,7 @@ import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.CarImageRepository;
 import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
+import com.example.yallahride.Service.Interface.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ public class CarImageServiceImpl implements CarImageService {
     final CarImageRepository carImageRepository;
     @Autowired
     CarRepository carRepository;
+
+    @Autowired
+    FileService fileService;
 
     public CarImageServiceImpl(CarImageRepository carImageRepository) {
         this.carImageRepository = carImageRepository;
@@ -44,6 +48,9 @@ public class CarImageServiceImpl implements CarImageService {
 
     @Override
     public void deleteCarImageById(Long id) {
+        CarImage carImage = unwrapUser(carImageRepository.findById(id),id);
+        fileService.deleteFile(carImage.getImagePath(), "car-bucket");
+
         carImageRepository.deleteById(id);
     }
 

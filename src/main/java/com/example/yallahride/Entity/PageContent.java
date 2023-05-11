@@ -29,6 +29,7 @@ public class PageContent {
     @ToString.Exclude
     private Page page;
 
+
     @PreRemove
     private void deleteContentFromPage() {
         if (page != null)
