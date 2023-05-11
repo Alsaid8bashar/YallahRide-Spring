@@ -17,6 +17,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @Entity
+@EntityListeners(CarRemovalListener.class)
 @Table(name = "Car")
 public class Car {
     @Id
