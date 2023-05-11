@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "Rate")
+@EntityListeners(RateRemovalListener.class)
 public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,16 +16,16 @@ public class RateRepositoryTest {
 
     @Autowired
     RateRepository rateRepository;
-    Rate report;
+    Rate rate;
 
     @BeforeAll
     public void setup() {
-        report = rateRepository.save(new Rate(1.0));
+        rate = rateRepository.save(new Rate(1.0));
     }
 
     @Test
     @Order(1)
-    public void testCreateRide() {
+    public void testCreateRate() {
         Rate report = rateRepository.save(new Rate(2.0));
         Assertions.assertTrue(report.getId() > 0);
     }
@@ -33,41 +33,50 @@ public class RateRepositoryTest {
 
     @Test
     @Order(2)
-    public void testFindRideById() {
-        Optional<Rate> optionalRide = rateRepository.findById(report.getId());
+    public void testFindRateById() {
+        Optional<Rate> optionalRide = rateRepository.findById(rate.getId());
         Rate tempRide = optionalRide.get();
-        Assertions.assertEquals(tempRide.getId(), report.getId());
+        Assertions.assertEquals(tempRide.getId(), rate.getId());
     }
 
     @Test
     @Order(3)
     @Rollback(value = false)
-    public void testUpdateRide() {
-        Optional<Rate> optionalRide = rateRepository.findById(report.getId());
-        report.setRate(4.0);
-        Rate rideUpdated = rateRepository.save(report);
-        Assertions.assertEquals(report.getRate(), rideUpdated.getRate());
+    public void testUpdateRate() {
+        Optional<Rate> optionalRide = rateRepository.findById(rate.getId());
+        rate.setRate(4.0);
+        Rate rideUpdated = rateRepository.save(rate);
+        Assertions.assertEquals(rate.getRate(), rideUpdated.getRate());
     }
 
     @Test
     @Order(4)
     @Rollback(value = false)
-    public void testFindAllRides() {
+    public void testFindAllRates() {
         List<Rate> rideList = rateRepository.findAll();
         Assertions.assertTrue(rideList.size() > 0);
     }
 
     @Test
     @Order(5)
-    public void testDeleteRideByID() {
-        rateRepository.deleteById(report.getId());
-        Optional<Rate> optionalRide = rateRepository.findById(report.getId());
+    public void testDeleteRateByID() {
+        rateRepository.deleteById(rate.getId());
+        Optional<Rate> optionalRide = rateRepository.findById(rate.getId());
         Assertions.assertTrue(!optionalRide.isPresent());
     }
 
+//    @Test
+//    @Order(5)
+//    public void testDeleteRate() {
+//        rateRepository.delete(rate);
+//        Optional<Rate> optionalRide = rateRepository.findById(rate.getId());
+//        Assertions.assertTrue(!optionalRide.isPresent());
+//    }
+
+
     @Test
     @Order(6)
-    public void testDeleteAllRides() {
+    public void testDeleteAllRates() {
         rateRepository.deleteAll();
         Assertions.assertTrue(rateRepository.count() == 0);
     }

@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @Table(name = "Page_Image")
 public class PageImage {
+    @Transient
+    MultipartFile multipartFile;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "page_image_pk")
@@ -24,9 +26,6 @@ public class PageImage {
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
     @ToString.Exclude
     private Page page;
-
-    @Transient
-    MultipartFile multipartFile;
 
     @PreRemove
     private void deleteImageFromPage() {
