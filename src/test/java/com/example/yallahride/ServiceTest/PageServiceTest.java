@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PageServiceTest {
 
     @Autowired
@@ -30,9 +31,11 @@ public class PageServiceTest {
     PageVideoService pageVideoService;
     Page page;
 
-    @BeforeEach
+    @BeforeAll
     void setPage() {
-        page = pageService.findPageById(5L);
+        page = new Page();
+        pageService.savePage(page);
+        page = pageService.savePage(page);
     }
 
     @Test

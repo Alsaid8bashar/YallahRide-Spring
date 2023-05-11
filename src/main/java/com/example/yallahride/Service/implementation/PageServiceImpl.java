@@ -72,7 +72,6 @@ public class PageServiceImpl implements PageService {
         return savePage(page);
     }
 
-    @Transactional
     @Override
     public Page addImage(Long pageId, PageImage pageImage) {
         Page page = unwrapPage(pageRepository.findById(pageId),pageId);
@@ -80,7 +79,6 @@ public class PageServiceImpl implements PageService {
         return savePage(page);
     }
 
-    @Transactional
     @Override
     public Page addVideo(Long pageId, PageVideo pageVideo) {
         Page page = unwrapPage(pageRepository.findById(pageId),pageId);

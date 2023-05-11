@@ -19,7 +19,7 @@ public class PageVideo {
     @Column(name = "video_path")
     @NonNull
     private String videoPath;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
     @ToString.Exclude
     private Page page;

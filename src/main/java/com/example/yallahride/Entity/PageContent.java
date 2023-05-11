@@ -15,6 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Transactional
 @Table(name = "Page_Content")
+
 public class PageContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

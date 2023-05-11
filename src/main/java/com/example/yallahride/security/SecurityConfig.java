@@ -31,16 +31,17 @@ public class SecurityConfig {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(customAuthenticationManager, accountService);
         authenticationFilter.setFilterProcessesUrl("/authenticate");
         http.csrf().disable()
-                .authorizeRequests()
-                .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
-                .requestMatchers("/account/").permitAll()
-                .requestMatchers("/role/").hasAuthority("ADMIN")
-                .requestMatchers("/ride/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
-                .addFilter(authenticationFilter)
-                .addFilterAfter(new JWTAuthorizationFilter(accountService, jwtUtils), AuthenticationFilter.class)
+//                .authorizeRequests()
+//                .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
+//                .requestMatchers("/account/**").permitAll()
+//                .requestMatchers("/storage/**").permitAll()
+//                .requestMatchers("/role/").hasAuthority("ADMIN")
+//                .requestMatchers("/ride/**").hasAuthority("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
+//                .addFilter(authenticationFilter)
+//                .addFilterAfter(new JWTAuthorizationFilter(accountService, jwtUtils), AuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }

@@ -14,12 +14,12 @@ import lombok.*;
 public class PageImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_pk")
+    @Column(name = "page_image_pk")
     private Long id;
     @Column(name = "image_path")
     @NonNull
     private String imagePath;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
     @ToString.Exclude
     private Page page;
