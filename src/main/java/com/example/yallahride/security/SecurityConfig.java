@@ -8,6 +8,7 @@ import com.example.yallahride.security.filter.JWTAuthorizationFilter;
 import com.example.yallahride.security.filter.JwtUtils;
 import com.example.yallahride.security.manager.CustomAuthenticationManager;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,17 +32,17 @@ public class SecurityConfig {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(customAuthenticationManager, accountService);
         authenticationFilter.setFilterProcessesUrl("/authenticate");
         http.csrf().disable()
-//                .authorizeRequests()
-//                .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
+                .authorizeRequests()
+                .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
 //                .requestMatchers("/account/**").permitAll()
 //                .requestMatchers("/storage/**").permitAll()
-//                .requestMatchers("/role/").hasAuthority("ADMIN")
-//                .requestMatchers("/ride/**").hasAuthority("ADMIN")
-//                .anyRequest().authenticated()
-//                .and()
-//                .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
-//                .addFilter(authenticationFilter)
-//                .addFilterAfter(new JWTAuthorizationFilter(accountService, jwtUtils), AuthenticationFilter.class)
+                .requestMatchers("/role/").hasAuthority("ADMIN")
+                .requestMatchers("/ride/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
+                .addFilter(authenticationFilter)
+                .addFilterAfter(new JWTAuthorizationFilter(accountService, jwtUtils), AuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }

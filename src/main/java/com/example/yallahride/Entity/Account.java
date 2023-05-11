@@ -35,7 +35,7 @@ public class Account implements UserDetails {
     @Column(name = "password_hash", length = 1000)
     private String passwordHash;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NonNull
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")

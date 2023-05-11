@@ -15,27 +15,24 @@ public class PageEntityListener {
 
     FileService fileService;
 
-
-
     @PreRemove
-    public void removeAllPageImages(Page page){
+    public void removeAllPageImages(Page page) {
         List<PageImage> pageImagesList = new ArrayList<>(page.getPageImageSet());
         List<String> keys = new ArrayList<>();
 
-        for(PageImage pageImage : pageImagesList){
+        for (PageImage pageImage : pageImagesList) {
             keys.add(pageImage.getImagePath());
         }
 
         fileService.deleteFiles(keys);
     }
 
-
     @PreRemove
-    public void removeAllPageVideos(Page page){
+    public void removeAllPageVideos(Page page) {
         List<PageVideo> pageVideoList = new ArrayList<>(page.getPageVideoSet());
         List<String> keys = new ArrayList<>();
 
-        for(PageVideo pageVideo : pageVideoList){
+        for (PageVideo pageVideo : pageVideoList) {
             keys.add(pageVideo.getVideoPath());
         }
 
