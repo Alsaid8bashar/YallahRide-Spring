@@ -5,9 +5,12 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 public interface FileService {
 
-    void uploadFile(MultipartFile multipartFile, String bucket);
+
+    void uploadFile(MultipartFile multipartFile, String key,String bucket);
 
     void deleteFile(String key, String bucket);
+
+    void deleteFiles(String key, java.util.List<String> strings, String bucket);
 
     StreamingResponseBody displayFile(String key, String bucket);
 
