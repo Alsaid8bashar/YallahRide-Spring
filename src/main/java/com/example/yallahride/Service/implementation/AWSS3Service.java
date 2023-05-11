@@ -42,7 +42,7 @@ public class AWSS3Service implements FileService {
     }
 
     @Override
-    public void deleteFiles(String key, java.util.List<String> keys, String bucket) {
+    public void deleteFiles( java.util.List<String> keys, String bucket) {
         String arrayKeys[] = new String[keys.size()];
         DeleteObjectsRequest delObjReq = new DeleteObjectsRequest(bucket)
                 .withKeys(Arrays.toString(keys.toArray(arrayKeys)));

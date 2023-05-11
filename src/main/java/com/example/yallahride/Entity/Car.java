@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.example.yallahride.Entity.EntityListener.CarEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @Entity
-@EntityListeners(CarRemovalListener.class)
+@EntityListeners(CarEntityListener.class)
 @Table(name = "Car")
 public class Car {
     @Id
@@ -30,7 +31,6 @@ public class Car {
     private String make;
     @NonNull
     private String model;
-
 
     @NotBlank
     @Column(name = "license_plate")
