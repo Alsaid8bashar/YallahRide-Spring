@@ -28,7 +28,7 @@ public class PageVideoServiceImpl implements PageVideoService {
     public PageVideo savePageVideo(PageVideo pageVideo) {
         String key = UUID.randomUUID() + pageVideo.getMultipartFile().getOriginalFilename();
         pageVideo.setVideoPath(key);
-        fileService.uploadFile(pageVideo.getMultipartFile(), key, "car-bucket");
+        fileService.uploadFile(pageVideo.getMultipartFile(), key);
 
         return pageVideoRepository.save(pageVideo);
     }
@@ -56,7 +56,7 @@ public class PageVideoServiceImpl implements PageVideoService {
     @Override
     public void deletePageVideoById(Long id) {
         PageVideo pageVideo = unwrapPageVideo(pageVideoRepository.findById(id),id);
-        fileService.deleteFile(pageVideo.getVideoPath(), "car-bucket");
+        fileService.deleteFile(pageVideo.getVideoPath());
 
         pageVideoRepository.deleteById(id);
     }

@@ -22,7 +22,7 @@ public class FileStorageController {
 
     @GetMapping("/{key}")
     public ResponseEntity<StreamingResponseBody> getFile(@PathVariable String key) {
-        return new ResponseEntity<>(fileService.displayFile(key, "yallah-ride-bucket"),OK);
+        return new ResponseEntity<>(fileService.displayFile(key),OK);
     }
 
     @PostMapping("/upload")
@@ -33,7 +33,7 @@ public class FileStorageController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteFile(@RequestParam String key) {
-        fileService.deleteFile(key, "yallah-ride-bucket");
+        fileService.deleteFile(key);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

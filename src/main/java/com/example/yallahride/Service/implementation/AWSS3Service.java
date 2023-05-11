@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.example.yallahride.Service.Interface.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
@@ -20,10 +21,12 @@ public class AWSS3Service implements FileService {
 
     @Autowired
     AmazonS3 s3client;
+    @Value("aws.s3.bucketName")
+    String bucket;
 
 
     @Override
-    public void uploadFile(MultipartFile multipartFile, String key, String bucket) {
+    public void uploadFile(MultipartFile multipartFile, String key) {
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getSize());
@@ -37,12 +40,12 @@ public class AWSS3Service implements FileService {
     }
 
     @Override
-    public void deleteFile(String key, String bucket) {
+    public void deleteFile(String key) {
         s3client.deleteObject(bucket, key);
     }
 
     @Override
-    public void deleteFiles(String key, java.util.List<String> keys, String bucket) {
+    public void deleteFiles(java.util.List<String> keys) {
         String arrayKeys[] = new String[keys.size()];
         DeleteObjectsRequest delObjReq = new DeleteObjectsRequest(bucket)
                 .withKeys(Arrays.toString(keys.toArray(arrayKeys)));
@@ -50,7 +53,7 @@ public class AWSS3Service implements FileService {
     }
 
     @Override
-    public StreamingResponseBody displayFile(String key, String bucket) {
+    public StreamingResponseBody displayFile(String key) {
         S3Object s3object = s3client.getObject(bucket, key);
         S3ObjectInputStream inputStream = s3object.getObjectContent();
 
