@@ -39,7 +39,7 @@ public class Car {
     @Column(name = "model_year")
     @NonNull
     private int modelYear;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
     @JsonIgnore

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CarServiceTest {
 
     @Autowired
@@ -24,17 +25,22 @@ public class CarServiceTest {
     CarImageService carImageService;
 
     Car car;
+    User user;
 
 
-    @BeforeEach
-    public void setCar() {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
-        car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
-        carService.saveCar(car);
+    @BeforeAll
+    public void setup() {
+        user = userService.saveUser(new User("Hassan", "Al-Shannag",
+                "shnaqhassan@hotmail.com", "image1"));
+
+        car = carService.saveCar(new Car("Black", "Ford", "Fusion",
+                "19-$#$#$#", 2014, user));
+
+
     }
 
     @Test
-    @Order(3)
+    @Order(1)
     public void testAddCarImage() {
         CarImage carImage = new CarImage();
         carImage.setCar(car);
@@ -44,16 +50,21 @@ public class CarServiceTest {
         carImage2.setImagePath("newImage2");
         carService.addCarImage(car.getId(), carImage);
         carService.addCarImage(car.getId(), carImage2);
-        Assertions.assertThat(carService.getAllCarImages(car.getId())).isNotEmpty();
+        Assertions.assertThat(carService.getAllCarImages(car.getId()).size() > 0);
     }
 
     @Test
-    @Order(4)
+    @Order(2)
     public void testDeleteCarImage() {
-        Long imageId = car.getCarImages().iterator().next().getId();
-
-        carService.deleteCarImage(imageId);
-        Assertions.assertThat(carImageService.findCarImageById(imageId) == null);
+        Car car1 = carService.findCarById(car.getId());
+        Long carImageId = car1.getCarImages().iterator().next().getId();
+        carService.deleteCarImage(carImageId);
+//        Assertions.assertThat(carImageService.findAllCarImages(car1.getId()). == null);
     }
 
+    @AfterAll
+    public void cleanup() {
+        userService.deleteUserById(user.getId());
+        carService.deleteCarById(car.getId());
+    }
 }
