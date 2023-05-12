@@ -1,5 +1,6 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.EntityListener.UserEventListener;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Entity.TravelPreference;
@@ -24,22 +25,32 @@ public class UserServiceImpl implements UserService {
     @Autowired
     FileService fileService;
 
+    @Autowired
+    UserEventListener userEventListener;
+
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    static User unwrapUser(Optional<User> user, Long id) {
+        if (user.isPresent()) return user.get();
+        else throw new EntityNotFoundException(id, User.class);
+    }
+
     @Override
     public User saveUser(User user) {
-        String key = UUID.randomUUID() + user.getMultipartFile().getOriginalFilename();
-        user.setImagePath(key);
-        fileService.uploadFile(user.getMultipartFile(), key);
+        if (user.getMultipartFile() != null) {
+            String key = UUID.randomUUID() + user.getMultipartFile().getOriginalFilename();
+            user.setImagePath(key);
+            fileService.uploadFile(user.getMultipartFile(), key);
+        }
         return userRepository.save(user);
     }
 
     @Override
     public User findUserById(Long id) {
-        return unwrapUser(userRepository.findById(id),id);
+        return unwrapUser(userRepository.findById(id), id);
     }
 
     @Override
@@ -54,6 +65,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
+        User user = findUserById(id);
+        userEventListener.removeUserImage(user);
         userRepository.deleteById(id);
     }
 
@@ -139,11 +152,6 @@ public class UserServiceImpl implements UserService {
 
         user.deleteRide(ride);
         return saveUser(user);
-    }
-
-    static User unwrapUser(Optional<User> user, Long id) {
-        if (user.isPresent()) return user.get();
-        else throw new EntityNotFoundException(id, User.class);
     }
 
 

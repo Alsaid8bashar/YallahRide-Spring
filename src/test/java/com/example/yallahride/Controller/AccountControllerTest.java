@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Arrays;
@@ -21,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AccountController.class)
-@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 public class AccountControllerTest {
     @MockBean
     AccountService accountService;
@@ -33,6 +34,7 @@ public class AccountControllerTest {
 
 
     @Test
+    @WithMockUser
     public void testGetAccount() throws Exception {
         Account account = new Account("basharalsaid@gmail.com", "0797453540", "12131", new User());
         account.setId(1L);

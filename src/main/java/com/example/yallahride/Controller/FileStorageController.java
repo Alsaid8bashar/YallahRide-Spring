@@ -14,7 +14,6 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("storage")
-
 public class FileStorageController {
 
     @Autowired

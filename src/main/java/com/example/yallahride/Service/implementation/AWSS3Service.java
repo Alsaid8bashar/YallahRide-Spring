@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.example.yallahride.Service.Interface.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
@@ -16,12 +17,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-@Service
+@Component
 public class AWSS3Service implements FileService {
 
     @Autowired
     AmazonS3 s3client;
-    @Value("aws.s3.bucketName")
+    @Value("${aws.s3.bucketName}")
     String bucket;
 
 
