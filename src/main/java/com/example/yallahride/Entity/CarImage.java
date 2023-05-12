@@ -22,7 +22,7 @@ public class CarImage {
     @NonNull
     private String imagePath;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_fk")
+    @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
     @JsonIgnore
     private Car car;
     @Transient
