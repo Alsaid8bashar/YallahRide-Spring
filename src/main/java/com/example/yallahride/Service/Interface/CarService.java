@@ -2,6 +2,7 @@ package com.example.yallahride.Service.Interface;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
+import jakarta.persistence.PreRemove;
 
 import java.util.Collection;
 import java.util.List;

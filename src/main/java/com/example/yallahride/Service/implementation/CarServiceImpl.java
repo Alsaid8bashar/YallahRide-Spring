@@ -2,33 +2,30 @@ package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
+import com.example.yallahride.Entity.EntityListener.CarEventListener;
 import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.FileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-@Transactional
+@RequiredArgsConstructor
 @Service
 public class CarServiceImpl implements CarService {
 
-    final private CarRepository carRepository;
 
-    final private CarImageService carImageService;
-    @Autowired
+    CarRepository carRepository;
+    CarImageService carImageService;
+    CarEventListener carEventListener;
     FileService fileService;
 
-
-    public CarServiceImpl(CarRepository carRepository, CarImageService carImageService) {
-        this.carRepository = carRepository;
-        this.carImageService = carImageService;
-    }
 
     static Car unwrapCar(Optional<Car> entity, Long id) {
         if (entity.isPresent()) return entity.get();
@@ -58,6 +55,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCarById(Long id) {
+        carEventListener.onCarRemoval(unwrapCar(carRepository.findById(id), id));
         carRepository.deleteById(id);
     }
 
@@ -72,8 +70,6 @@ public class CarServiceImpl implements CarService {
         String key = UUID.randomUUID() + carImage.getMultipartFile().getOriginalFilename();
         carImage.setImagePath(key);
         fileService.uploadFile(carImage.getMultipartFile(), key);
-
-
         Car car = unwrapCar(carRepository.findById(carId), carId);
         car.addCarImage(carImage);
         return saveCar(car);

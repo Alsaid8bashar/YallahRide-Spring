@@ -22,11 +22,12 @@ public class CarRepositoryTest {
     @Autowired
     UserRepository userRepository;
     Car car;
+    User user;
 
     @BeforeAll
     public void setup() {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
-        car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
+        user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
+        car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         carRepository.save(car);
     }
 
@@ -60,6 +61,7 @@ public class CarRepositoryTest {
     @Test
     @Order(5)
     public void testDeleteCarByID() {
+        car.getId();
         carRepository.deleteById(car.getId());
         Assertions.assertFalse(carRepository.findAll().contains(car));
     }

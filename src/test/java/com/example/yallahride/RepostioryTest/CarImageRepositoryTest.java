@@ -5,6 +5,8 @@ import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Repository.CarImageRepository;
 import com.example.yallahride.Repository.CarRepository;
+import com.example.yallahride.Service.Interface.CarService;
+import com.example.yallahride.Service.Interface.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,23 +21,25 @@ public class CarImageRepositoryTest {
 
     @Autowired
     CarImageRepository carImageRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    CarService carService;
     CarImage carImage;
     User user;
     Car car;
 
     @BeforeAll
     public void setup() {
-        user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
-        car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
-        carImage = new CarImage("carImagePath1");
-        carImage.setCar(car);
-        carImage = carImageRepository.save(carImage);
+        user = userService.saveUser(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
+        car = carService.saveCar(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
     }
 
     @Test
     @Order(1)
     @Rollback(value = false)
     public void testCreateCarImage() {
+        carImage = carImageRepository.save(new CarImage("carImagePath1"));
         Assertions.assertTrue(carImage.getId() > 0);
     }
 
