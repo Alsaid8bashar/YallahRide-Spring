@@ -41,7 +41,7 @@ public class RideControllerTest {
 
     @Test
     public void testCreateRide() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com");
         Ride ride = new Ride("Amman", "irbid", 4, user);
         ride.setId(1L);
 
@@ -59,7 +59,7 @@ public class RideControllerTest {
 
     @Test
     public void testUpdateRide() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com");
         Ride ride = new Ride("Amman", "irbid", 4, user);
         ride.setId(1L);
 
@@ -136,7 +136,7 @@ public class RideControllerTest {
 
     @Test
     public void testFindAllRideReports() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1");
+        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com");
         Ride ride = new Ride("Amman", "irbid", 4, user);
 
         Set<Report> reports = new HashSet<>();

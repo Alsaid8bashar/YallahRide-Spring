@@ -41,9 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         if (user.getMultipartFile() != null) {
-            String key = UUID.randomUUID() + user.getMultipartFile().getOriginalFilename();
-            user.setImagePath(key);
-            fileService.uploadFile(user.getMultipartFile(), key);
+            user.setImagePath(fileService.uploadFile(user.getMultipartFile()));
         }
         return userRepository.save(user);
     }

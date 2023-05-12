@@ -23,7 +23,7 @@ public class ReportServiceTest {
 
     @BeforeAll
     public void setUp() {
-        user = new User("Hasan", "ahamd", "hasan97@gmail.com", "newImage");
+        user = new User("Hasan", "ahamd", "hasan97@gmail.com");
         userService.saveUser(user);
     }
 

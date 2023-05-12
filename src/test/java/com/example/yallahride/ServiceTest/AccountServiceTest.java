@@ -21,7 +21,7 @@ public class AccountServiceTest {
 
     @BeforeAll
     public void setup() {
-        user = userService.saveUser(new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!"));
+        user = userService.saveUser(new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!"));
         account = accountService.saveAccount(new Account("$12$URyEGDnS0@$12$URyEGDnS0.com", "+$12$URyEGDnS0", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
     }
 

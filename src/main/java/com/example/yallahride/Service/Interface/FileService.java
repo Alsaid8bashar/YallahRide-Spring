@@ -1,7 +1,5 @@
 package com.example.yallahride.Service.Interface;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
@@ -10,7 +8,7 @@ import java.util.List;
 public interface FileService {
 
 
-    void uploadFile(MultipartFile multipartFile, String key);
+    String uploadFile(MultipartFile multipartFile);
 
     void deleteFile(String key);
 
@@ -18,5 +16,7 @@ public interface FileService {
     void deleteFiles(List<String> strings);
 
     StreamingResponseBody displayFile(String key);
+
+    List<String> getBucketKeys();
 
 }

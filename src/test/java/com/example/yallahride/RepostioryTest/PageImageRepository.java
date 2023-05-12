@@ -20,7 +20,7 @@ public class PageImageRepository {
 
     @BeforeAll
     public void setup() {
-        pageImage = new PageImage("newImage");
+        pageImage = new PageImage();
         pageImage.setPage(new Page());
         pageImagesRepository.save(pageImage);
     }
@@ -28,7 +28,7 @@ public class PageImageRepository {
     @Test
     @Order(1)
     public void testCreatePageImage() {
-        PageImage pageImage = new PageImage("newImage");
+        PageImage pageImage = new PageImage();
         Page page = new Page();
         pageImage.setPage(page);
         pageImagesRepository.save(pageImage);

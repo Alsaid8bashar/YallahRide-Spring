@@ -10,12 +10,8 @@ import java.util.ArrayList;
 
 @Component
 public class CarEventListener {
-
-
-
     @Autowired
     FileService fileService;
-
 
     public void onCarRemoval(Car car) {
         java.util.List<String> keys = new ArrayList<>();

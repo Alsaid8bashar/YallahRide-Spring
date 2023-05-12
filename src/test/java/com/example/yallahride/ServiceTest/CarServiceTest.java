@@ -7,10 +7,10 @@ import com.example.yallahride.Entity.User;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.UserService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -31,12 +31,9 @@ public class CarServiceTest {
     @BeforeAll
     public void setup() {
         user = userService.saveUser(new User("Hassan", "Al-Shannag",
-                "shnaqhassan@hotmail.com", "image1"));
-
+                "shnaqhassan@hotmail.com"));
         car = carService.saveCar(new Car("Black", "Ford", "Fusion",
                 "19-$#$#$#", 2014, user));
-
-
     }
 
     @Test
@@ -44,13 +41,16 @@ public class CarServiceTest {
     public void testAddCarImage() {
         CarImage carImage = new CarImage();
         carImage.setCar(car);
-        carImage.setImagePath("newImage");
+        carImage.setMultipartFile(new MockMultipartFile("carImage1.png","carImage1.png".getBytes()));
+
+
         CarImage carImage2 = new CarImage();
         carImage.setCar(car);
-        carImage2.setImagePath("newImage2");
+        carImage2.setMultipartFile(new MockMultipartFile("carImage2.png", "carImage2.png".getBytes()));
+
         carService.addCarImage(car.getId(), carImage);
         carService.addCarImage(car.getId(), carImage2);
-        Assertions.assertThat(carService.getAllCarImages(car.getId()).size() > 0);
+        Assertions.assertTrue(carService.getAllCarImages(car.getId()).size() > 0);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class CarServiceTest {
 
     @AfterAll
     public void cleanup() {
-        userService.deleteUserById(user.getId());
         carService.deleteCarById(car.getId());
+        userService.deleteUserById(user.getId());
     }
 }

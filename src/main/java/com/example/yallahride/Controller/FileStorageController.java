@@ -26,7 +26,7 @@ public class FileStorageController {
 
     @PostMapping("/upload")
     public ResponseEntity<HttpStatus> uploadFile(@RequestPart("videoFile") MultipartFile multipartFile) {
-//        fileService.uploadFile(multipartFile, "yallah-ride-bucket");
+        fileService.uploadFile(multipartFile);
         return new ResponseEntity<>(CREATED);
     }
 

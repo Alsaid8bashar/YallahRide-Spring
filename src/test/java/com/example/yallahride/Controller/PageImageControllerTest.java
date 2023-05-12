@@ -34,7 +34,7 @@ public class PageImageControllerTest {
     @Test
     public void testGetPageImage() throws Exception {
         Long pageImageId = 1L;
-        PageImage pageImage = new PageImage( "image.jpg");
+        PageImage pageImage = new PageImage( );
         pageImage.setId(pageImageId);
 
 
@@ -50,7 +50,7 @@ public class PageImageControllerTest {
     @Test
     public void testSavePageImage() throws Exception {
         Long pageImageId = 1L;
-        PageImage pageImage = new PageImage( "image.jpg");
+        PageImage pageImage = new PageImage( );
         pageImage.setId(pageImageId);
 
 
@@ -79,8 +79,8 @@ public class PageImageControllerTest {
     @Test
     public void testGetPageImages() throws Exception {
         java.util.List<PageImage> pageImages = Arrays.asList(
-                new PageImage( "image1.jpg"),
-                new PageImage( "image2.jpg"));
+                new PageImage(),
+                new PageImage( ));
 
         when(pageImageService.findAllPageImages()).thenReturn(pageImages);
         mockMvc.perform(MockMvcRequestBuilders.get("/page-image/all")

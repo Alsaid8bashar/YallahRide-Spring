@@ -12,6 +12,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -46,14 +48,6 @@ public class PageServiceTest {
         Assertions.assertThat(pageService.findPageById(page.getId())).isNotNull();
     }
 
-    @Test
-    void deletePage() {
-        Page page = new Page();
-        pageService.savePage(page);
-        Long id = page.getId();
-        pageService.deletePageById(id);
-        Assertions.assertThat(pageService.findAllPages().contains(page)).isFalse();
-    }
 
     @Test
     @Order(2)
@@ -68,8 +62,8 @@ public class PageServiceTest {
     @Test
     @Order(3)
     void addPageImage() {
-        PageImage pageImage = new PageImage();
-        pageImage.setImagePath("./newHomePage");
+        MultipartFile multipartFile = new MockMultipartFile("image1.png", "image1.png!".getBytes());
+        PageImage pageImage = new PageImage(multipartFile);
         pageImage.setPage(page);
         pageService.addImage(page.getId(), pageImage);
         Assertions.assertThat(pageService.getPageImages(page.getId())).isNotEmpty();
@@ -78,8 +72,8 @@ public class PageServiceTest {
     @Test
     @Order(4)
     void addPageVideos() {
-        PageVideo pageVideo = new PageVideo();
-        pageVideo.setVideoPath("./newHomeVideo");
+        MultipartFile multipartFile = new MockMultipartFile("video.mp3", "video.mp3!".getBytes());
+        PageVideo pageVideo = new PageVideo(multipartFile);
         pageVideo.setPage(page);
         pageService.addVideo(page.getId(), pageVideo);
         Assertions.assertThat(pageService.getPageVideos(page.getId())).isNotEmpty();
@@ -95,7 +89,6 @@ public class PageServiceTest {
     @Order(6)
     void getPageImages() {
         Assertions.assertThat(pageService.getPageImages(page.getId())).isNotEmpty();
-
     }
 
     @Test
@@ -104,4 +97,11 @@ public class PageServiceTest {
         Assertions.assertThat(pageService.getPageVideos(page.getId())).isNotEmpty();
     }
 
+    @Test
+    @Order(8)
+    void deletePage() {
+        Long id = page.getId();
+        pageService.deletePageById(id);
+        Assertions.assertThat(pageService.findAllPages().contains(page)).isFalse();
+    }
 }

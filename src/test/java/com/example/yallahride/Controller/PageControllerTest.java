@@ -120,7 +120,7 @@ public class PageControllerTest {
         page.setId(1L);
 
 
-        PageImage pageImage = new PageImage("HomeImage");
+        PageImage pageImage = new PageImage();
         pageImage.setId(1L);
         pageImage.setPage(page);
 
@@ -140,7 +140,7 @@ public class PageControllerTest {
         page.setId(1L);
 
 
-        PageVideo pageVideo = new PageVideo("HomeVideo");
+        PageVideo pageVideo = new PageVideo();
         pageVideo.setId(1L);
         pageVideo.setPage(page);
 
@@ -181,8 +181,8 @@ public class PageControllerTest {
         Long pageId = 1L;
 
         Collection<PageImage> pageImages = Arrays.asList(
-                new PageImage("image1.jpg"),
-                new PageImage("image2.jpg")
+                new PageImage(),
+                new PageImage()
         );
         when(pageService.getPageImages(pageId)).thenReturn(pageImages);
 
@@ -198,9 +198,8 @@ public class PageControllerTest {
     public void testGetPageVideos() throws Exception {
         Long pageId = 1L;
         Collection<PageVideo> pageVideos = Arrays.asList(
-                new PageVideo("video1.mp4"),
-                new PageVideo("video2.mp4")
-        );
+                new PageVideo(),
+                new PageVideo());
         when(pageService.getPageVideos(pageId)).thenReturn(pageVideos);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/page/videos")

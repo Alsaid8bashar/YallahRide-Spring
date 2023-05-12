@@ -51,7 +51,7 @@ public class AccountControllerTest {
 
     @Test
     public void testSaveAccount() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
+        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!");
         Account account = new Account("shnaqhassan@hotmail.com", "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user);
 
         when(accountService.saveAccount(account)).thenReturn(account);
@@ -66,7 +66,7 @@ public class AccountControllerTest {
 
     @Test
     public void testUpdateAccount() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "image1", "Hi, I'm Hasan al Shannag!");
+        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!");
         Account account = new Account("shnaqhassan@hotmail.com", "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user);
 
 

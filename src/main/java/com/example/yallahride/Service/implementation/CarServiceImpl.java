@@ -3,34 +3,31 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Entity.EntityListener.CarEventListener;
-import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.FileService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-@RequiredArgsConstructor
+
 @Service
 public class CarServiceImpl implements CarService {
 
-
+    @Autowired
     CarRepository carRepository;
+    @Autowired
     CarImageService carImageService;
+    @Autowired
     CarEventListener carEventListener;
+    @Autowired
     FileService fileService;
 
 
-    static Car unwrapCar(Optional<Car> entity, Long id) {
-        if (entity.isPresent()) return entity.get();
-        throw new EntityNotFoundException(id, Car.class);
-    }
+
 
     @Override
     public Car saveCar(Car car) {
@@ -67,9 +64,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car addCarImage(Long carId, CarImage carImage) {
-        String key = UUID.randomUUID() + carImage.getMultipartFile().getOriginalFilename();
-        carImage.setImagePath(key);
-        fileService.uploadFile(carImage.getMultipartFile(), key);
+        carImage.setImagePath(fileService.uploadFile(carImage.getMultipartFile()));
         Car car = unwrapCar(carRepository.findById(carId), carId);
         car.addCarImage(carImage);
         return saveCar(car);
@@ -95,5 +90,10 @@ public class CarServiceImpl implements CarService {
             carImageIterator.remove();
         }
         saveCar(car);
+    }
+
+    static Car unwrapCar(Optional<Car> entity, Long id) {
+        if (entity.isPresent()) return entity.get();
+        throw new EntityNotFoundException(id, Car.class);
     }
 }

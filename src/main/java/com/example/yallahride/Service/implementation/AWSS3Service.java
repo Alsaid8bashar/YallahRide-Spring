@@ -1,33 +1,40 @@
 package com.example.yallahride.Service.implementation;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.DeleteObjectsRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.*;
 import com.example.yallahride.Service.Interface.FileService;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-@Component
+@Service
 public class AWSS3Service implements FileService {
 
-    @Autowired
-    AmazonS3 s3client;
+    final AmazonS3 s3client;
+    Logger logger = LoggerFactory.getLogger(AWSS3Service.class);
     @Value("${aws.s3.bucketName}")
     String bucket;
 
+    @Autowired
+    public AWSS3Service(AmazonS3 s3client) {
+        this.s3client = s3client;
+    }
+
 
     @Override
-    public void uploadFile(MultipartFile multipartFile, String key) {
+    public String uploadFile(MultipartFile multipartFile) {
+        String key = UUID.randomUUID() + multipartFile.getOriginalFilename();
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getSize());
@@ -35,31 +42,57 @@ public class AWSS3Service implements FileService {
 
         try {
             s3client.putObject(bucket, key, multipartFile.getInputStream(), objectMetadata);
+            return key;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @SneakyThrows
     @Override
     public void deleteFile(String key) {
-        s3client.deleteObject(bucket, key);
+        if (key == null)
+           return;
+
+        boolean fileExists = s3client.doesObjectExist(bucket, key);
+        if (fileExists) {
+            s3client.deleteObject(bucket, key);
+        } else {
+            throw new FileNotFoundException("File not found: " + key);
+        }
     }
 
     @Override
-
     public void deleteFiles(java.util.List<String> keys) {
-        String arrayKeys[] = new String[keys.size()];
-        DeleteObjectsRequest delObjReq = new DeleteObjectsRequest(bucket)
-                .withKeys(Arrays.toString(keys.toArray(arrayKeys)));
-        s3client.deleteObjects(delObjReq);
+        List<String> keysToDelete = new ArrayList<>();
+        for (String key : keys) {
+            boolean fileExists = s3client.doesObjectExist(bucket, key);
+            if (fileExists) {
+                keysToDelete.add(key);
+            } else {
+                logger.warn("File not found: {}", key);
+            }
+        }
+
+        if (!keysToDelete.isEmpty()) {
+            String[] arrayKeys = keysToDelete.toArray(new String[0]);
+            DeleteObjectsRequest delObjReq = new DeleteObjectsRequest(bucket)
+                    .withKeys(arrayKeys);
+            s3client.deleteObjects(delObjReq);
+        }
     }
 
+    @SneakyThrows
     @Override
     public StreamingResponseBody displayFile(String key) {
+        boolean fileExists = s3client.doesObjectExist(bucket, key);
+        if (!fileExists) {
+            throw new FileNotFoundException("Key not found: " + key);
+        }
         S3Object s3object = s3client.getObject(bucket, key);
         S3ObjectInputStream inputStream = s3object.getObjectContent();
 
-        StreamingResponseBody body = outputStream -> {
+        return outputStream -> {
             int numberOfBytesToWrite = 0;
             byte[] data = new byte[1024];
             while ((numberOfBytesToWrite = inputStream.read(data, 0, data.length)) != -1) {
@@ -67,7 +100,15 @@ public class AWSS3Service implements FileService {
             }
             inputStream.close();
         };
+    }
 
-        return body;
+    @Override
+    public List<String> getBucketKeys() {
+        ObjectListing objectListing = s3client.listObjects(bucket);
+        List<String> keys = new ArrayList<>();
+        for (S3ObjectSummary os : objectListing.getObjectSummaries()) {
+            keys.add(os.getKey());
+        }
+        return keys;
     }
 }

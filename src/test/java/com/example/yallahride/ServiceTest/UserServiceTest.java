@@ -25,7 +25,7 @@ public class UserServiceTest {
 
     @BeforeAll
     public void setUp() {
-        user = new User("Bashar", "ahamd", "basharalsaid17@gmail.com", "newImage");
+        user = new User("Bashar", "ahamd", "basharalsaid17@gmail.com");
         userService.saveUser(user);
     }
 

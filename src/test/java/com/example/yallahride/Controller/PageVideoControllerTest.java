@@ -33,7 +33,7 @@ public class PageVideoControllerTest {
     @Test
     public void testGetPageVideo() throws Exception {
         Long pageVideoId = 1L;
-        PageVideo pageVideo = new PageVideo("video.mp4");
+        PageVideo pageVideo = new PageVideo();
         pageVideo.setId(pageVideoId);
 
         when(pageVideoService.findPageVideoById(pageVideoId)).thenReturn(pageVideo);
@@ -46,7 +46,7 @@ public class PageVideoControllerTest {
 
     @Test
     public void testSavePageVideo() throws Exception {
-        PageVideo pageVideo = new PageVideo("video.mp4");
+        PageVideo pageVideo = new PageVideo();
         pageVideo.setId(1L);
 
         when(pageVideoService.savePageVideo(pageVideo)).thenReturn(pageVideo);
@@ -76,8 +76,8 @@ public class PageVideoControllerTest {
     @Test
     public void testGetPageVideos() throws Exception {
         java.util.List<PageVideo> pageVideos = Arrays.asList(
-                new PageVideo("video1.mp4"),
-                new PageVideo("video2.mp4")
+                new PageVideo(),
+                new PageVideo()
         );
         when(pageVideoService.findAllPageVideos()).thenReturn(pageVideos);
 

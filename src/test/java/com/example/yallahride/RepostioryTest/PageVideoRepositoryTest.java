@@ -21,7 +21,7 @@ public class PageVideoRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        pageVideo = new PageVideo("newImage");
+        pageVideo = new PageVideo();
         pageVideo.setPage(new Page());
         pageVideoRepository.save(pageVideo);
     }
@@ -29,7 +29,7 @@ public class PageVideoRepositoryTest {
     @Test
     @Order(1)
     public void testCreatePageVideo() {
-        PageVideo pageVideo = new PageVideo("newImage");
+        PageVideo pageVideo = new PageVideo();
         pageVideo.setPage(new Page());
         pageVideoRepository.save(pageVideo);
         Assertions.assertTrue(pageVideoRepository.findAll().contains(pageVideo));

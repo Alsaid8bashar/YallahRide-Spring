@@ -31,7 +31,7 @@ public class CarImageRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        user = userService.saveUser(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com", "image1"));
+        user = userService.saveUser(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com"));
         car = carService.saveCar(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
     }
 

@@ -8,26 +8,25 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @ToString
 @Entity
-@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "Page_Video")
 public class PageVideo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "page_video_pk")
     private Long id;
     @Column(name = "video_path")
-    @NonNull
     private String videoPath;
     @ManyToOne
     @JoinColumn(name = "page_fk", referencedColumnName = "page_pk")
     @ToString.Exclude
     private Page page;
-
     @Transient
+    @NonNull
     MultipartFile multipartFile;
-
     @PreRemove
     private void deleteVideoFromPage() {
         if (page != null)

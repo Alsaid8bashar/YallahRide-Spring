@@ -12,20 +12,19 @@ import com.example.yallahride.Service.Interface.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PageServiceImpl implements PageService {
 
-    @Autowired
-    PageEnventListener pageEnventListener;
-
     final FileService fileService;
     private final PageRepository pageRepository;
+    @Autowired
+    PageEnventListener pageEnventListener;
 
     public PageServiceImpl(PageRepository pageRepository, FileService fileService) {
         this.pageRepository = pageRepository;
@@ -80,10 +79,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page addImage(Long pageId, PageImage pageImage) {
-        String key = UUID.randomUUID() + pageImage.getMultipartFile().getOriginalFilename();
-        pageImage.setImagePath(key);
-        fileService.uploadFile(pageImage.getMultipartFile(), key);
-
+        pageImage.setImagePath(fileService.uploadFile(pageImage.getMultipartFile()));
         Page page = unwrapPage(pageRepository.findById(pageId), pageId);
         page.addImage(pageImage);
 
@@ -92,11 +88,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page addVideo(Long pageId, PageVideo pageVideo) {
-
-        String key = UUID.randomUUID() + pageVideo.getMultipartFile().getOriginalFilename();
-        pageVideo.setVideoPath(key);
-        fileService.uploadFile(pageVideo.getMultipartFile(), key);
-
+        pageVideo.setVideoPath(fileService.uploadFile(pageVideo.getMultipartFile()));
         Page page = unwrapPage(pageRepository.findById(pageId), pageId);
         page.addVideo(pageVideo);
         return savePage(page);
@@ -117,4 +109,5 @@ public class PageServiceImpl implements PageService {
     public Collection<PageVideo> getPageVideos(Long pageId) {
         return unwrapPage(pageRepository.findById(pageId), pageId).getPageVideoSet();
     }
+
 }

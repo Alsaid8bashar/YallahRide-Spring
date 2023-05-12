@@ -31,7 +31,6 @@ public class User {
     @NonNull
     private String lastName;
     @Column(name = "image_path")
-    @NonNull
     private String imagePath;
     @Transient
     MultipartFile multipartFile;

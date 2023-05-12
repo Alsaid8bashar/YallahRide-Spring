@@ -1,7 +1,5 @@
 package com.example.yallahride.Service.implementation;
 
-import com.example.yallahride.Entity.CarImage;
-import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.PageVideoRepository;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PageVideoServiceImpl implements PageVideoService {
@@ -22,20 +19,22 @@ public class PageVideoServiceImpl implements PageVideoService {
     @Autowired
     FileService fileService;
 
+    static PageVideo unwrapPageVideo(Optional<PageVideo> pageVideo, Long id) {
+        if (pageVideo.isPresent()) return pageVideo.get();
+        else throw new EntityNotFoundException(id, PageVideo.class);
+    }
 
     @Override
 
     public PageVideo savePageVideo(PageVideo pageVideo) {
-        String key = UUID.randomUUID() + pageVideo.getMultipartFile().getOriginalFilename();
-        pageVideo.setVideoPath(key);
-        fileService.uploadFile(pageVideo.getMultipartFile(), key);
+        pageVideo.setVideoPath(fileService.uploadFile(pageVideo.getMultipartFile()));
 
         return pageVideoRepository.save(pageVideo);
     }
 
     @Override
     public PageVideo findPageVideoById(Long id) {
-        return unwrapPageVideo(pageVideoRepository.findById(id),id);
+        return unwrapPageVideo(pageVideoRepository.findById(id), id);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class PageVideoServiceImpl implements PageVideoService {
 
     @Override
     public void deletePageVideoById(Long id) {
-        PageVideo pageVideo = unwrapPageVideo(pageVideoRepository.findById(id),id);
+        PageVideo pageVideo = unwrapPageVideo(pageVideoRepository.findById(id), id);
         fileService.deleteFile(pageVideo.getVideoPath());
 
         pageVideoRepository.deleteById(id);
@@ -64,10 +63,5 @@ public class PageVideoServiceImpl implements PageVideoService {
     @Override
     public long getNumberOfPageVideo() {
         return pageVideoRepository.count();
-    }
-
-    static PageVideo unwrapPageVideo(Optional<PageVideo> pageVideo, Long id) {
-        if (pageVideo.isPresent()) return pageVideo.get();
-        else throw new EntityNotFoundException(id, PageVideo.class);
     }
 }
