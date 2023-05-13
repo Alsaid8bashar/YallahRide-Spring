@@ -13,6 +13,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.multipart.MultipartFile;
 
 @SpringBootTest
@@ -74,7 +75,9 @@ public class PageServiceTest {
     @Order(4)
     void addPageImage() {
         MultipartFile multipartFile = new MockMultipartFile("image1.png", "image1.png!".getBytes());
-        pageImage = pageImageService.savePageImage(new PageImage(multipartFile));
+        PageImage pageImage=new PageImage();
+        pageImage.setMultipartFile(multipartFile);
+        pageImage = pageImageService.savePageImage(pageImage);
         page = pageService.addImage(page.getId(), pageImage);
         Assertions.assertThat(page.getPageImageSet().size() > 0);
     }
@@ -83,7 +86,9 @@ public class PageServiceTest {
     @Order(5)
     void addPageVideos() {
         MultipartFile multipartFile = new MockMultipartFile("video.mp3", "video.mp3!".getBytes());
-        pageVideo = pageVideoService.savePageVideo(new PageVideo(multipartFile));
+        PageVideo pageVideo=new PageVideo();
+        pageVideo.setMultipartFile(multipartFile);
+        pageVideo = pageVideoService.savePageVideo(pageVideo);
         page.addVideo(pageVideo);
         page = pageService.savePage(page);
         Assertions.assertThat(page.getPageVideoSet().size() > 0);

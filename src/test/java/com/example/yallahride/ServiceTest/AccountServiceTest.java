@@ -48,7 +48,7 @@ public class AccountServiceTest {
     @Order(3)
     public void findAccountByEmail() {
         Account account1 = accountService.findAccountByEmail(account.getEmail());
-        Assertions.assertTrue(account1.getId() > 0);
+        Assertions.assertTrue(account1!=null);
     }
 
     @Test

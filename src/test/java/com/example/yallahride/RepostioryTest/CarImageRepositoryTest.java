@@ -11,7 +11,9 @@ import com.example.yallahride.Service.Interface.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +36,8 @@ public class CarImageRepositoryTest {
     public void setup() {
         user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com"));
         car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
-        carImage = carImageRepository.save(new CarImage("carImagePath1"));
+        MultipartFile multipartFile = new MockMultipartFile("carImage.png", "carImage!".getBytes());
+        carImage = carImageRepository.save(new CarImage(multipartFile));
         carImage.setCar(car);
         carImageRepository.save(carImage);
     }

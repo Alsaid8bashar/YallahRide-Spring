@@ -41,12 +41,12 @@ public class AccountController {
     }
 
     @GetMapping("/find-by-email")
-    public ResponseEntity<Account> findAccountByEmail(@RequestBody String email) {
+    public ResponseEntity<Account> findAccountByEmail(@RequestParam String email) {
         return new ResponseEntity<>(accountService.findAccountByEmail(email), OK);
     }
 
     @GetMapping("/find-by-phone")
-    public ResponseEntity<Account> findAccountByPhoneNumber(@RequestBody String phone) {
+    public ResponseEntity<Account> findAccountByPhoneNumber(@RequestParam String phone) {
         return new ResponseEntity<>(accountService.findAccountByPhoneNumber(phone), OK);
     }
 
