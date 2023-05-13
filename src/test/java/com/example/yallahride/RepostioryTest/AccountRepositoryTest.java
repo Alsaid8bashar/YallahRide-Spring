@@ -24,7 +24,7 @@ class AccountRepositoryTest {
 
     @BeforeAll()
     public void setup() {
-        user = userRepository.save(new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!"));
+        user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!");
         account = accountRepository.save(new Account("shnaqhassan@hotmail.com",
                 "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
     }
@@ -38,10 +38,7 @@ class AccountRepositoryTest {
     @Test
     @Order(1)
     public void createAccountTest() {
-        Account account1 = accountRepository.save(new Account("shnaqhassan@hotmail.com",
-                "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
-        System.out.println("account1 = " + account1);
-        Assertions.assertTrue(account1.getId() > 0);
+        Assertions.assertTrue(account.getId() > 0);
     }
 
     @Test

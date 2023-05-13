@@ -3,9 +3,11 @@ package com.example.yallahride.RepostioryTest;
 import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Repository.PageImagesRepository;
+import com.example.yallahride.Repository.PageRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
@@ -16,23 +18,24 @@ import java.util.Optional;
 public class PageImageRepository {
     @Autowired
     PageImagesRepository pageImagesRepository;
+    @Autowired
+    PageRepository pageRepository;
     PageImage pageImage;
+    Page page;
 
     @BeforeAll
     public void setup() {
-        pageImage = new PageImage();
-        pageImage.setPage(new Page());
+        page = pageRepository.save(new Page());
+        pageImage = pageImagesRepository.save(new PageImage());
+        pageImage.setPage(page);
         pageImagesRepository.save(pageImage);
+
     }
 
     @Test
     @Order(1)
     public void testCreatePageImage() {
-        PageImage pageImage = new PageImage();
-        Page page = new Page();
-        pageImage.setPage(page);
-        pageImagesRepository.save(pageImage);
-        Assertions.assertTrue(pageImagesRepository.findAll().contains(pageImage));
+        Assertions.assertTrue(pageImage.getId() > 0);
     }
 
 

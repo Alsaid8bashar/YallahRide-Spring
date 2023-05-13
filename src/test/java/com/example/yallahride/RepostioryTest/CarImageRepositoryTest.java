@@ -5,6 +5,7 @@ import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Repository.CarImageRepository;
 import com.example.yallahride.Repository.CarRepository;
+import com.example.yallahride.Repository.UserRepository;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.UserService;
 import org.junit.jupiter.api.*;
@@ -22,24 +23,27 @@ public class CarImageRepositoryTest {
     @Autowired
     CarImageRepository carImageRepository;
     @Autowired
-    UserService userService;
+    UserRepository userRepository;
     @Autowired
-    CarService carService;
+    CarRepository carRepository;
     CarImage carImage;
     User user;
     Car car;
 
     @BeforeAll
     public void setup() {
-        user = userService.saveUser(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com"));
-        car = carService.saveCar(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
+        user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com"));
+        car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
+        carImage = carImageRepository.save(new CarImage("carImagePath1"));
+        carImage.setCar(car);
+        carImageRepository.save(carImage);
     }
 
     @Test
     @Order(1)
     @Rollback(value = false)
     public void testCreateCarImage() {
-        carImage = carImageRepository.save(new CarImage("carImagePath1"));
+
         Assertions.assertTrue(carImage.getId() > 0);
     }
 

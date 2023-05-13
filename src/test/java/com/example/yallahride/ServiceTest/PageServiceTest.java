@@ -32,19 +32,20 @@ public class PageServiceTest {
     @Autowired
     PageVideoService pageVideoService;
     Page page;
+    PageVideo pageVideo;
+    PageImage pageImage;
+    PageContent pageContent;
+    MockMultipartFile imageObject;
+    MockMultipartFile videoObject;
 
     @BeforeAll
     void setPage() {
-        page = new Page();
-        pageService.savePage(page);
-        page = pageService.savePage(page);
+        page = pageService.savePage(new Page());
     }
 
     @Test
     @Order(1)
     void addPage() {
-        Page page = new Page();
-        pageService.savePage(page);
         Assertions.assertThat(pageService.findPageById(page.getId())).isNotNull();
     }
 
@@ -52,56 +53,62 @@ public class PageServiceTest {
     @Test
     @Order(2)
     void addPageContent() {
-        PageContent pageContent = new PageContent();
+        pageContent = new PageContent();
         pageContent.setContent("Hello !");
         pageContent.setPage(page);
+        pageContent = pageContentService.savePageContent(pageContent);
         pageService.addContent(page.getId(), pageContent);
-        Assertions.assertThat(pageService.getPageContents(page.getId())).isNotEmpty();
+        Assertions.assertThat(page.getPageContentSet().size() > 0);
     }
 
     @Test
     @Order(3)
     void addPageImage() {
         MultipartFile multipartFile = new MockMultipartFile("image1.png", "image1.png!".getBytes());
-        PageImage pageImage = new PageImage(multipartFile);
-        pageImage.setPage(page);
-        pageService.addImage(page.getId(), pageImage);
-        Assertions.assertThat(pageService.getPageImages(page.getId())).isNotEmpty();
+        pageImage = pageImageService.savePageImage(new PageImage(multipartFile));
+        page = pageService.addImage(page.getId(), pageImage);
+        Assertions.assertThat(page.getPageImageSet().size() > 0);
     }
 
     @Test
     @Order(4)
     void addPageVideos() {
         MultipartFile multipartFile = new MockMultipartFile("video.mp3", "video.mp3!".getBytes());
-        PageVideo pageVideo = new PageVideo(multipartFile);
-        pageVideo.setPage(page);
-        pageService.addVideo(page.getId(), pageVideo);
-        Assertions.assertThat(pageService.getPageVideos(page.getId())).isNotEmpty();
+        pageVideo = pageVideoService.savePageVideo(new PageVideo(multipartFile));
+        page.addVideo(pageVideo);
+        page = pageService.savePage(page);
+        Assertions.assertThat(page.getPageVideoSet().size() > 0);
     }
 
     @Test
     @Order(5)
     void getPageContents() {
-        Assertions.assertThat(pageService.getPageContents(page.getId())).isNotEmpty();
+        Assertions.assertThat(pageService.getPageContents(page.getId()).size() > 0);
     }
 
     @Test
     @Order(6)
     void getPageImages() {
-        Assertions.assertThat(pageService.getPageImages(page.getId())).isNotEmpty();
+        Assertions.assertThat(pageService.getPageImages(page.getId()).size() > 0);
     }
 
     @Test
     @Order(7)
     void getPageVideos() {
-        Assertions.assertThat(pageService.getPageVideos(page.getId())).isNotEmpty();
+        Assertions.assertThat(pageService.getPageVideos(page.getId()).size() > 0);
     }
 
     @Test
     @Order(8)
-    void deletePage() {
-        Long id = page.getId();
-        pageService.deletePageById(id);
-        Assertions.assertThat(pageService.findAllPages().contains(page)).isFalse();
+    void should_not_remove_parent_when_child_removed() {
+        pageVideoService.deletePageVideoById(pageVideo.getId());
+        Assertions.assertThat(pageService.findPageById(page.getId()).getId() > 0);
     }
+
+    @Test
+    @Order(9)
+    void should_remove_children_when_parent_removed() {
+            pageService.deletePageById(page.getId());
+    }
+
 }

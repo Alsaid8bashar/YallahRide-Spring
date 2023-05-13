@@ -28,7 +28,6 @@ public class PageVideoServiceImpl implements PageVideoService {
 
     public PageVideo savePageVideo(PageVideo pageVideo) {
         pageVideo.setVideoPath(fileService.uploadFile(pageVideo.getMultipartFile()));
-
         return pageVideoRepository.save(pageVideo);
     }
 
