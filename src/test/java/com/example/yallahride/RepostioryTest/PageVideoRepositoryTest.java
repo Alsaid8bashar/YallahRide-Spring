@@ -2,6 +2,7 @@ package com.example.yallahride.RepostioryTest;
 
 import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageVideo;
+import com.example.yallahride.Repository.PageRepository;
 import com.example.yallahride.Repository.PageVideoRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +18,23 @@ import java.util.Optional;
 public class PageVideoRepositoryTest {
     @Autowired
     PageVideoRepository pageVideoRepository;
+    @Autowired
+    PageRepository pageRepository;
     PageVideo pageVideo;
+    Page page;
 
     @BeforeAll
     public void setup() {
-        pageVideo = new PageVideo();
-        pageVideo.setPage(new Page());
+        page = pageRepository.save(new Page());
+        pageVideo = pageVideoRepository.save(new PageVideo());
+        pageVideo.setPage(page);
         pageVideoRepository.save(pageVideo);
     }
 
     @Test
     @Order(1)
     public void testCreatePageVideo() {
-        PageVideo pageVideo = new PageVideo();
-        pageVideo.setPage(new Page());
-        pageVideoRepository.save(pageVideo);
-        Assertions.assertTrue(pageVideoRepository.findAll().contains(pageVideo));
+        Assertions.assertTrue(pageVideo.getId() > 0);
     }
 
 

@@ -79,6 +79,7 @@ public class UserRepositoryTest {
     @Order(6)
     public void testDeleteAllUsers(){
         userRepository.deleteAll();
+        System.out.println("userRepository.count() = " + userRepository.count());
         Assertions.assertTrue(userRepository.count() == 0);
     }
 

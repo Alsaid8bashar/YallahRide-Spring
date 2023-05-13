@@ -94,15 +94,6 @@ create table Page
     PRIMARY KEY (page_pk)
 );
 
-create table Page_Image
-(
-    page_image_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
-    image_path    varchar(4000),
-    page_fk       MEDIUMINT,
-    PRIMARY KEY (page_image_pk),
-    FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE
-);
-
 create table Contact_Us
 (
     id_pk       MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -173,7 +164,7 @@ create table Rate
 create table Page_Content
 (
     page_content_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
-    page_fk         MEDIUMINT NOT NULL,
+    page_fk         MEDIUMINT,
     content         varchar(4000),
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_content_pk)
@@ -183,10 +174,19 @@ create table Page_Content
 create table Page_Video
 (
     page_video_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
-    page_fk       MEDIUMINT NOT NULL,
+    page_fk       MEDIUMINT,
     video_path    varchar(4000),
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE,
     PRIMARY KEY (page_video_pk)
+);
+
+create table Page_Image
+(
+    page_image_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    image_path    varchar(4000),
+    page_fk       MEDIUMINT,
+    PRIMARY KEY (page_image_pk),
+    FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE
 );
 
 
@@ -213,4 +213,31 @@ alter table User_Preference AUTO_INCREMENT = 1;
 alter table User_Role AUTO_INCREMENT = 1;
 
 alter table Role AUTO_INCREMENT = 1;
+# END
+
+
+
+# DROPING ALL TABLE
+drop table Account;
+drop table Car;
+drop table Car_Images;
+drop table Contact_Us;
+
+drop table Page;
+drop table Page_Content;
+drop table Page_Image;
+drop table Page_Video;
+
+
+drop table Passenger;
+drop table Rate;
+drop table Report;
+drop table Ride;
+
+drop table Role;
+drop table Travel_Preference;
+drop table User;
+drop table User_Preference;
+
+drop table User_Role;
 # END

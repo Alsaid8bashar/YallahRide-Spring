@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 @ToString
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "Page_Video")
 public class PageVideo {
