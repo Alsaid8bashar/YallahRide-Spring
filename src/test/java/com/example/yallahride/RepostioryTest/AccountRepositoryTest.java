@@ -47,6 +47,12 @@ class AccountRepositoryTest {
         Assertions.assertNotNull(accountRepository.findById(account.getId()));
     }
 
+    @Test
+    @Order(3)
+    public void findAccountByPhoneTest() {
+        Assertions.assertNotNull(accountRepository.findByPhoneNumber(account.getPhoneNumber()));
+    }
+
 
     @Test
     @Order(3)
@@ -54,6 +60,7 @@ class AccountRepositoryTest {
         List<Account> accountList = accountRepository.findAll();
         Assertions.assertTrue(accountList.size() > 0);
     }
+
 
     @Test
     @Order(4)

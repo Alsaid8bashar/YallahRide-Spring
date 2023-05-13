@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
+    Optional<Account> findByPhoneNumberIgnoreCase(String phoneNumber);
     Optional<Account> findByEmailIgnoreCase(String email);
 
-    Account findByPhoneNumber(String phoneNumber);
+    Optional<Account> findByPhoneNumber(String phoneNumber);
 
     @Query(value = "SELECT COUNT(*) AS email_count FROM yallah_Ride.Account WHERE email = :email"
             , nativeQuery = true)

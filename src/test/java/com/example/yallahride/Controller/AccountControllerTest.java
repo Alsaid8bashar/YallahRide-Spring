@@ -36,15 +36,21 @@ public class AccountControllerTest {
     @Test
     @WithMockUser
     public void testGetAccount() throws Exception {
+        long id = 1L;
+        User user = new User("Hassan", "Al-Shannag", "Hi i am Hasan");
+        user.setId(id);
+
         Account account = new Account("basharalsaid@gmail.com", "0797453540", "12131", new User());
         account.setId(1L);
+        account.setUser(user);
         when(accountService.findAccountById(1L)).thenReturn(account);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/account/{id}", 1L)
+        mockMvc.perform(MockMvcRequestBuilders.get("/account/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.email").value("basharalsaid@gmail.com"));
+                .andExpect(jsonPath("$.email").value("basharalsaid@gmail.com"))
+                .andDo(print());
     }
 
 
@@ -55,7 +61,7 @@ public class AccountControllerTest {
         account.setIsActive(true);
         when(accountService.saveAccount(account)).thenReturn(account);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/account/create")
+        mockMvc.perform(MockMvcRequestBuilders.post("/account/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(account)))
                 .andExpect(status().isCreated())
@@ -94,9 +100,8 @@ public class AccountControllerTest {
 
 
         when(accountService.findAccountByEmail("basharalsaid@gmail.com")).thenReturn(account);
-
         mockMvc.perform(MockMvcRequestBuilders.get("/account/find-by-email")
-                        .content("basharalsaid@gmail.com")
+                        .param("email",account.getEmail())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("basharalsaid@gmail.com"));
@@ -106,10 +111,10 @@ public class AccountControllerTest {
     public void testFindAccountByPhoneNumber() throws Exception {
         Account account = new Account("basharalsaid@gmail.com", "0797453540", "12131", new User());
 
-        when(accountService.findAccountByPhoneNumber("0797453540")).thenReturn(account);
 
+        when(accountService.findAccountByPhoneNumber("0797453540")).thenReturn(account);
         mockMvc.perform(MockMvcRequestBuilders.get("/account/find-by-phone")
-                        .content("0797453540")
+                        .param("phone",account.getPhoneNumber())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("basharalsaid@gmail.com"));

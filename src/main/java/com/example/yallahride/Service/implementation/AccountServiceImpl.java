@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -86,6 +87,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccountByPhoneNumber(String phoneNumber) {
-        return accountRepository.findByPhoneNumber(phoneNumber);
+        return unwrapAccount(accountRepository.findByPhoneNumber(phoneNumber), 404L);
     }
 }

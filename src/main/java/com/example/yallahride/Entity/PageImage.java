@@ -1,5 +1,8 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +27,7 @@ public class PageImage {
     @ToString.Exclude
     private Page page;
     @Transient
+    @JsonIgnore
     @NonNull
     MultipartFile multipartFile;
 

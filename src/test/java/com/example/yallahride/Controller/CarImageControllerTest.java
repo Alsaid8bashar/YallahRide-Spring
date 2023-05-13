@@ -10,8 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,9 @@ public class CarImageControllerTest {
 
     @Test
     public void testGetCarImage() throws Exception {
-        CarImage carImage = new CarImage("newImage");
+        MultipartFile multipartFile = new MockMultipartFile("carImage.png", "carImage!".getBytes());
+
+        CarImage carImage = new CarImage(multipartFile);
         carImage.setId(1L);
         carImageService.saveCarImage(carImage);
 
@@ -54,7 +58,9 @@ public class CarImageControllerTest {
 
     @Test
     public void testSaveCarImage() throws Exception {
-        CarImage carImage = new CarImage("newImage2");
+        MultipartFile multipartFile = new MockMultipartFile("carImage.png", "carImage!".getBytes());
+
+        CarImage carImage = new CarImage(multipartFile);
         carImage.setId(1L);
 
         when(carImageService.saveCarImage(carImage)).thenReturn(carImage);
@@ -79,10 +85,11 @@ public class CarImageControllerTest {
 
     @Test
     public void testGetCarsImages() throws Exception {
-        CarImage carImage1 = new CarImage("car/image1");
+        MultipartFile multipartFile = new MockMultipartFile("carImage.png", "carImage!".getBytes());
+        CarImage carImage1 = new CarImage(multipartFile);
         carImage1.setId(1L);
 
-        CarImage carImage2 = new CarImage("car/image2");
+        CarImage carImage2 = new CarImage(multipartFile);
         carImage2.setId(2L);
 
         List<CarImage> carImages = new ArrayList<>();

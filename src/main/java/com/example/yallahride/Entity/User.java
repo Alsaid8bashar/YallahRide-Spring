@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +34,7 @@ public class User {
     @Column(name = "image_path")
     private String imagePath;
     @Transient
+    @JsonIgnore
     MultipartFile multipartFile;
     @Column(name = "about")
     @NonNull

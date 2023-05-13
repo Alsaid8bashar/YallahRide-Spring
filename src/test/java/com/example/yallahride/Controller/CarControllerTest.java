@@ -11,8 +11,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,8 +86,9 @@ public class CarControllerTest {
     public void testAddCarImage() throws Exception {
         Car car = new Car("Black", "Ford", "Fusion", "10-100", 2016, new User());
         car.setId(1L);
+        MultipartFile multipartFile = new MockMultipartFile("carImage.png", "carImage!".getBytes());
 
-        CarImage carImage = new CarImage("newImage");
+        CarImage carImage = new CarImage(multipartFile);
         carImage.setCar(car);
         carImage.setId(1L);
         when(carService.addCarImage(1L, carImage)).thenReturn(car);

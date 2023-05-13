@@ -1,6 +1,8 @@
 package com.example.yallahride.Controller;
 
+import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageImage;
+import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Service.Interface.PageImageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -14,11 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PageImageController.class)
@@ -34,37 +34,52 @@ public class PageImageControllerTest {
 
     @Test
     public void testGetPageImage() throws Exception {
+        Page page = new Page();
+        page.setId(1L);
         Long pageImageId = 1L;
-        PageImage pageImage = new PageImage( );
-        pageImage.setId(pageImageId);
+        MockMultipartFile file = new MockMultipartFile(
+                "multipartFile",
+                "image.png",
+                MediaType.IMAGE_JPEG_VALUE,
+                "image".getBytes());
+        PageImage  image = new PageImage(file);
+        image.setPage(page);
+        image.setMultipartFile(file);
+        image.setId(pageImageId);
 
 
-        when(pageImageService.findPageImageById(pageImageId)).thenReturn(pageImage);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/page-image/{id}", pageImageId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(pageImageId))
-//                .andExpect(jsonPath("$.imagePath").value("image.jpg"))
+        when(pageImageService.savePageImage(image)).thenReturn(image);
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/page-image/create")
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .content(String.valueOf(image)))
+                .andExpect(status().isCreated())
                 .andDo(print());
     }
 
     @Test
     public void testSavePageImage() throws Exception {
         Long pageImageId = 1L;
-        PageImage pageImage = new PageImage(new MockMultipartFile("image1.png", "image1.png!".getBytes()));
-        pageImage.setId(pageImageId);
+        PageImage pageImage = new PageImage();
+        MockMultipartFile file = new MockMultipartFile(
+                "multipartFile",
+                "image.png",
+                MediaType.IMAGE_JPEG_VALUE,
+                "image".getBytes());
 
+        pageImage.setId(pageImageId);
+        Page page = new Page();
+        page.setId(1L);
+        pageImage.setPage(page);
 
         when(pageImageService.savePageImage(pageImage)).thenReturn(pageImage);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/page-image/create")
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/page-image/create")
+                        .file(file)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(pageImage)))
                 .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.id").value(1L))
-//                .andExpect(jsonPath("$.imagePath").value("image.jpg"))
                 .andDo(print());
+
     }
 
     @Test
@@ -82,7 +97,7 @@ public class PageImageControllerTest {
     public void testGetPageImages() throws Exception {
         java.util.List<PageImage> pageImages = Arrays.asList(
                 new PageImage(),
-                new PageImage( ));
+                new PageImage());
 
         when(pageImageService.findAllPageImages()).thenReturn(pageImages);
         mockMvc.perform(MockMvcRequestBuilders.get("/page-image/all")

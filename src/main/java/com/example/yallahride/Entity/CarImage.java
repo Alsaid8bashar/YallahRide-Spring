@@ -14,19 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name = "Car_Images")
 public class CarImage {
+    @Transient
+    @JsonIgnore
+    @NonNull
+    MultipartFile multipartFile;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pk")
     private Long id;
     @Column(name = "image_path", nullable = false)
-    @NonNull
     private String imagePath;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
     @JsonIgnore
     private Car car;
-    @Transient
-    MultipartFile multipartFile;
 
     @PreRemove
     private void deleteImageFromCar() {

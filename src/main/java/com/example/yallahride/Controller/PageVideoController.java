@@ -1,12 +1,13 @@
 package com.example.yallahride.Controller;
 
+import com.example.yallahride.Entity.PageImage;
 import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Service.Interface.PageVideoService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,9 +27,10 @@ public class PageVideoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PageVideo> savePage(@Valid @RequestBody PageVideo PageVideo) {
-        return new ResponseEntity<>(pageVideoService.savePageVideo(PageVideo), CREATED);
+    public ResponseEntity<PageVideo> savePage(@ModelAttribute PageVideo pageVideo) {
+        return new ResponseEntity<>(pageVideoService.savePageVideo(pageVideo), CREATED);
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePageVideo(@PathVariable Long id) {

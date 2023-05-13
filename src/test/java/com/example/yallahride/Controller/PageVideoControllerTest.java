@@ -1,5 +1,6 @@
 package com.example.yallahride.Controller;
 
+import com.example.yallahride.Entity.Page;
 import com.example.yallahride.Entity.PageVideo;
 import com.example.yallahride.Service.Interface.PageVideoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,15 +10,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PageVideoController.class)
@@ -46,17 +46,27 @@ public class PageVideoControllerTest {
 
     @Test
     public void testSavePageVideo() throws Exception {
-        PageVideo pageVideo = new PageVideo();
-        pageVideo.setId(1L);
+        Page page = new Page();
+        page.setId(1L);
+        Long pageImageId = 1L;
+        MockMultipartFile file = new MockMultipartFile(
+                "multipartFile",
+                "image.png",
+                MediaType.IMAGE_JPEG_VALUE,
+                "image".getBytes());
+        PageVideo video = new PageVideo(file);
 
-        when(pageVideoService.savePageVideo(pageVideo)).thenReturn(pageVideo);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/page-video/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(pageVideo)))
+        video.setPage(page);
+        video.setMultipartFile(file);
+        video.setId(pageImageId);
+
+
+        when(pageVideoService.savePageVideo(video)).thenReturn(video);
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/page-video/create")
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .content(String.valueOf(video)))
                 .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.id").value(1L))
-//                .andExpect(jsonPath("$.videoPath").value("video.mp4"));
                 .andDo(print());
     }
 

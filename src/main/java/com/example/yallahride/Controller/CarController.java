@@ -47,8 +47,9 @@ public class CarController {
         return new ResponseEntity<>(carService.findAllCars(), HttpStatus.OK);
     }
 
+
     @PostMapping("/add/image")
-    public ResponseEntity<Car> addCarImage(@RequestParam Long id, @RequestBody CarImage carImage) {
+    public ResponseEntity<Car> addCarImage(@RequestParam Long id, @ModelAttribute CarImage carImage) {
         return new ResponseEntity<>(carService.addCarImage(id, carImage), CREATED);
     }
 
