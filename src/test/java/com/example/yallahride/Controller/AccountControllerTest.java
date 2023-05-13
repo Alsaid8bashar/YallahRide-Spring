@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -53,7 +52,7 @@ public class AccountControllerTest {
     public void testSaveAccount() throws Exception {
         User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!");
         Account account = new Account("shnaqhassan@hotmail.com", "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user);
-
+        account.setIsActive(true);
         when(accountService.saveAccount(account)).thenReturn(account);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/account/create")
@@ -68,6 +67,7 @@ public class AccountControllerTest {
     public void testUpdateAccount() throws Exception {
         User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!");
         Account account = new Account("shnaqhassan@hotmail.com", "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user);
+        account.setIsActive(true);
 
 
         when(accountService.saveAccount(account)).thenReturn(account);

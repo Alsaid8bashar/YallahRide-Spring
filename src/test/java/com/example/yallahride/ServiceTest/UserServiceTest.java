@@ -10,6 +10,7 @@ import com.example.yallahride.Service.Interface.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
@@ -26,6 +27,7 @@ public class UserServiceTest {
     @BeforeAll
     public void setUp() {
         user = new User("Bashar", "ahamd", "basharalsaid17@gmail.com");
+        user.setMultipartFile(new MockMultipartFile("userImage.png", "userImage.png".getBytes()));
         userService.saveUser(user);
     }
 
@@ -50,7 +52,6 @@ public class UserServiceTest {
         User tempUser = userService.findUserById(user.getId());
         Assertions.assertFalse(tempUser.getRoles().contains(travelPreference));
     }
-
 
     @Test
     @Order(3)
@@ -108,6 +109,11 @@ public class UserServiceTest {
         userService.activateUserById(user.getId());
         User tempUser = userService.findUserById(user.getId());
         Assertions.assertSame(true, tempUser.isActive());
+    }
+
+    @AfterAll
+    public void cleanup() {
+        userService.deleteUserById(user.getId());
     }
 
 }
