@@ -13,11 +13,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -87,7 +91,7 @@ public class PageImageControllerTest {
         Long pageImageId = 1L;
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/page-image/delete/{id}", pageImageId)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isNoContent()).andDo(print());
 
         verify(pageImageService, times(1)).deleteImageById(pageImageId);
@@ -101,7 +105,7 @@ public class PageImageControllerTest {
 
         when(pageImageService.findAllPageImages()).thenReturn(pageImages);
         mockMvc.perform(MockMvcRequestBuilders.get("/page-image/all")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
 //                .andExpect(jsonPath("$[0].imagePath").value("image1.jpg"))
 //                .andExpect(jsonPath("$[1].imagePath").value("image2.jpg"))
@@ -111,7 +115,7 @@ public class PageImageControllerTest {
     @Test
     public void testDeletePagesImages() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/page-image/delete/all")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isNoContent()).andDo(print());
 
         verify(pageImageService, times(1)).deleteAllPageImages();

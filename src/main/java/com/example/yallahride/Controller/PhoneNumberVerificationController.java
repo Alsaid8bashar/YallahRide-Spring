@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/phoneNumber")
 @Slf4j
 public class PhoneNumberVerificationController {
-
-
-
     @Autowired
     TwilioInitializer twilioInitializer;
     @Autowired
@@ -43,7 +40,7 @@ public class PhoneNumberVerificationController {
         try {
             VerificationCheck verificationCheck = VerificationCheck.creator(
                             environment.getProperty("service_sid"))
-                    .setTo("+962797453540")
+                    .setTo("+" + phoneNumber)
                     .setCode(code)
                     .create();
 

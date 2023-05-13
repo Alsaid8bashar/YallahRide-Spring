@@ -3,12 +3,12 @@ package com.example.yallahride.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -35,6 +35,9 @@ public class Account implements UserDetails {
     @NonNull
     @Column(name = "password_hash", length = 1000)
     private String passwordHash;
+    @Column(name = "creation_date")
+    @CreationTimestamp
+    private Date date;
 
     @OneToOne(cascade = CascadeType.ALL)
 //    @OnDelete(action = OnDeleteAction.CASCADE)

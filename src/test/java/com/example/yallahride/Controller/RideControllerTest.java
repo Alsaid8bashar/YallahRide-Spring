@@ -42,7 +42,7 @@ public class RideControllerTest {
     @Test
     public void testCreateRide() throws Exception {
         User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com");
-        Ride ride = new Ride("Amman", "irbid", 4, user);
+        Ride ride = new Ride("Amman", "irbid", 4,2.5, user);
         ride.setId(1L);
 
         when(rideService.saveRide(ride)).thenReturn(ride);
@@ -60,7 +60,7 @@ public class RideControllerTest {
     @Test
     public void testUpdateRide() throws Exception {
         User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com");
-        Ride ride = new Ride("Amman", "irbid", 4, user);
+        Ride ride = new Ride("Amman", "irbid", 4 ,2.5, user);
         ride.setId(1L);
 
         when(rideService.updateRide(ride)).thenReturn(ride);
@@ -79,7 +79,7 @@ public class RideControllerTest {
     @Test
     public void testFindRideById() throws Exception {
         Long rideId = 1L;
-        Ride ride = new Ride("Amman", "irbid", 4, new User());
+        Ride ride = new Ride("Amman", "irbid", 4, 2.5, new User());
         ride.setId(rideId);
 
         when(rideService.findRideById(rideId)).thenReturn(ride);
@@ -97,8 +97,8 @@ public class RideControllerTest {
     @Test
     public void testFindAllRides() throws Exception {
         java.util.List<Ride> rides = Arrays.asList(
-                new Ride("Amman", "irbid", 4, new User()),
-                new Ride("Salt", "Amman", 4, new User())
+                new Ride("Amman", "irbid", 4, 2.5, new User()),
+                new Ride("Salt", "Amman", 4, 2.5, new User())
         );
 
         when(rideService.findAllRides()).thenReturn(rides);
@@ -137,7 +137,7 @@ public class RideControllerTest {
     @Test
     public void testFindAllRideReports() throws Exception {
         User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com");
-        Ride ride = new Ride("Amman", "irbid", 4, user);
+        Ride ride = new Ride("Amman", "irbid", 4,2.5, user);
 
         Set<Report> reports = new HashSet<>();
 

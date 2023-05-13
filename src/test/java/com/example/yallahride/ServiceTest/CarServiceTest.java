@@ -4,6 +4,7 @@ package com.example.yallahride.ServiceTest;
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
 import com.example.yallahride.Entity.User;
+import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.UserService;
@@ -56,15 +57,22 @@ public class CarServiceTest {
     @Test
     @Order(2)
     public void testDeleteCarImage() {
-        Car car1 = carService.findCarById(car.getId());
-        Long carImageId = car1.getCarImages().iterator().next().getId();
+        car = carService.findCarById(car.getId());
+        Long carImageId = car.getCarImages().iterator().next().getId();
         carService.deleteCarImage(carImageId);
-//        Assertions.assertThat(carImageService.findAllCarImages(car1.getId()). == null);
+        Assertions.assertThrowsExactly(EntityNotFoundException.class, () ->
+                carImageService.findCarImageById(carImageId));
+    }
+
+    @Test
+    @Order(3)
+    public void should_not_remove_parent_when_child_removed(){
+        carService.deleteCarById(car.getId());
+        Assertions.assertTrue(userService.findUserById(user.getId()).getId() > 0);
     }
 
     @AfterAll
     public void cleanup() {
-        carService.deleteCarById(car.getId());
         userService.deleteUserById(user.getId());
     }
 }

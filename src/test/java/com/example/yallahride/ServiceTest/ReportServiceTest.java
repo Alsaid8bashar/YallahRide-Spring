@@ -15,24 +15,36 @@ public class ReportServiceTest {
 
     @Autowired
     UserService userService;
-
     @Autowired
     ReportService reportService;
     User user;
+    Report report;
 
 
     @BeforeAll
     public void setUp() {
-        user = new User("Hasan", "ahamd", "hasan97@gmail.com");
-        userService.saveUser(user);
+        user = userService.saveUser(new User("Hasan", "ahamd", "hasan97@gmail.com"));
+        report = reportService.saveReport(new Report("Bad driver", "very bad driver and shit car"));
+    }
+    @Test
+    @Order(1)
+    public void contextLoadTest() {
+        Assertions.assertNotNull(userService);
+        Assertions.assertNotNull(reportService);
     }
 
     @Test
+    @Order(1)
     public void addReport() {
-        Report report = new Report("Bad driver", "very bad driver and shit car");
         report.setUser(user);
-        reportService.saveReport(report);
-
+        report = reportService.saveReport(report);
         Assertions.assertTrue(reportService.findUserReports(user.getId()).size() > 0);
+    }
+
+    @Test
+    @Order(2)
+    public void should_not_remove_child_when_parent_removed(){
+        reportService.deleteReportById(report.getId());
+        Assertions.assertTrue(userService.findUserById(user.getId()).getId() > 0);
     }
 }

@@ -1,5 +1,3 @@
-
-
 create table User
 (
     user_pk    MEDIUMINT     NOT NULL AUTO_INCREMENT,
@@ -38,7 +36,8 @@ create table Account
     phone_number  varchar(50)  NOT NULL,
     password_hash varchar(1000),
     user_id_fk    MEDIUMINT,
-    is_Active      boolean DEFAULT true,
+    is_Active     boolean   DEFAULT true,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT UC_Account UNIQUE (email, phone_number),
     PRIMARY KEY (account_pk),
     FOREIGN KEY (user_id_fk) REFERENCES User (user_pk) ON DELETE CASCADE
@@ -106,10 +105,11 @@ create table Ride
 (
     ride_pk MEDIUMINT     NOT NULL AUTO_INCREMENT,
     user_fk MEDIUMINT,
-    `from`  varchar(1000) NOT NULL,
-    `to`    varchar(1000) NOT NULL,
+    `from`  varchar(768) NOT NULL,
+    `to`    varchar(768) NOT NULL,
     `date`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     seats   INT           NOT NULL,
+    cost    FLOAT         NOT NULL,
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
     PRIMARY KEY (ride_pk)
 );
@@ -190,34 +190,49 @@ create table Page_Image
 );
 
 
+#-----------------RESTING AUTO_INCREMENT FOR ALL TABLES-----------------#
+alter table Account
+    AUTO_INCREMENT = 1;
+alter table Car
+    AUTO_INCREMENT = 1;
+alter table Car_Images
+    AUTO_INCREMENT = 1;
+alter table Contact_Us
+    AUTO_INCREMENT = 1;
 
-# RESTING AUTO_INCREMENT FOR ALL TABLES
-alter table Account AUTO_INCREMENT = 1;
-alter table Car AUTO_INCREMENT = 1;
-alter table Car_Images AUTO_INCREMENT = 1;
-alter table Contact_Us AUTO_INCREMENT = 1;
+alter table Page
+    AUTO_INCREMENT = 1;
+alter table Page_Content
+    AUTO_INCREMENT = 1;
+alter table Page_Image
+    AUTO_INCREMENT = 1;
+alter table Page_Video
+    AUTO_INCREMENT = 1;
 
-alter table Page AUTO_INCREMENT = 1;
-alter table Page_Content AUTO_INCREMENT = 1;
-alter table Page_Image AUTO_INCREMENT = 1;
-alter table Page_Video AUTO_INCREMENT = 1;
+alter table Passenger
+    AUTO_INCREMENT = 1;
+alter table Rate
+    AUTO_INCREMENT = 1;
+alter table Report
+    AUTO_INCREMENT = 1;
+alter table Ride
+    AUTO_INCREMENT = 1;
 
-alter table Passenger AUTO_INCREMENT = 1;
-alter table Rate AUTO_INCREMENT = 1;
-alter table Report AUTO_INCREMENT = 1;
-alter table Ride AUTO_INCREMENT = 1;
+alter table Travel_Preference
+    AUTO_INCREMENT = 1;
+alter table User
+    AUTO_INCREMENT = 1;
+alter table User_Preference
+    AUTO_INCREMENT = 1;
+alter table User_Role
+    AUTO_INCREMENT = 1;
 
-alter table Travel_Preference AUTO_INCREMENT = 1;
-alter table User AUTO_INCREMENT = 1;
-alter table User_Preference AUTO_INCREMENT = 1;
-alter table User_Role AUTO_INCREMENT = 1;
-
-alter table Role AUTO_INCREMENT = 1;
-# END
+alter table Role
+    AUTO_INCREMENT = 1;
+#-----------------END-----------------#
 
 
-
-# DROPING ALL TABLE
+#-----------------DROPPING ALL TABLES-----------------#
 drop table Account;
 drop table Car;
 drop table Car_Images;
@@ -240,4 +255,25 @@ drop table User;
 drop table User_Preference;
 
 drop table User_Role;
-# END
+#-----------------END-----------------#
+
+
+#-----------------INDEXING FOR TABLES-----------------#
+#ACCOUNT TABLE
+CREATE INDEX idx_email ON Account (email);
+CREATE INDEX idx_phone_number ON Account (phone_number);
+
+#RIDE TABLE
+CREATE INDEX idx_user_fk ON Ride (user_fk);
+CREATE INDEX idx_from ON Ride (`from`);
+CREATE INDEX idx_to ON Ride (`to`);
+CREATE INDEX idx_date ON Ride (`date`);
+
+#REPORT TABLE
+CREATE INDEX idx_ride_fk ON Report (ride_fk);
+CREATE INDEX idx_user_fk ON Report (user_fk);
+
+#RATER TABLE
+CREATE INDEX idx_rater_fk ON Rate (rater_fk);
+CREATE INDEX idx_subject_fk ON Rate (subject_fk);
+#-----------------END-----------------#

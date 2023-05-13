@@ -46,13 +46,22 @@ public class PageServiceTest {
 
     @Test
     @Order(1)
+    public void contextLoadTest() {
+        Assertions.assertThat(pageService != null);
+        Assertions.assertThat(pageContentService != null);
+        Assertions.assertThat(pageImageService != null);
+        Assertions.assertThat(pageVideoService != null);
+    }
+
+    @Test
+    @Order(2)
     void addPage() {
         Assertions.assertThat(pageService.findPageById(page.getId())).isNotNull();
     }
 
 
     @Test
-    @Order(2)
+    @Order(3)
     void addPageContent() {
         pageContent = new PageContent();
         pageContent.setContent("Hello !");
@@ -63,7 +72,7 @@ public class PageServiceTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void addPageImage() {
         MultipartFile multipartFile = new MockMultipartFile("image1.png", "image1.png!".getBytes());
         PageImage pageImage=new PageImage();
@@ -74,7 +83,7 @@ public class PageServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void addPageVideos() {
         MultipartFile multipartFile = new MockMultipartFile("video.mp3", "video.mp3!".getBytes());
         PageVideo pageVideo=new PageVideo();
@@ -86,34 +95,28 @@ public class PageServiceTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void getPageContents() {
         Assertions.assertThat(pageService.getPageContents(page.getId()).size() > 0);
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     void getPageImages() {
         Assertions.assertThat(pageService.getPageImages(page.getId()).size() > 0);
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     void getPageVideos() {
         Assertions.assertThat(pageService.getPageVideos(page.getId()).size() > 0);
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     void should_not_remove_parent_when_child_removed() {
         pageVideoService.deletePageVideoById(pageVideo.getId());
         Assertions.assertThat(pageService.findPageById(page.getId()).getId() > 0);
-    }
-
-    @Test
-    @Order(9)
-    void should_remove_children_when_parent_removed() {
-            pageService.deletePageById(page.getId());
     }
 
 }

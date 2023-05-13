@@ -37,10 +37,14 @@ public class Ride {
     @NonNull
     @Column(name = "seats")
     private int seats;
+    @NonNull
+    @Column(name = "cost")
+    private double cost;
     @ManyToOne
     @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     @NonNull
     private User driver;
+
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
