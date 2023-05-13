@@ -26,7 +26,7 @@ public class RideRepositoryTest {
     @BeforeAll
     public void setup() {
         User   user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com"));
-        ride = rideRepository.save(new Ride("Irbid", "Amman", 3,user));
+        ride = rideRepository.save(new Ride("Irbid", "Amman", 3,2.5,user));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class RideRepositoryTest {
     public void testCreateRide() {
         User   user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com"));
 
-        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3,user));
+        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3,2.5,user));
         Assertions.assertTrue(ride.getId() > 0);
     }
 

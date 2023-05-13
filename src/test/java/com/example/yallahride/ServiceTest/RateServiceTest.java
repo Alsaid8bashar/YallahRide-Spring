@@ -31,6 +31,13 @@ public class RateServiceTest {
     }
 
     @Test
+    @Order(1)
+    public void contextLoadTest() {
+        Assertions.assertNotNull(userService);
+        Assertions.assertNotNull(rateService);
+    }
+
+    @Test
     public void getRates() {
         Rate rate = new Rate(3.0);
         rate.setRater(sender);

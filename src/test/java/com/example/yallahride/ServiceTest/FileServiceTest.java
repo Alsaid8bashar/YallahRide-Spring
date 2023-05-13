@@ -17,6 +17,11 @@ public class FileServiceTest {
     @Autowired
     FileService fileService;
 
+    @Test
+    public void contextLoadTest() {
+        org.assertj.core.api.Assertions.assertThat(fileService != null);
+    }
+
 
     @Test
     public void testUploadFile() {

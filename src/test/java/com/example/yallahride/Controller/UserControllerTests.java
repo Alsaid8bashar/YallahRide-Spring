@@ -289,7 +289,7 @@ public class UserControllerTests {
     void addRideTest() throws Exception {
         User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!");
         user.setId(1L);
-        Ride ride = new Ride("Irbid", "Amman", 3, user);
+        Ride ride = new Ride("Irbid", "Amman", 3,2.5, user);
         ride.setId(1L);
         user.addRide(ride);
 
@@ -307,9 +307,9 @@ public class UserControllerTests {
         user.setId(1L);
         List<Ride> rides = new ArrayList<>(
                 Arrays.asList(
-                        new Ride("Irbid", "Amman", 3, user),
-                        new Ride("Jarash", "Aqaba", 2, user),
-                        new Ride("Zarqa", "Mafraq", 1, user)
+                        new Ride("Irbid", "Amman", 3,2.5, user),
+                        new Ride("Jarash", "Aqaba", 2,2.8, user),
+                        new Ride("Zarqa", "Mafraq", 1,3, user)
                 ));
         for (int x = 0; x < rides.size(); x++) {
             rides.get(x).setId((long) (x + 1));
@@ -331,9 +331,9 @@ public class UserControllerTests {
         user.setId(1L);
         List<Ride> rides = new ArrayList<>(
                 Arrays.asList(
-                        new Ride("Irbid", "Amman", 3, user),
-                        new Ride("Jarash", "Aqaba", 2, user),
-                        new Ride("Zarqa", "Mafraq", 1, user)
+                        new Ride("Irbid", "Amman", 3,4, user),
+                        new Ride("Jarash", "Aqaba", 2,5, user),
+                        new Ride("Zarqa", "Mafraq", 1,6, user)
                 ));
         for (int x = 0; x < rides.size(); x++) {
             rides.get(x).setId((long) (x + 1));

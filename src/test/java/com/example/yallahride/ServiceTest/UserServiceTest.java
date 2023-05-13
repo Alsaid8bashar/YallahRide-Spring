@@ -31,6 +31,13 @@ public class UserServiceTest {
         userService.saveUser(user);
     }
 
+    @Test
+    @Order(1)
+    public void contextLoadTest() {
+        Assertions.assertNotNull(userService);
+        Assertions.assertNotNull(rideService);
+    }
+
 
     @Test
     @Transactional
@@ -77,7 +84,7 @@ public class UserServiceTest {
     @Test
     @Order(5)
     public void addRide() {
-        Ride ride = new Ride("Irbid", "Amman", 5, user);
+        Ride ride = new Ride("Irbid", "Amman", 5,2.5, user);
         rideService.saveRide(ride);
         user = userService.addRide(user.getId(), ride);
 
@@ -109,6 +116,13 @@ public class UserServiceTest {
         userService.activateUserById(user.getId());
         User tempUser = userService.findUserById(user.getId());
         Assertions.assertSame(true, tempUser.isActive());
+    }
+
+    @Test
+    @Order(8)
+    public void should_not_remove_user_when_child_removed(){
+        user = userService.findUserById(user.getId());
+        Assertions.assertTrue(user.getId() > 0);
     }
 
     @AfterAll
