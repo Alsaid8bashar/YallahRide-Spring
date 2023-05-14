@@ -63,8 +63,7 @@ public class PageServiceTest {
     @Test
     @Order(3)
     void addPageContent() {
-        pageContent = new PageContent();
-        pageContent.setContent("Hello !");
+        pageContent = new PageContent("Hello!");
         pageContent.setPage(page);
         pageContent = pageContentService.savePageContent(pageContent);
         pageService.addContent(page.getId(), pageContent);
@@ -75,7 +74,7 @@ public class PageServiceTest {
     @Order(4)
     void addPageImage() {
         MultipartFile multipartFile = new MockMultipartFile("image1.png", "image1.png!".getBytes());
-        PageImage pageImage=new PageImage();
+        pageImage=new PageImage();
         pageImage.setMultipartFile(multipartFile);
         pageImage = pageImageService.savePageImage(pageImage);
         page = pageService.addImage(page.getId(), pageImage);
@@ -86,7 +85,7 @@ public class PageServiceTest {
     @Order(5)
     void addPageVideos() {
         MultipartFile multipartFile = new MockMultipartFile("video.mp3", "video.mp3!".getBytes());
-        PageVideo pageVideo=new PageVideo();
+        pageVideo=new PageVideo();
         pageVideo.setMultipartFile(multipartFile);
         pageVideo = pageVideoService.savePageVideo(pageVideo);
         page.addVideo(pageVideo);
