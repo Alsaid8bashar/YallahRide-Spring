@@ -25,23 +25,9 @@ public class TwilioConfiguration {
         return accountSid;
     }
 
-    public void setAccountSid(String accountSid) {
-        this.accountSid = accountSid;
-    }
 
     public String getAuthToken() {
         return authToken;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
-    public String getServiceSid() {
-        return serviceSid;
-    }
-
-    public void setServiceSid(String serviceSid) {
-        this.serviceSid = serviceSid;
-    }
 }

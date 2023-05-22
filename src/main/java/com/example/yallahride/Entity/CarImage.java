@@ -22,7 +22,7 @@ public class CarImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pk")
     private Long id;
-    @Column(name = "image_path", nullable = false)
+    @Column(name = "image_path")
     private String imagePath;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")

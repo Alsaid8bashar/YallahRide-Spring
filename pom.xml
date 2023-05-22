@@ -127,7 +127,13 @@
         </dependency>
         <!--    AWS Dependencies-->
 
-
+        <!--    SendGrip Dependencies-->
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <!--    SendGrip Dependencies-->
 
 
         <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
