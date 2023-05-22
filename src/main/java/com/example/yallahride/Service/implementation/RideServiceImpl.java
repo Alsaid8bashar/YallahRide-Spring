@@ -3,7 +3,6 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
-import com.example.yallahride.Repository.ReportRepository;
 import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.stereotype.Service;

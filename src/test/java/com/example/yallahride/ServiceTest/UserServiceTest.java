@@ -81,25 +81,6 @@ public class UserServiceTest {
         Assertions.assertFalse(tempUser.getRoles().contains(role));
     }
 
-    @Test
-    @Order(5)
-    public void addRide() {
-        Ride ride = new Ride("Irbid", "Amman", 5,2.5, user);
-        rideService.saveRide(ride);
-        user = userService.addRide(user.getId(), ride);
-
-        User tempUser = userService.findUserById(user.getId());
-        Assertions.assertFalse(tempUser.getRides().isEmpty());
-    }
-
-    @Test
-    @Order(6)
-    public void deleteRide() {
-        Ride ride = user.getRides().iterator().next();
-        user = userService.deleteRide(user.getId(), ride);
-        User tempUser = userService.findUserById(user.getId());
-        Assertions.assertFalse(tempUser.getRides().contains(ride));
-    }
 
     @Test
     @Order(7)

@@ -50,12 +50,12 @@ public class PageController {
     }
 
     @PostMapping("/add/image")
-    public ResponseEntity<Page> addImage(@RequestParam Long id, PageImage pageImage) {
+    public ResponseEntity<Page> addImage(@RequestParam Long id,@ModelAttribute PageImage pageImage) {
         return new ResponseEntity<>(pageService.addImage(id, pageImage), CREATED);
     }
 
     @PostMapping("/add/video")
-    public ResponseEntity<Page> addVideo(@RequestParam Long id, PageVideo pageVideo) {
+    public ResponseEntity<Page> addVideo(@RequestParam Long id,@ModelAttribute PageVideo pageVideo) {
         return new ResponseEntity<>(pageService.addVideo(id, pageVideo), CREATED);
     }
 

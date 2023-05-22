@@ -30,7 +30,8 @@ public class Ride {
     @NonNull
     @Column(name = "`to`")
     private String to;
-
+    @Column(name = "max_two_in_the_back")
+    private boolean isMaxTwoInTheBook;
     @Column(name = "`date`")
     @CreationTimestamp
     private Date date;
@@ -44,17 +45,6 @@ public class Ride {
     @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     @NonNull
     private User driver;
-
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    @ToString.Exclude
-    @JoinTable(
-            name = "Passenger",
-            joinColumns = @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk"),
-            inverseJoinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
-    )
-    private Set<User> userSet = new HashSet<>();
 
     @OneToMany(mappedBy = "ride", fetch = FetchType.LAZY)
     @ToString.Exclude
