@@ -141,7 +141,6 @@ create table Passenger
         REFERENCES User (user_pk)
         ON DELETE CASCADE,
     PRIMARY KEY (passenger_pk)
-
 );
 
 create table Rate
@@ -276,4 +275,12 @@ CREATE INDEX idx_user_fk ON Report (user_fk);
 #RATER TABLE
 CREATE INDEX idx_rater_fk ON Rate (rater_fk);
 CREATE INDEX idx_subject_fk ON Rate (subject_fk);
+#-----------------END-----------------#
+
+
+#-----------------Tables Alteration-----------------#
+
+ALTER TABLE Ride ADD  max_two_in_the_back boolean DEFAULT FALSE;
+ALTER TABLE Passenger ADD  is_instant_booking boolean DEFAULT FALSE;
+
 #-----------------END-----------------#
