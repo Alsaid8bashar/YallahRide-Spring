@@ -23,7 +23,7 @@ public class ReportServiceTest {
 
     @BeforeAll
     public void setUp() {
-        user = userService.saveUser(new User("Hasan", "ahamd", "hasan97@gmail.com"));
+        user = userService.saveUser(new User("Hasan", "ahamd", "hasan97@gmail.com","male"));
         report = reportService.saveReport(new Report("Bad driver", "very bad driver and shit car"));
     }
     @Test

@@ -26,7 +26,7 @@ public class CarRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com"));
+        user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com","male"));
         car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         carRepository.save(car);
     }
@@ -34,7 +34,7 @@ public class CarRepositoryTest {
     @Test
     @Order(1)
     public void testCreateCar() {
-        User user = userRepository.save(new User("Bashar", "Al-Said", "basharalsaid@gmail.com"));
+        User user = userRepository.save(new User("Bashar", "Al-Said", "basharalsaid@gmail.com","male"));
         Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
         carRepository.save(car);
         Assertions.assertTrue(carRepository.findAll().contains(car));

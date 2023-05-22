@@ -26,7 +26,7 @@ public class AccountServiceTest {
     public void setup() {
         String email = UUID.randomUUID().toString();
         String phoneNumber = UUID.randomUUID().toString();
-        user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!");
+        user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
         account = accountService.saveAccount(new Account(email, phoneNumber, "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
 
     }

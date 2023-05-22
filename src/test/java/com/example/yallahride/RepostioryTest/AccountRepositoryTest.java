@@ -24,7 +24,7 @@ class AccountRepositoryTest {
 
     @BeforeAll()
     public void setup() {
-        user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!");
+        user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
         account = accountRepository.save(new Account("shnaqhassan@hotmail.com",
                 "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user));
     }

@@ -37,7 +37,7 @@ public class AccountControllerTest {
     @WithMockUser
     public void testGetAccount() throws Exception {
         long id = 1L;
-        User user = new User("Hassan", "Al-Shannag", "Hi i am Hasan");
+        User user = new User("Hassan", "Al-Shannag", "Hi i am Hasan","male");
         user.setId(id);
 
         Account account = new Account("basharalsaid@gmail.com", "0797453540", "12131", new User());
@@ -56,7 +56,7 @@ public class AccountControllerTest {
 
     @Test
     public void testSaveAccount() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!");
+        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!","male");
         Account account = new Account("shnaqhassan@hotmail.com", "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user);
         account.setIsActive(true);
         when(accountService.saveAccount(account)).thenReturn(account);
@@ -71,7 +71,7 @@ public class AccountControllerTest {
 
     @Test
     public void testUpdateAccount() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!");
+        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!","male");
         Account account = new Account("shnaqhassan@hotmail.com", "+962798084013", "$2a$12$URyEGDnS0up5B8mmANGkqu5i4yYCbE7p4B4lL8csL8cw8p1kTNFp2", user);
         account.setIsActive(true);
 

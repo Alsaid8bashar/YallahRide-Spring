@@ -38,6 +38,9 @@ public class User {
     private String about;
     @Column(name = "is_active")
     private boolean isActive;
+    @Column(name = "gender")
+    @NonNull
+    private String gender;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JsonIgnore
     @ToString.Exclude

@@ -32,7 +32,7 @@ public class PassengerRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com"));
+        user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com","male"));
         ride = rideRepository.save(new Ride("Irbid", "Amman", 3, 2.5, user));
         passenger = passengerRepository.save(new Passenger(user, ride));
     }

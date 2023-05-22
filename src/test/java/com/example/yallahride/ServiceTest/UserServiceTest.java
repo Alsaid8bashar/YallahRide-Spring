@@ -1,7 +1,6 @@
 package com.example.yallahride.ServiceTest;
 
 
-import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
@@ -26,7 +25,7 @@ public class UserServiceTest {
 
     @BeforeAll
     public void setUp() {
-        user = new User("Bashar", "ahamd", "basharalsaid17@gmail.com");
+        user = new User("Bashar", "ahamd", "basharalsaid17@gmail.com", "male");
         user.setMultipartFile(new MockMultipartFile("userImage.png", "userImage.png".getBytes()));
         userService.saveUser(user);
     }
@@ -101,7 +100,7 @@ public class UserServiceTest {
 
     @Test
     @Order(8)
-    public void should_not_remove_user_when_child_removed(){
+    public void should_not_remove_user_when_child_removed() {
         user = userService.findUserById(user.getId());
         Assertions.assertTrue(user.getId() > 0);
     }

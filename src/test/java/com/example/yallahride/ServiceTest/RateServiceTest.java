@@ -23,10 +23,10 @@ public class RateServiceTest {
 
     @BeforeAll
     public void setUp() {
-        sender = new User("Hasan", "ahamd", "hasan97@gmail.com");
+        sender = new User("Hasan", "ahamd", "hasan97@gmail.com","male");
         userService.saveUser(sender);
 
-        subject = new User("Bashar", "ahamd", "basharalsaid17@gmail.com");
+        subject = new User("Bashar", "ahamd", "basharalsaid17@gmail.com","male");
         userService.saveUser(subject);
     }
 
