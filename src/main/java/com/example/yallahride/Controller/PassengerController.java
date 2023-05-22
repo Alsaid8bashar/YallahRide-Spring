@@ -13,9 +13,9 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+
 @RestController
 @RequestMapping("passenger")
-
 public class PassengerController {
     @Autowired
     private PassengerService passengerService;
@@ -37,6 +37,12 @@ public class PassengerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<HttpStatus> deleteAllPassenger() {
+        passengerService.deleteAllPassengers();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Passenger>> getPassengers() {
         return new ResponseEntity<>(passengerService.findAllPassengers(), HttpStatus.OK);
@@ -51,5 +57,7 @@ public class PassengerController {
     public ResponseEntity<List<User>> getRidePassengers(@RequestParam Long rideId) {
         return new ResponseEntity<>(passengerService.findPassengersByRideId(rideId), HttpStatus.OK);
     }
+
+
 
 }
