@@ -32,6 +32,8 @@ public class Ride {
     private String to;
     @Column(name = "max_two_in_the_back")
     private boolean isMaxTwoInTheBook;
+    @Column(name = "is_instant_booking")
+    private boolean isInstantBooking;
     @Column(name = "`date`")
     @CreationTimestamp
     private Date date;

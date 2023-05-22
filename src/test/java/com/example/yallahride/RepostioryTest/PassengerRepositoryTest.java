@@ -34,13 +34,13 @@ public class PassengerRepositoryTest {
     public void setup() {
         user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com"));
         ride = rideRepository.save(new Ride("Irbid", "Amman", 3, 2.5, user));
-        passenger = passengerRepository.save(new Passenger(user, ride, true));
+        passenger = passengerRepository.save(new Passenger(user, ride));
     }
 
     @Test
     @Order(1)
     public void addPassenger() {
-        Passenger passenger = new Passenger(user, ride, true);
+        Passenger passenger = new Passenger(user, ride);
         passengerRepository.save(passenger);
         Assertions.assertTrue(passengerRepository.findById(passenger.getId()).isPresent());
     }

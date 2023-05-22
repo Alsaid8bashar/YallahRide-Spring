@@ -54,7 +54,7 @@ public class PassengerControllerTest {
     void testSavePassenger() throws Exception {
         User user = new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com");
         Ride ride = new Ride("Irbid", "Amman", 3, 2.5, user);
-        Passenger passenger = new Passenger(user, ride, true);
+        Passenger passenger = new Passenger(user, ride);
         when(passengerService.savePassenger(passenger)).thenReturn(passenger);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/passenger/create")

@@ -23,7 +23,11 @@ public class Passenger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "passenger_pk")
     private Long id;
-    @NonNull
-    @Column(name = "is_instant_booking")
-    private boolean isInstantBooking;
+    @Column(name = "is_Accepted")
+    private boolean isAccepted;
+
+    @PreRemove
+    public void notifyUser(){
+        //TODO notify the user when the driver reject the request
+    }
 }

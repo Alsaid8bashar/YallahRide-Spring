@@ -20,6 +20,10 @@ public interface PassengerService {
 
     long getNumberOfPassenger();
 
+    Passenger acceptPassenger(Long id);
+
+    void rejectPassenger(Long id);
+
     List<User> findPassengersByRideId(Long id);
 
 

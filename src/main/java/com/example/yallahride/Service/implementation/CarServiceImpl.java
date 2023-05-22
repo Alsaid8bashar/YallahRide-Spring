@@ -8,25 +8,32 @@ import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class CarServiceImpl implements CarService {
 
-    @Autowired
+    final
     CarRepository carRepository;
-    @Autowired
+    final
     CarImageService carImageService;
-    @Autowired
+    final
     CarEventListener carEventListener;
-    @Autowired
+    final
     FileService fileService;
 
-
+    public CarServiceImpl(CarRepository carRepository, CarImageService carImageService, CarEventListener carEventListener, FileService fileService) {
+        this.carRepository = carRepository;
+        this.carImageService = carImageService;
+        this.carEventListener = carEventListener;
+        this.fileService = fileService;
+    }
 
 
     @Override
@@ -64,10 +71,17 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car addCarImage(Long carId, CarImage carImage) {
-        carImage.setImagePath(fileService.uploadFile(carImage.getMultipartFile()));
-        Car car = unwrapCar(carRepository.findById(carId), carId);
-        car.addCarImage(carImage);
+        Car car = saveImage(carId, carImage);
         return saveCar(car);
+    }
+
+    @Override
+    public Car addCarImages(Long carId, Collection<CarImage> carImages) {
+        Car car = null;
+        for (CarImage carImage : carImages) {
+            car = saveImage(carId, carImage);
+        }
+        return car;
     }
 
     @Override
@@ -92,7 +106,14 @@ public class CarServiceImpl implements CarService {
         saveCar(car);
     }
 
-    static Car unwrapCar(Optional<Car> entity, Long id) {
+    private Car saveImage(Long carId, CarImage carImage) {
+        carImage.setImagePath(fileService.uploadFile(carImage.getMultipartFile()));
+        Car car = unwrapCar(carRepository.findById(carId), carId);
+        car.addCarImage(carImage);
+        return car;
+    }
+
+    private Car unwrapCar(Optional<Car> entity, Long id) {
         if (entity.isPresent()) return entity.get();
         throw new EntityNotFoundException(id, Car.class);
     }

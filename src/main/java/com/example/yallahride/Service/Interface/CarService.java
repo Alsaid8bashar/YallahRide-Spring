@@ -2,11 +2,9 @@ package com.example.yallahride.Service.Interface;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
-import jakarta.persistence.PreRemove;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public interface CarService {
 
@@ -25,8 +23,9 @@ public interface CarService {
 
     long getNumberOfCars();
 
-
     Car addCarImage(Long carId, CarImage carImage);
+
+    Car addCarImages(Long carId, Collection<CarImage> carImage);
 
     void deleteCarImages(Long id);
 

@@ -103,13 +103,13 @@ create table Contact_Us
 
 create table Ride
 (
-    ride_pk MEDIUMINT     NOT NULL AUTO_INCREMENT,
+    ride_pk MEDIUMINT    NOT NULL AUTO_INCREMENT,
     user_fk MEDIUMINT,
     `from`  varchar(768) NOT NULL,
     `to`    varchar(768) NOT NULL,
     `date`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    seats   INT           NOT NULL,
-    cost    FLOAT         NOT NULL,
+    seats   INT          NOT NULL,
+    cost    FLOAT        NOT NULL,
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE,
     PRIMARY KEY (ride_pk)
 );
@@ -279,8 +279,11 @@ CREATE INDEX idx_subject_fk ON Rate (subject_fk);
 
 
 #-----------------Tables Alteration-----------------#
-
-ALTER TABLE Ride ADD  max_two_in_the_back boolean DEFAULT FALSE;
-ALTER TABLE Passenger ADD  is_instant_booking boolean DEFAULT FALSE;
+ALTER TABLE Ride
+    ADD max_two_in_the_back boolean DEFAULT FALSE;
+ALTER TABLE Ride
+    ADD is_instant_booking boolean DEFAULT FALSE;
+ALTER TABLE Passenger
+    ADD is_Accepted boolean DEFAULT TRUE;
 
 #-----------------END-----------------#
