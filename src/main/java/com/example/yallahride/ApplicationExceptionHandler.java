@@ -2,6 +2,7 @@ package com.example.yallahride;
 
 
 
+import com.example.yallahride.Exceptions.EmailException;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Exceptions.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,6 +29,12 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     public ResponseEntity<Object> handleResourceNotFoundException(RuntimeException ex) {
         ErrorResponse error = new ErrorResponse(Arrays.asList(ex.getMessage()));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({EmailException.class})
+    public ResponseEntity<Object> handleEmailException(RuntimeException ex) {
+        ErrorResponse error = new ErrorResponse(Arrays.asList(ex.getMessage()));
+        return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
