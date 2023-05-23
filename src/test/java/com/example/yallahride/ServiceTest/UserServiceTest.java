@@ -25,7 +25,7 @@ public class UserServiceTest {
 
     @BeforeAll
     public void setUp() {
-        user = new User("Bashar", "ahamd", "basharalsaid17@gmail.com", "male");
+        user = new User("Bashar", "ahamd", "male");
         user.setMultipartFile(new MockMultipartFile("userImage.png", "userImage.png".getBytes()));
         userService.saveUser(user);
     }

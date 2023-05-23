@@ -31,8 +31,7 @@ public class CarServiceTest {
 
     @BeforeAll
     public void setup() {
-        user = userService.saveUser(new User("Hassan", "Al-Shannag",
-                "shnaqhassan@hotmail.com","male"));
+        user = userService.saveUser(new User("Hassan", "Al-Shannag","male"));
         car = carService.saveCar(new Car("Black", "Ford", "Fusion",
                 "19-$#$#$#", 2014, user));
     }

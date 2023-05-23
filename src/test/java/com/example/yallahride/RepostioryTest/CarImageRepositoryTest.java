@@ -32,7 +32,7 @@ public class CarImageRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        user = userRepository.save(new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com","male"));
+        user = userRepository.save(new User("Hassan", "Al-Shannag","male"));
         car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         MultipartFile multipartFile = new MockMultipartFile("carImage.png", "carImage!".getBytes());
         carImage = carImageRepository.save(new CarImage(multipartFile));

@@ -24,13 +24,13 @@ public class UserRepositoryTest {
     User user;
     @BeforeAll
     public void setup(){
-        user = userRepository.save(new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com","male"));
+        user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
     }
     @Test
     @Order(1)
     @Rollback(value = false)
     public void testCreateUser() {
-        User user = new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         TravelPreference travelPreference = new TravelPreference("test");
         travelPreferenceRepository.save(travelPreference);
         user.addTravelPreference(travelPreference);

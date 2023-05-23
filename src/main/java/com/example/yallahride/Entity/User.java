@@ -34,7 +34,6 @@ public class User {
     @Column(name = "image_path")
     private String imagePath;
     @Column(name = "about")
-    @NonNull
     private String about;
     @Column(name = "is_active")
     private boolean isActive;

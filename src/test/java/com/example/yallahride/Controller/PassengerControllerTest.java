@@ -52,7 +52,7 @@ public class PassengerControllerTest {
 
     @Test
     void testSavePassenger() throws Exception {
-        User user = new User("Ahmad", "Mouhsn", "ahmadmouhsn@gmail.com","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         Ride ride = new Ride("Irbid", "Amman", 3, 2.5, user);
         Passenger passenger = new Passenger(user, ride);
         when(passengerService.savePassenger(passenger)).thenReturn(passenger);

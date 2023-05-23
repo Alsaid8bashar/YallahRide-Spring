@@ -50,6 +50,16 @@ public class AccountController {
         return new ResponseEntity<>(accountService.findAccountByPhoneNumber(phone), OK);
     }
 
+    @GetMapping("/is-email-exist")
+    public ResponseEntity<Boolean> isEmailExist(@RequestParam String email) {
+        return new ResponseEntity<>(accountService.isEmailExist(email), OK);
+    }
+
+    @GetMapping("/is-phoneNumber-exist")
+    public ResponseEntity<Boolean> isPhoneNumber(@RequestParam String phone) {
+        return new ResponseEntity<>(accountService.isPhoneExist(phone), OK);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<Collection<Account>> findAll() {
         return new ResponseEntity<>(accountService.findAllAccounts(), OK);

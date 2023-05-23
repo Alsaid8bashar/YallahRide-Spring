@@ -44,7 +44,7 @@ public class UserControllerTests {
     @Test
     void findUserByIDTest() throws Exception {
         long id = 1L;
-        User user = new User("Hassan", "Al-Shannag", "Hi i am Hasan","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         user.setId(id);
 
         when(userService.findUserById(id)).thenReturn(user);
@@ -61,7 +61,7 @@ public class UserControllerTests {
 
     @Test
     void createUserTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag", "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
 
         mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
@@ -102,9 +102,9 @@ public class UserControllerTests {
 
         List<User> users = new ArrayList<>(
                 Arrays.asList(
-                        new User("Hassan", "Al-Shannag", "shnaqhassan@hotmail.com","male"),
-                        new User("Bashar", "Al-Masri", "basaharmasari@gmail.com" ,"male"),
-                        new User("Luay", "Al-Alawneh", "luay@yahoo.com","male")
+                        new User("Hassan", "Al-Shannag","male"),
+                        new User("Bashar", "Al-Masri","male"),
+                        new User("Luay", "Al-Alawneh","male")
                 ));
 
         when(userService.findAllUsers()).thenReturn(users);
@@ -118,10 +118,10 @@ public class UserControllerTests {
     void updateUserByIdTest() throws Exception {
         long id = 1L;
 
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!",",\"male\"");
+        User user = new User("Hassan", "Al-Shannag",",\"male\"");
         user.setId(id);
 
-        User updatedUser = new User("Hassan", "Al-Shannag", "email@hotmail.com","male");
+        User updatedUser = new User("Hassan", "Al-Shannag","male");
         updatedUser.setId(id);
 
         when(userService.findUserById(id)).thenReturn(user);
@@ -137,7 +137,7 @@ public class UserControllerTests {
     @Test
     void activateUserByIdTest() throws Exception {
         Long id = 1L;
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         user.setActive(true);
         when(userService.activateUserById(id)).thenReturn(user);
         mockMvc.perform(post("/user/activate/{id}", id))
@@ -149,7 +149,7 @@ public class UserControllerTests {
     @Test
     void deactivateUserByIdTest() throws Exception {
         Long id = 1L;
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         user.setActive(false);
         when(userService.deactivateUserById(id)).thenReturn(user);
         mockMvc.perform(post("/user/deactivate/{id}", id))
@@ -160,7 +160,7 @@ public class UserControllerTests {
 
     @Test
     void addTravelPreferenceByUserIdTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         user.setId(1L);
         TravelPreference travelPreference = new TravelPreference("TEST");
         travelPreference.setId(1L);
@@ -176,7 +176,7 @@ public class UserControllerTests {
 
     @Test
     void getTravelPreferencesTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
         user.setId(1L);
         List<TravelPreference> travelPreferences = new ArrayList<>(
                 Arrays.asList(
@@ -198,7 +198,8 @@ public class UserControllerTests {
 
     @Test
     void deleteTravelPreferenceTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
+
         user.setId(1L);
         TravelPreference travelPreference = new TravelPreference("TEST");
         travelPreference.setId(1L);
@@ -216,7 +217,8 @@ public class UserControllerTests {
 
     @Test
     void addRoleToUserTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
+
         user.setId(1L);
         Role role = new Role("ADMIN");
         role.setId(1L);
@@ -233,7 +235,8 @@ public class UserControllerTests {
 
     @Test
     public void getRolesTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
+
         user.setId(1L);
         List<Role> roles = new ArrayList<>(
                 Arrays.asList(
@@ -256,7 +259,8 @@ public class UserControllerTests {
 
     @Test
     void deleteRoleTest() throws Exception {
-        User user = new User("Hassan", "Al-Shannag",  "Hi, I'm Hasan al Shannag!","male");
+        User user = new User("Hassan", "Al-Shannag","male");
+
         user.setId(1L);
         List<Role> roles = new ArrayList<>(
                 Arrays.asList(
