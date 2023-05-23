@@ -40,7 +40,6 @@ public class Account implements UserDetails {
     private Date date;
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     @NonNull
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     private User user;

@@ -48,6 +48,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Account account = accountService.findAccountByPhoneNumber(authResult.getName());
         JwtUtils jwtUtils = new JwtUtils();
         String token = jwtUtils.generateToken(account);
+        response.setStatus(200);
         response.addHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.BEARER + token);
     }
 
