@@ -35,6 +35,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
+                .requestMatchers("/api/phoneNumber/**").permitAll()
                 .requestMatchers("/account/**").permitAll()
                 .requestMatchers("/storage/**").permitAll()
                 .requestMatchers("/role/").hasAuthority("ADMIN")

@@ -52,6 +52,7 @@ public class AccountController {
 
     @GetMapping("/is-email-exist")
     public ResponseEntity<Boolean> isEmailExist(@RequestParam String email) {
+        System.out.println("TEST");
         return new ResponseEntity<>(accountService.isEmailExist(email), OK);
     }
 

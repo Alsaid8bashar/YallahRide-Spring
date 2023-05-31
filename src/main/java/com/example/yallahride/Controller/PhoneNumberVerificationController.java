@@ -8,25 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping(path = "api/phoneNumber")
 @Slf4j
+@CrossOrigin(value = "http://localhost:4200")
 public class PhoneNumberVerificationController {
     @Autowired
     TwilioInitializer twilioInitializer;
     @Autowired
     Environment environment;
-    @GetMapping(value = "/generateTOTP/")
+    @GetMapping(value = "/generateTOTP")
     public ResponseEntity<String> generateTOTP(@RequestParam("PhoneNumber") String phoneNumber) {
         Verification verification = Verification.creator(
                         environment.getProperty("service_sid"),
-                        "+" + phoneNumber,
+                        phoneNumber,
                         "sms")
                 .create();
 
