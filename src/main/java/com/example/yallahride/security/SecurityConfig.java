@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
                 .requestMatchers("/api/phoneNumber/**").permitAll()
                 .requestMatchers("/account/**").permitAll()
+                .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/storage/**").permitAll()
                 .requestMatchers("/role/").hasAuthority("ADMIN")
                 .requestMatchers("/ride/**").hasAuthority("ADMIN")

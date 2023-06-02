@@ -20,6 +20,7 @@ public class PhoneNumberVerificationController {
     TwilioInitializer twilioInitializer;
     @Autowired
     Environment environment;
+
     @GetMapping(value = "/generateTOTP")
     public ResponseEntity<String> generateTOTP(@RequestParam("PhoneNumber") String phoneNumber) {
         Verification verification = Verification.creator(
@@ -31,9 +32,8 @@ public class PhoneNumberVerificationController {
         return new ResponseEntity<>("Your TOTP has been sent to your verified phone number", HttpStatus.OK);
     }
 
-    @GetMapping("/verifyTOTP/")
-    public ResponseEntity<String> verifyUserTOTP
-            (@RequestParam("code")String code, @RequestParam("phoneNumber") String phoneNumber) {
+    @GetMapping("/verifyTOTP")
+    public ResponseEntity<Boolean> verifyUserTOTP(@RequestParam("code") String code, @RequestParam("phoneNumber") String phoneNumber) {
 
         try {
             VerificationCheck verificationCheck = VerificationCheck.creator(
@@ -42,12 +42,11 @@ public class PhoneNumberVerificationController {
                     .setCode(code)
                     .create();
 
-            return new ResponseEntity<>("OTP successfully verified" , HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
 
         } catch (Exception e) {
-            return new ResponseEntity<>("Unverified OTP" ,HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }
-
 
     }
 }

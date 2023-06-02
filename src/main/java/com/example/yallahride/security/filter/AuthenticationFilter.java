@@ -48,9 +48,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Account account = accountService.findAccountByPhoneNumber(authResult.getName());
         JwtUtils jwtUtils = new JwtUtils();
         String token = jwtUtils.generateToken(account);
-        response.setStatus(200);
-        response.addHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.BEARER + token);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE, PUT");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        response.setHeader("Access-Control-Max-Age", "3600"); // Optional, specify max age in seconds
+        response.addHeader("access-control-expose-headers", "Authorization");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.BEARER + token);
     }
+
 
 
 }

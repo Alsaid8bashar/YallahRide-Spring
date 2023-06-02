@@ -15,8 +15,11 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*"); // Allow all origins
         config.addAllowedMethod("GET"); // Allow GET requests
-        config.addAllowedHeader("Content-Type"); // Allow Content-Type header
-
+        config.addAllowedMethod("POST");
+        config.addAllowedHeader("Content-Type");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:4200");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config); // Apply the configuration to all paths
         return source;

@@ -52,12 +52,11 @@ public class AccountController {
 
     @GetMapping("/is-email-exist")
     public ResponseEntity<Boolean> isEmailExist(@RequestParam String email) {
-        System.out.println("TEST");
         return new ResponseEntity<>(accountService.isEmailExist(email), OK);
     }
 
     @GetMapping("/is-phoneNumber-exist")
-    public ResponseEntity<Boolean> isPhoneNumber(@RequestParam String phone) {
+    public ResponseEntity<Boolean> isPhoneNumberExist(@RequestParam String phone) {
         return new ResponseEntity<>(accountService.isPhoneExist(phone), OK);
     }
 
