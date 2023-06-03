@@ -10,7 +10,7 @@ import java.util.Collection;
 public interface RateRepository extends JpaRepository<Rate, Long> {
 
     @Query(
-            value = "SELECT * FROM yallah_Ride.Rate rate WHERE rate.subject_fk = :id",
+            value = "SELECT * FROM YallahRide.Rate rate WHERE rate.subject_fk = :id",
             nativeQuery = true)
     Collection<Rate> findUserRates(@Param("id") Long subjectId);
 }

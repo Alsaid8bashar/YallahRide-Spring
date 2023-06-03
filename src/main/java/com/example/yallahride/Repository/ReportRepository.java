@@ -10,7 +10,7 @@ import java.util.Collection;
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
     @Query(
-            value = "SELECT * FROM yallah_Ride.Report  report WHERE report.user_fk = :id",
+            value = "SELECT * FROM YallahRide.Report  report WHERE report.user_fk = :id",
             nativeQuery = true)
     Collection<Report> findUserReport(@Param("id") Long userId);
 }
