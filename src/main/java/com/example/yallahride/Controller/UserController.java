@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("user")
@@ -27,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@ModelAttribute User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
@@ -54,7 +52,7 @@ public class UserController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-            return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
     }
 
     @GetMapping("/all")

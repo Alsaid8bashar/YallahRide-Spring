@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/storage/**").permitAll()
                 .requestMatchers("/role/").hasAuthority("ADMIN")
-                .requestMatchers("/ride/**").hasAuthority("ADMIN")
+                .requestMatchers("/ride/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)

@@ -7,9 +7,7 @@ import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RideServiceImpl implements RideService {
@@ -20,6 +18,11 @@ public class RideServiceImpl implements RideService {
         this.rideRepository = rideRepository;
     }
 
+    private Ride unwrapRide(Optional<Ride> ride, Long id) {
+        if (ride.isPresent()) return ride.get();
+        else throw new EntityNotFoundException(id, Ride.class);
+    }
+
     @Override
     public Ride saveRide(Ride ride) {
         return rideRepository.save(ride);
@@ -27,7 +30,7 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Ride findRideById(Long id) {
-        return unwrapRide(rideRepository.findById(id),id);
+        return unwrapRide(rideRepository.findById(id), id);
     }
 
     @Override
@@ -60,8 +63,8 @@ public class RideServiceImpl implements RideService {
         return ride.getReports();
     }
 
-    static Ride unwrapRide(Optional<Ride> ride, Long id) {
-        if (ride.isPresent()) return ride.get();
-        else throw new EntityNotFoundException(id, Ride.class);
+    @Override
+    public Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date) {
+        return rideRepository.searchRidesByFromAndToAndDate(from, to, date);
     }
 }

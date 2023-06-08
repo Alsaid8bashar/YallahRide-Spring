@@ -18,7 +18,7 @@ public class CorsConfig {
         config.addAllowedMethod("POST");
         config.addAllowedHeader("Content-Type");
         config.addAllowedHeader("*");
-        config.setAllowCredentials(true);
+//        config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:4200");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config); // Apply the configuration to all paths

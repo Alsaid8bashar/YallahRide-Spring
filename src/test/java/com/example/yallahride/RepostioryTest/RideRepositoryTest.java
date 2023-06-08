@@ -25,16 +25,16 @@ public class RideRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        User   user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
-        ride = rideRepository.save(new Ride("Irbid", "Amman", 3,2.5,user));
+        User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
+        ride = rideRepository.save(new Ride("Irbid", "Amman", 3, 2.5, user));
     }
 
     @Test
     @Order(1)
     public void testCreateRide() {
-        User   user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
+        User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
 
-        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3,2.5,user));
+        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3, 2.5, user));
         Assertions.assertTrue(ride.getId() > 0);
     }
 
@@ -45,6 +45,16 @@ public class RideRepositoryTest {
         Optional<Ride> optionalRide = rideRepository.findById(ride.getId());
         Ride tempRide = optionalRide.get();
         Assertions.assertEquals(tempRide.getId(), ride.getId());
+    }
+
+    @Test
+    @Order(2)
+    public void testSearchForRide() {
+        User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
+        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3, 2.5, user));
+
+        List<Ride> tempRide = (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(ride.getFrom(), ride.getTo(), ride.getDate());
+        Assertions.assertTrue(tempRide.contains(ride));
     }
 
     @Test
