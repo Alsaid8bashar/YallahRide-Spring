@@ -4,7 +4,7 @@ create table User
     first_name varchar(1000) NOT NULL,
     last_name  varchar(1000) NOT NULL,
     image_path varchar(4000),
-    about      varchar(300) ,
+    about      varchar(300),
     is_active  boolean default true,
     PRIMARY KEY (user_pk)
 );
@@ -285,5 +285,6 @@ ALTER TABLE Ride
     ADD is_instant_booking boolean DEFAULT FALSE;
 ALTER TABLE Passenger
     ADD is_Accepted boolean DEFAULT TRUE;
+
 
 #-----------------END-----------------#

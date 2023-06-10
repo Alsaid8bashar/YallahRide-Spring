@@ -1,9 +1,9 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 import java.util.Date;
@@ -34,8 +34,9 @@ public class Ride {
     private boolean isMaxTwoInTheBook;
     @Column(name = "is_instant_booking")
     private boolean isInstantBooking;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "`date`")
-    @CreationTimestamp
     private Date date;
     @NonNull
     @Column(name = "seats")

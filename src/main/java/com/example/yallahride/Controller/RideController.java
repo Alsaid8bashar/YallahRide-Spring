@@ -4,6 +4,7 @@ import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +37,8 @@ public class RideController {
     }
 
     @GetMapping("/searchForRide")
-    public ResponseEntity<Collection<Ride>> searchRidesByFromAndToAndDate(@RequestParam String from, @RequestParam String to, @RequestParam Date data) {
-        return new ResponseEntity<>(rideService.searchRidesByFromAndToAndDate(from, to, data), HttpStatus.OK);
+    public ResponseEntity<Collection<Ride>> searchRidesByFromAndToAndDate(@RequestParam String from, @RequestParam String to, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return new ResponseEntity<>(rideService.searchRidesByFromAndToAndDate(from, to, date), HttpStatus.OK);
     }
 
     @GetMapping("/all")
