@@ -1,5 +1,6 @@
 package com.example.yallahride.security.filter;
 
+import com.example.yallahride.Entity.Account;
 import com.example.yallahride.security.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +25,7 @@ public class JwtUtils {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimResolver){
+    public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = extractAllClaims(token);
         return claimResolver.apply(claims);
     }
@@ -38,24 +39,26 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(SecurityConstants.SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
-    public String generateToken(UserDetails userDetails){
-        Map<String, Object>claims = new HashMap<>();
-        return createToken(claims,userDetails);
-    }
-    public String generateToken(UserDetails userDetails, Map<String,Object>claims){
-        return createToken(claims,userDetails);
+    public String generateToken(Account userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userDetails);
     }
 
-    private String createToken(Map<String, Object> claims, UserDetails userDetails) {
+    public String generateToken(Account userDetails, Map<String, Object> claims) {
+        return createToken(claims, userDetails);
+    }
+
+    private String createToken(Map<String, Object> claims, Account userDetails) {
         return Jwts.builder().setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .claim("authorities", userDetails.getAuthorities())
+                .claim("userId", userDetails.getUser().getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.TOKEN_EXPIRATION))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET_KEY).compact();
     }
 
-    private boolean isTokenExpired(String token){
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
