@@ -53,6 +53,7 @@ public class JwtUtils {
                 .setSubject(userDetails.getUsername())
                 .claim("authorities", userDetails.getAuthorities())
                 .claim("userId", userDetails.getUser().getId())
+                .claim("accountId", userDetails.getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.TOKEN_EXPIRATION))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET_KEY).compact();
