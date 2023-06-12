@@ -1,5 +1,6 @@
 package com.example.yallahride.Controller;
 
+import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -52,8 +54,10 @@ public class PassengerControllerTest {
 
     @Test
     void testSavePassenger() throws Exception {
-        User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Irbid", "Amman", 3, 2.5, user);
+        User user = new User("Hassan", "Al-Shannag", "male");
+        Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
+        Date currentDate = new Date();
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car);
         Passenger passenger = new Passenger(user, ride);
         when(passengerService.savePassenger(passenger)).thenReturn(passenger);
 
@@ -91,7 +95,7 @@ public class PassengerControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/passenger/user-rides")
                         .contentType(MediaType.APPLICATION_JSON)
-                  .param("userId", userId.toString()))
+                        .param("userId", userId.toString()))
                 .andExpect(status().isOk())
                 .andDo(print());
 
@@ -113,7 +117,6 @@ public class PassengerControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
-
 
 
 }

@@ -34,9 +34,10 @@ public class Ride {
     private boolean isMaxTwoInTheBook;
     @Column(name = "is_instant_booking")
     private boolean isInstantBooking;
-    @Temporal(TemporalType.TIMESTAMP)
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "`date`")
+    @NonNull
     private Date date;
     @NonNull
     @Column(name = "seats")
@@ -54,6 +55,10 @@ public class Ride {
     @JsonIgnore
     private Set<Report> reports = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
+    @NonNull
+    private Car car;
 
     @Override
     public boolean equals(Object o) {

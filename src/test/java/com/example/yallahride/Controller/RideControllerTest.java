@@ -1,5 +1,6 @@
 package com.example.yallahride.Controller;
 
+import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,11 +40,13 @@ public class RideControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, new User());
+    Date currentDate = new Date();
 
     @Test
     public void testCreateRide() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Amman", "irbid", 4,2.5, user);
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car);
         ride.setId(1L);
 
         when(rideService.saveRide(ride)).thenReturn(ride);
@@ -60,7 +64,7 @@ public class RideControllerTest {
     @Test
     public void testUpdateRide() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Amman", "irbid", 4 ,2.5, user);
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car);
         ride.setId(1L);
 
         when(rideService.updateRide(ride)).thenReturn(ride);
@@ -79,7 +83,8 @@ public class RideControllerTest {
     @Test
     public void testFindRideById() throws Exception {
         Long rideId = 1L;
-        Ride ride = new Ride("Amman", "irbid", 4, 2.5, new User());
+        User user = new User("Hassan", "Al-Shannag","male");
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car);
         ride.setId(rideId);
 
         when(rideService.findRideById(rideId)).thenReturn(ride);
@@ -97,8 +102,8 @@ public class RideControllerTest {
     @Test
     public void testFindAllRides() throws Exception {
         java.util.List<Ride> rides = Arrays.asList(
-                new Ride("Amman", "irbid", 4, 2.5, new User()),
-                new Ride("Salt", "Amman", 4, 2.5, new User())
+                new Ride("Amman", "irbid",currentDate, 4, 2.5, new User(),car),
+                new Ride("Amman", "irbid",currentDate, 4, 2.5, new User(),car)
         );
 
         when(rideService.findAllRides()).thenReturn(rides);
@@ -137,7 +142,7 @@ public class RideControllerTest {
     @Test
     public void testFindAllRideReports() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Amman", "irbid", 4,2.5, user);
+        Ride ride = new Ride("Amman", "irbid",currentDate, 4, 2.5, user,car);
 
         Set<Report> reports = new HashSet<>();
 

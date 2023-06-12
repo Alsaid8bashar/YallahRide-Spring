@@ -1,15 +1,19 @@
 package com.example.yallahride.ServiceTest;
 
+import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
+import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Repository.UserRepository;
 import com.example.yallahride.Service.Interface.PassengerService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Date;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -27,11 +31,15 @@ public class PassengerServiceTest {
     User user;
     Ride ride;
     Passenger passenger;
+    @Autowired
+    private CarRepository carRepository;
 
     @BeforeAll
     public void setup() {
-        user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
-        ride = rideRepository.save(new Ride("Irbid", "Amman", 3, 2.5, user));
+        user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
+        Car car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
+        Date currentDate = new Date();
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car));
         passenger = passengerService.savePassenger(new Passenger(user, ride));
     }
 

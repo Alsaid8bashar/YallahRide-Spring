@@ -286,5 +286,14 @@ ALTER TABLE Ride
 ALTER TABLE Passenger
     ADD is_Accepted boolean DEFAULT TRUE;
 
+ALTER TABLE User
+    ADD gender varchar(50);
 
+ALTER TABLE Ride
+    ADD car_fk MEDIUMINT;
+
+ALTER TABLE Ride
+    ADD CONSTRAINT ride_car_fk
+        FOREIGN KEY (car_fk)
+            REFERENCES Car (car_pk);
 #-----------------END-----------------#

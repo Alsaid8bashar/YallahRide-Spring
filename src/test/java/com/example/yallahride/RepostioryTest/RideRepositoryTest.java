@@ -1,7 +1,9 @@
 package com.example.yallahride.RepostioryTest;
 
+import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
+import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Repository.UserRepository;
 import org.junit.jupiter.api.*;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,19 +25,25 @@ public class RideRepositoryTest {
     @Autowired
     UserRepository userRepository;
     Ride ride;
+    private CarRepository carRepository;
+    private Car car;
+
 
     @BeforeAll
     public void setup() {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
-        ride = rideRepository.save(new Ride("Irbid", "Amman", 3, 2.5, user));
+        car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
+        Date currentDate = new Date();
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
     }
 
     @Test
     @Order(1)
     public void testCreateRide() {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
+        Date currentDate = new Date();
 
-        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3, 2.5, user));
+        Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
         Assertions.assertTrue(ride.getId() > 0);
     }
 
@@ -51,8 +60,8 @@ public class RideRepositoryTest {
     @Order(2)
     public void testSearchForRide() {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
-        Ride ride = rideRepository.save(new Ride("Jarash", "Zarqa", 3, 2.5, user));
-
+        Date currentDate = new Date();
+        Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
         List<Ride> tempRide = (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(ride.getFrom(), ride.getTo(), ride.getDate());
         Assertions.assertTrue(tempRide.contains(ride));
     }

@@ -1,9 +1,11 @@
 package com.example.yallahride.RepostioryTest;
 
 
+import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
+import com.example.yallahride.Repository.CarRepository;
 import com.example.yallahride.Repository.PassengerRepository;
 import com.example.yallahride.Repository.RideRepository;
 import com.example.yallahride.Repository.UserRepository;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,14 +29,21 @@ public class PassengerRepositoryTest {
     PassengerRepository passengerRepository;
     @Autowired
     RideRepository rideRepository;
+    @Autowired
+    CarRepository carRepository;
+
     User user;
     Ride ride;
     Passenger passenger;
+    Car car;
+
 
     @BeforeAll
     public void setup() {
         user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
-        ride = rideRepository.save(new Ride("Irbid", "Amman", 3, 2.5, user));
+        car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
+        Date currentDate = new Date();
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
         passenger = passengerRepository.save(new Passenger(user, ride));
     }
 
