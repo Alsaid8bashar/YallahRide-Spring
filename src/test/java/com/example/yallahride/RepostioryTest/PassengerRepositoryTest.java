@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +44,9 @@ public class PassengerRepositoryTest {
         user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
         car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         Date currentDate = new Date();
-        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
+        LocalTime time = LocalTime.of(10, 30, 0);
+
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car,time,time));
         passenger = passengerRepository.save(new Passenger(user, ride));
     }
 

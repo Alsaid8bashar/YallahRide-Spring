@@ -13,6 +13,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 @SpringBootTest
@@ -39,7 +40,8 @@ public class PassengerServiceTest {
         user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
         Car car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         Date currentDate = new Date();
-        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car));
+        LocalTime time = LocalTime.of(10, 30, 0);
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time));
         passenger = passengerService.savePassenger(new Passenger(user, ride));
     }
 

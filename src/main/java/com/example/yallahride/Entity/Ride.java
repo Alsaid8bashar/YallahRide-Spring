@@ -1,11 +1,13 @@
 package com.example.yallahride.Entity;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -34,7 +36,8 @@ public class Ride {
     private boolean isMaxTwoInTheBook;
     @Column(name = "is_instant_booking")
     private boolean isInstantBooking;
-
+    @Column(name = "status")
+    private RideStatus rideStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "`date`")
     @NonNull
@@ -59,6 +62,16 @@ public class Ride {
     @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
     @NonNull
     private Car car;
+
+    @Column(name = "arrivalTime")
+    @JsonFormat(pattern = "HH:mm")
+    @NonNull
+    private LocalTime arrivalTime;
+
+    @Column(name = "departureTime")
+    @JsonFormat(pattern = "HH:mm")
+    @NonNull
+    private LocalTime departureTime;
 
     @Override
     public boolean equals(Object o) {

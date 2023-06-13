@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(RoleController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class RoleControllerTest {
+public class  RoleControllerTest {
     @MockBean
     RoleService roleService;
     @Autowired
