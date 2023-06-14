@@ -67,4 +67,8 @@ public class RideServiceImpl implements RideService {
     public Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date) {
         return rideRepository.searchRidesByFromAndToAndDate(from, to, date);
     }
+
+    public Collection<Ride> findDriverRides(long driverId){
+        return rideRepository.findDriverRide(driverId);
+    }
 }

@@ -28,4 +28,6 @@ public interface RideService {
 
     Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date);
 
+    Collection<Ride> findDriverRides(long driverId);
+
 }

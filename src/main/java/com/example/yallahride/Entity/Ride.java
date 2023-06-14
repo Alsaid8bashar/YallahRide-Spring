@@ -37,6 +37,7 @@ public class Ride {
     @Column(name = "is_instant_booking")
     private boolean isInstantBooking;
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private RideStatus rideStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "`date`")

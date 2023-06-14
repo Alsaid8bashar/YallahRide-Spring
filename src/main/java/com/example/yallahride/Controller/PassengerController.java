@@ -1,5 +1,6 @@
 package com.example.yallahride.Controller;
 
+import com.amazonaws.services.xray.model.Http;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
@@ -31,6 +32,24 @@ public class PassengerController {
         return new ResponseEntity<>(passengerService.savePassenger(Passenger), CREATED);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Passenger> updatePassenger(@RequestBody Passenger Passenger) {
+        return new ResponseEntity<>(passengerService.savePassenger(Passenger), OK);
+    }
+
+    @PutMapping("/accept/{id}")
+    public ResponseEntity<Http> acceptPassenger(@PathVariable long id) {
+        passengerService.acceptPassenger(id);
+        return new ResponseEntity<>(OK);
+    }
+
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<HttpStatus> rejectPassenger(@PathVariable long id) {
+        passengerService.rejectPassenger(id);
+        return new ResponseEntity<>(OK);
+    }
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePassenger(@PathVariable Long id) {
         passengerService.deletePassengerById(id);
@@ -48,16 +67,20 @@ public class PassengerController {
         return new ResponseEntity<>(passengerService.findAllPassengers(), HttpStatus.OK);
     }
 
-    @GetMapping("/user-rides")
-    public ResponseEntity<List<Ride>> getUserRides(@RequestParam Long userId) {
+    @GetMapping("/user-rides/{userId}")
+    public ResponseEntity<List<Ride>> getUserRides(@PathVariable long userId) {
         return new ResponseEntity<>(passengerService.findUserRides(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/ride-passengers")
-    public ResponseEntity<List<User>> getRidePassengers(@RequestParam Long rideId) {
+    @GetMapping("/ride-passengers/{rideId}")
+    public ResponseEntity<List<User>> getRidePassengers(@PathVariable long rideId) {
         return new ResponseEntity<>(passengerService.findPassengersByRideId(rideId), HttpStatus.OK);
     }
 
+    @GetMapping("/ride-requests/{rideId}")
+    public ResponseEntity<List<Passenger>> findRideRequests(@PathVariable long rideId) {
+        return new ResponseEntity<>(passengerService.findRideRequests(rideId), HttpStatus.OK);
+    }
 
 
 }

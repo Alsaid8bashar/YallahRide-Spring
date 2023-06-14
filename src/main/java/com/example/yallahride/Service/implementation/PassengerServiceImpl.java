@@ -8,11 +8,13 @@ import com.example.yallahride.Repository.PassengerRepository;
 import com.example.yallahride.Service.Interface.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PassengerServiceImpl implements PassengerService {
     @Autowired
     private PassengerRepository passengerRepository;
@@ -53,21 +55,26 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public Passenger acceptPassenger(Long id) {
-        Passenger passenger =unwrapPassenger(passengerRepository.findById(id), id);
-        passenger.setAccepted(true);
-        return passenger;
+    public void acceptPassenger(Long id) {
+        passengerRepository.acceptPassenger(id);
     }
 
     @Override
     public void rejectPassenger(Long id) {
-        deletePassengerById(id);
+//        passengerRepository.acceptPassenger(id);
+
     }
 
     @Override
     public List<User> findPassengersByRideId(Long id) {
         return passengerRepository.findRidePassenger(id);
     }
+
+    @Override
+    public List<Passenger> findRideRequests(Long id) {
+        return passengerRepository.findRideRequests(id);
+    }
+
 
     @Override
     public List<Ride> findUserRides(Long userId) {
