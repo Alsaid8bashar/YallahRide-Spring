@@ -277,7 +277,6 @@ CREATE INDEX idx_rater_fk ON Rate (rater_fk);
 CREATE INDEX idx_subject_fk ON Rate (subject_fk);
 #-----------------END-----------------#
 
-
 #-----------------Tables Alteration-----------------#
 ALTER TABLE Ride
     ADD max_two_in_the_back boolean DEFAULT FALSE;
@@ -289,8 +288,19 @@ ALTER TABLE Passenger
 ALTER TABLE User
     ADD gender varchar(50);
 
+
+ALTER TABLE Ride
+    ADD status ENUM ('ACTIVE', 'CANCELED', 'COMPLETED') DEFAULT 'ACTIVE';
+
 ALTER TABLE Ride
     ADD car_fk MEDIUMINT;
+
+ALTER TABLE Ride
+    ADD arrivalTime TIME;
+
+ALTER TABLE Ride
+    ADD departureTime TIME;
+
 
 ALTER TABLE Ride
     ADD CONSTRAINT ride_car_fk

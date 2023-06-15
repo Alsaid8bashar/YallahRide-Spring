@@ -1,7 +1,6 @@
 package com.example.yallahride.Service.implementation;
 
 import com.example.yallahride.Entity.EntityListener.UserEventListener;
-import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
@@ -13,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -128,26 +129,7 @@ public class UserServiceImpl implements UserService {
         return saveUser(user);
     }
 
-    @Override
-    public User addRide(Long userId, Ride ride) {
-        User user = findUserById(userId);
-//        user.addRide(ride);
-        return saveUser(user);
-    }
 
-    @Override
-    public Collection<Ride> getUserRides(Long userId) {
-//        return findUserById(userId).getRides();
-        return new ArrayList<>();
-    }
-
-    @Override
-    public User deleteRide(Long userId, Ride ride) {
-        User user = findUserById(userId);
-
-//        user.deleteRide(ride);
-        return saveUser(user);
-    }
 
 
 }

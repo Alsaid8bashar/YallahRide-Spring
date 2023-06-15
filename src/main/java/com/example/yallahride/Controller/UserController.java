@@ -1,6 +1,5 @@
 package com.example.yallahride.Controller;
 
-import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
@@ -99,22 +98,6 @@ public class UserController {
     @DeleteMapping("/{id}/delete/role")
     public ResponseEntity<User> deleteRole(@PathVariable Long id, @RequestBody Role role) {
         return new ResponseEntity<>(userService.deleteRole(id, role), HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping("{id}/add/ride")
-    public ResponseEntity<User> addRide(@PathVariable Long id, @RequestBody Ride ride) {
-        return new ResponseEntity<>(userService.addRide(id, ride), HttpStatus.OK);
-    }
-
-
-    @GetMapping("{id}/rides")
-    public ResponseEntity<Collection<Ride>> getRides(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserRides(id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}/delete/ride")
-    public ResponseEntity<User> deleteRide(@PathVariable Long id, @RequestBody Ride ride) {
-        return new ResponseEntity<>(userService.deleteRide(id, ride), HttpStatus.NO_CONTENT);
     }
 
 }

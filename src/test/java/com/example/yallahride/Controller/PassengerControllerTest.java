@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +58,9 @@ public class PassengerControllerTest {
         User user = new User("Hassan", "Al-Shannag", "male");
         Car car = new Car("Black", "Ford", "Fusion", "19-89893", 2014, user);
         Date currentDate = new Date();
-        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car);
+        LocalTime time = LocalTime.of(10, 30, 0);
+
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time);
         Passenger passenger = new Passenger(user, ride);
         when(passengerService.savePassenger(passenger)).thenReturn(passenger);
 

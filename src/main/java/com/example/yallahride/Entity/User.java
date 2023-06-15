@@ -41,7 +41,6 @@ public class User {
     @NonNull
     private String gender;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     @ToString.Exclude
     @JoinTable(name = "User_Preference", joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"))
     private Set<TravelPreference> travelPreferences = new HashSet<>();
