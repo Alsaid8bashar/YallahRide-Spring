@@ -22,6 +22,8 @@ public class TravelPreference {
     private Long id;
     @NonNull
     private String description;
+    @NonNull
+    private String category;
     @JsonIgnore
     @ManyToMany
     @ToString.Exclude

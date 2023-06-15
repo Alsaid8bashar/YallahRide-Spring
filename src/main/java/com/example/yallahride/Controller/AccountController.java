@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Map;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -29,9 +30,23 @@ public class AccountController {
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
         return new ResponseEntity<>(accountService.saveAccount(account), CREATED);
     }
+
+    @PostMapping("/confirm-password")
+    public ResponseEntity<Boolean> confirmPassword(@RequestBody Map<String, Object> requestMap) {
+        String hashPassword = (String) requestMap.get("hashPassword");
+        Long id = Long.valueOf(requestMap.get("id").toString());
+        return new ResponseEntity<>(accountService.confirmPassword(hashPassword, id), HttpStatus.OK);
+    }
     @PutMapping("/update")
     public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
         return new ResponseEntity<>(accountService.updateAccount(account), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-password")
+    public ResponseEntity<Account> updateAccountPassword(@RequestBody Map<String, Object> requestMap) {
+        String hashPassword = (String) requestMap.get("hashPassword");
+        Long id = Long.valueOf(requestMap.get("id").toString());
+        return new ResponseEntity<>(accountService.updateAccountPassword(hashPassword, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

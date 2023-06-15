@@ -52,6 +52,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account updateAccountPassword(String newPassword, Long id) {
+        Account account = findAccountById(id);
+        account.setPasswordHash(bCryptPasswordEncoder.encode(newPassword));
+        return updateAccount(account);
+    }
+
+    @Override
     public boolean isEmailExist(String email) {
         if (accountRepository.isEmailExist(email) > 0)
             return true;
@@ -62,6 +69,15 @@ public class AccountServiceImpl implements AccountService {
     public boolean isPhoneExist(String phoneNumber) {
         if (accountRepository.isPhoneNumberExist(phoneNumber) > 0)
             return true;
+        return false;
+    }
+
+    @Override
+    public boolean confirmPassword(String hashPassword, Long id) {
+        Account account = findAccountById(id);
+        if (bCryptPasswordEncoder.matches(hashPassword, account.getPasswordHash())) {
+            return true;
+        }
         return false;
     }
 

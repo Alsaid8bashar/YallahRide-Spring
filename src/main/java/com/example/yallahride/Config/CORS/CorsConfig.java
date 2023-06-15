@@ -16,6 +16,7 @@ public class CorsConfig {
         config.addAllowedOrigin("*"); // Allow all origins
         config.addAllowedMethod("GET"); // Allow GET requests
         config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
         config.addAllowedHeader("Content-Type");
         config.addAllowedHeader("*");
 //        config.setAllowCredentials(true);

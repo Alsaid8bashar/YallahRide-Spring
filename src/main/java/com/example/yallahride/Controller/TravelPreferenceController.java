@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("travel-preference")
@@ -20,6 +19,12 @@ public class TravelPreferenceController {
     @PostMapping("/create")
     public ResponseEntity<TravelPreference> saveTravelPreference(@RequestBody TravelPreference travelPreference) {
         return new ResponseEntity<>(travelPreferenceService.saveTravelPreference(travelPreference), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<TravelPreference> test(){
+//        return new ResponseEntity<>(travelPreferenceService.saveTravelPreference(travelPreference), HttpStatus.CREATED);
+        return null;
     }
 
     @PutMapping("{id}/update")
@@ -35,6 +40,23 @@ public class TravelPreferenceController {
     @GetMapping("all")
     public ResponseEntity<List<TravelPreference>> findAllTravelPreferences() {
         return new ResponseEntity<>(travelPreferenceService.findAllTravelPreferences(), HttpStatus.OK);
+    }
+
+    @GetMapping("/find/chattiness")
+    public ResponseEntity<List<TravelPreference>> findAllChattinessTravelPreferences(){
+        return new ResponseEntity<>(travelPreferenceService.findAllChattinessTravelPreferences(), HttpStatus.OK);
+    }
+    @GetMapping("/find/smoking")
+    public ResponseEntity<List<TravelPreference>> findAllSmokingTravelPreferences(){
+        return new ResponseEntity<>(travelPreferenceService.findAllSmokingTravelPreferences(), HttpStatus.OK);
+    }
+    @GetMapping("/find/music")
+    public ResponseEntity<List<TravelPreference>> findAllMusicTravelPreferences(){
+        return new ResponseEntity<>(travelPreferenceService.findAllMusicTravelPreferences(), HttpStatus.OK);
+    }
+    @GetMapping("/find/pets")
+    public ResponseEntity<List<TravelPreference>> findAllPetsTravelPreferences(){
+        return new ResponseEntity<>(travelPreferenceService.findAllPetsTravelPreferences(), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete_all")
