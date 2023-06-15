@@ -5,6 +5,8 @@ import com.example.yallahride.Entity.Account;
 import java.util.List;
 
 public interface AccountService {
+
+
     Account saveAccount(Account account);
 
     Account findAccountById(Long id);
@@ -12,18 +14,21 @@ public interface AccountService {
     List<Account> findAllAccounts();
 
     Account updateAccount(Account account);
+    Account updateAccountPassword(String newPassword, Long id);
+
+    Account findAccountByEmail(String email);
+
+    Account findAccountByPhoneNumber(String phoneNumber);
 
     boolean isEmailExist(String email);
 
     boolean isPhoneExist(String phoneNumber);
 
-    void deleteAllAccounts();
+    boolean confirmPassword(String hashPassword, Long id);
 
     void deleteAccountById(Long id);
 
+    void deleteAllAccounts();
+
     long getNumberOfAccount();
-
-    Account findAccountByEmail(String email);
-
-    Account findAccountByPhoneNumber(String phoneNumber);
 }

@@ -28,7 +28,7 @@ public class Account implements UserDetails {
     @NonNull
     @Column(name = "email")
     private String email;
-    @Lob
+
     @NonNull
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
@@ -48,6 +48,7 @@ public class Account implements UserDetails {
     private Boolean isActive;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.getUser().getRoles();
     }

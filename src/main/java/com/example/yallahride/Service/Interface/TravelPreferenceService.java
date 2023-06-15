@@ -11,6 +11,10 @@ public interface TravelPreferenceService {
 
     TravelPreference findTravelPreferenceById(Long id);
 
+    List<TravelPreference> findAllChattinessTravelPreferences();
+    List<TravelPreference> findAllSmokingTravelPreferences();
+    List<TravelPreference> findAllMusicTravelPreferences();
+    List<TravelPreference> findAllPetsTravelPreferences();
     List<TravelPreference> findAllTravelPreferences();
 
     void deleteAllTravelPreferences();

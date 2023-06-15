@@ -13,6 +13,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Optional<Account> findByPhoneNumber(String phoneNumber);
 
+
     @Query(value = "SELECT COUNT(*) AS email_count FROM  YallahRide.Account WHERE email = :email"
             , nativeQuery = true)
     long isEmailExist(@Param("email") String email);

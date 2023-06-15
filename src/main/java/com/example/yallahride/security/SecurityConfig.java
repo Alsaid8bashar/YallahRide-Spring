@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .requestMatchers("/account/**").permitAll()
                 .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/storage/**").permitAll()
+                .requestMatchers("/travel-preference/**").permitAll()
                 .requestMatchers("/role/").hasAuthority("ADMIN")
                 .requestMatchers("/ride/**").permitAll()
                 .requestMatchers("/passenger/**").permitAll()
