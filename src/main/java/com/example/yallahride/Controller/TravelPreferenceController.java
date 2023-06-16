@@ -21,12 +21,6 @@ public class TravelPreferenceController {
         return new ResponseEntity<>(travelPreferenceService.saveTravelPreference(travelPreference), HttpStatus.CREATED);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<TravelPreference> test(){
-//        return new ResponseEntity<>(travelPreferenceService.saveTravelPreference(travelPreference), HttpStatus.CREATED);
-        return null;
-    }
-
     @PutMapping("{id}/update")
     public ResponseEntity<TravelPreference> updateTravelPreference(@RequestBody TravelPreference travelPreference) {
         return new ResponseEntity<>(travelPreferenceService.updateTravelPreference(travelPreference), HttpStatus.OK);

@@ -188,6 +188,16 @@ create table Page_Image
     FOREIGN KEY (page_fk) REFERENCES Page (page_pk) ON DELETE CASCADE
 );
 
+create table Feedback
+(
+    feedback_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user_fk MEDIUMINT,
+    feedback    varchar(4000),
+    stars       MEDIUMINT,
+    PRIMARY KEY (page_image_pk),
+    FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE
+);
+
 
 #-----------------RESTING AUTO_INCREMENT FOR ALL TABLES-----------------#
 alter table Account
