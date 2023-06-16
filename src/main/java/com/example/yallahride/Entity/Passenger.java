@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,12 +12,13 @@ import lombok.*;
 @RequiredArgsConstructor
 @Table(name = "Passenger")
 public class Passenger {
-    @ManyToOne
     @NonNull
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_fk")
     User user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @NonNull
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "ride_fk")
     Ride ride;
     @Id
@@ -27,7 +29,7 @@ public class Passenger {
     private boolean isAccepted;
 
     @PreRemove
-    public void notifyUser(){
+    public void notifyUser() {
         //TODO notify the user when the driver reject the request
     }
 }

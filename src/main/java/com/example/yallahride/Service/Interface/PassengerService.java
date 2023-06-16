@@ -20,12 +20,13 @@ public interface PassengerService {
 
     long getNumberOfPassenger();
 
-    Passenger acceptPassenger(Long id);
+    void acceptPassenger(Long id);
 
     void rejectPassenger(Long id);
 
     List<User> findPassengersByRideId(Long id);
 
+    List<Passenger> findRideRequests(Long id);
 
     List<Ride> findUserRides(Long userId);
 }

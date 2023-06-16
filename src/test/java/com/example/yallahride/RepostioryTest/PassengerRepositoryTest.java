@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,17 +41,22 @@ public class PassengerRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        user = userRepository.save(new User("Ahmad", "Mouhsn","male"));
+        user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
         car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         Date currentDate = new Date();
-        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
-        passenger = passengerRepository.save(new Passenger(user, ride));
+        LocalTime time = LocalTime.of(10, 30, 0);
+
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car, time, time));
+        passenger = new Passenger(user, ride);
+        passenger.setAccepted(true);
+        passenger = passengerRepository.save(passenger);
     }
 
     @Test
     @Order(1)
     public void addPassenger() {
         Passenger passenger = new Passenger(user, ride);
+        passenger.setAccepted(true);
         passengerRepository.save(passenger);
         Assertions.assertTrue(passengerRepository.findById(passenger.getId()).isPresent());
     }

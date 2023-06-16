@@ -40,10 +40,6 @@ public interface UserService {
 
     User deleteRole(Long userId, Role role);
 
-    User addRide(Long userId, Ride ride);
-    Collection<Ride> getUserRides(Long userId);
-
-    User deleteRide(Long userId, Ride ride);
 
 
 }

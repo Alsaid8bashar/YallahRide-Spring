@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +26,10 @@ public class RideRepositoryTest {
     @Autowired
     UserRepository userRepository;
     Ride ride;
+    @Autowired
     private CarRepository carRepository;
     private Car car;
+    LocalTime time = LocalTime.of(10, 30, 0);
 
 
     @BeforeAll
@@ -34,7 +37,7 @@ public class RideRepositoryTest {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
         car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         Date currentDate = new Date();
-        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car,time,time));
     }
 
     @Test
@@ -43,7 +46,7 @@ public class RideRepositoryTest {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
         Date currentDate = new Date();
 
-        Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
+        Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car,time,time));
         Assertions.assertTrue(ride.getId() > 0);
     }
 
@@ -61,7 +64,7 @@ public class RideRepositoryTest {
     public void testSearchForRide() {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
         Date currentDate = new Date();
-        Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car));
+        Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car,time,time));
         List<Ride> tempRide = (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(ride.getFrom(), ride.getTo(), ride.getDate());
         Assertions.assertTrue(tempRide.contains(ride));
     }

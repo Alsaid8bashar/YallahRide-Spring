@@ -21,6 +21,7 @@ public class RideController {
     @Autowired
     RideService rideService;
 
+
     @PostMapping("/create")
     public ResponseEntity<Ride> createRide(@RequestBody Ride ride) {
         return new ResponseEntity<>(rideService.saveRide(ride), HttpStatus.OK);
@@ -40,13 +41,18 @@ public class RideController {
     public ResponseEntity<Collection<Ride>> searchRidesByFromAndToAndDate(@RequestParam String from, @RequestParam String to, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         return new ResponseEntity<>(rideService.searchRidesByFromAndToAndDate(from, to, date), HttpStatus.OK);
     }
+    @GetMapping("/driver-rides/{id}")
+    public ResponseEntity<Collection<Ride>> findDriverRide(@PathVariable("id") Long id){
+        return new ResponseEntity<>(rideService.findDriverRides(id), HttpStatus.OK);
+
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Ride>> findAllRides() {
         return new ResponseEntity<>(rideService.findAllRides(), HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteRideById(@PathVariable("id") Long id) {
         rideService.deleteRideById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
