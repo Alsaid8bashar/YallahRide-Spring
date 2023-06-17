@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,6 +28,10 @@ public class Passenger {
     private Long id;
     @Column(name = "is_Accepted")
     private boolean isAccepted;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private RideStatus rideStatus;
 
     @PreRemove
     public void notifyUser() {

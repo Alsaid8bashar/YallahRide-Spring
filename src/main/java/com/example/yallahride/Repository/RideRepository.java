@@ -13,6 +13,6 @@ public interface RideRepository extends JpaRepository<Ride, Long> {
     Collection<Ride> findDriverRide(Long id);
     Collection<Ride> findByCar_User_Id(Long id);
 
-    @Query("SELECT r FROM Ride r WHERE r.from = :from AND r.to = :to AND FUNCTION('DATE', r.date) = FUNCTION('DATE', :date)")
+    @Query("SELECT r FROM Ride r WHERE r.from = :from AND r.to = :to AND FUNCTION('DATE', r.departureDate) = FUNCTION('DATE', :date)")
     Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date);
 }

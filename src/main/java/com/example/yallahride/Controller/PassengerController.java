@@ -1,9 +1,8 @@
 package com.example.yallahride.Controller;
 
 import com.amazonaws.services.xray.model.Http;
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Passenger;
-import com.example.yallahride.Entity.Ride;
-import com.example.yallahride.Entity.User;
 import com.example.yallahride.Service.Interface.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,6 +48,12 @@ public class PassengerController {
         return new ResponseEntity<>(OK);
     }
 
+    @PutMapping("/change-booking-status/{passengerId}")
+    public ResponseEntity<HttpStatus> changeBookingStatus(@PathVariable long passengerId, @RequestParam RideStatus rideStatus) {
+        passengerService.changeBookingStatus(passengerId, rideStatus);
+        return new ResponseEntity<>(OK);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deletePassenger(@PathVariable Long id) {
@@ -68,12 +73,12 @@ public class PassengerController {
     }
 
     @GetMapping("/user-rides/{userId}")
-    public ResponseEntity<List<Ride>> getUserRides(@PathVariable long userId) {
+    public ResponseEntity<List<Passenger>> getUserRides(@PathVariable long userId) {
         return new ResponseEntity<>(passengerService.findUserRides(userId), HttpStatus.OK);
     }
 
     @GetMapping("/ride-passengers/{rideId}")
-    public ResponseEntity<List<User>> getRidePassengers(@PathVariable long rideId) {
+    public ResponseEntity<List<Passenger>> getRidePassengers(@PathVariable long rideId) {
         return new ResponseEntity<>(passengerService.findPassengersByRideId(rideId), HttpStatus.OK);
     }
 

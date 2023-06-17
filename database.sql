@@ -292,6 +292,11 @@ ALTER TABLE User
 ALTER TABLE Ride
     ADD status ENUM ('ACTIVE', 'CANCELED', 'COMPLETED') DEFAULT 'ACTIVE';
 
+ALTER TABLE Passenger
+    ADD status ENUM ('ACTIVE', 'CANCELED', 'COMPLETED') DEFAULT 'ACTIVE';
+
+UPDATE Passenger p SET p.status ='CANCELED' WHERE p.passenger_pk =12;
+
 ALTER TABLE Ride
     ADD car_fk MEDIUMINT;
 
@@ -301,9 +306,15 @@ ALTER TABLE Ride
 ALTER TABLE Ride
     ADD departureTime TIME;
 
+ALTER TABLE Ride
+    ADD arrivalData DATE;
+ALTER TABLE Ride
+    CHANGE COLUMN date departureDate DATE;
 
 ALTER TABLE Ride
     ADD CONSTRAINT ride_car_fk
         FOREIGN KEY (car_fk)
             REFERENCES Car (car_pk);
+
+
 #-----------------END-----------------#
