@@ -44,7 +44,6 @@ public class SecurityConfig {
                 .requestMatchers("/ride/**").permitAll()
                 .requestMatchers("/car/**").permitAll()
                 .requestMatchers("/passenger/**").permitAll()
-
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
