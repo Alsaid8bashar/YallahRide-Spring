@@ -1,8 +1,7 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Passenger;
-import com.example.yallahride.Entity.Ride;
-import com.example.yallahride.Entity.User;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.PassengerRepository;
 import com.example.yallahride.Service.Interface.PassengerService;
@@ -66,7 +65,12 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public List<User> findPassengersByRideId(Long id) {
+    public void changeBookingStatus(long userId, RideStatus rideStatus) {
+        passengerRepository.cancelBookingByUserId(userId, rideStatus);
+    }
+
+    @Override
+    public List<Passenger> findPassengersByRideId(Long id) {
         return passengerRepository.findRidePassenger(id);
     }
 
@@ -77,7 +81,7 @@ public class PassengerServiceImpl implements PassengerService {
 
 
     @Override
-    public List<Ride> findUserRides(Long userId) {
+    public List<Passenger> findUserRides(Long userId) {
         return passengerRepository.findUserRide(userId);
     }
 

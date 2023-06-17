@@ -42,7 +42,7 @@ public class UserServiceTest {
     @Transactional
     @Order(1)
     public void addTravelPreferences() {
-        TravelPreference travelPreference = new TravelPreference("test");
+        TravelPreference travelPreference = new TravelPreference("test","21");
         user = userService.addTravelPreference(user.getId(), travelPreference);
 
         User tempUser = userService.findUserById(user.getId());

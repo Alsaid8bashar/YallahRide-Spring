@@ -60,7 +60,7 @@ public class PassengerControllerTest {
         Date currentDate = new Date();
         LocalTime time = LocalTime.of(10, 30, 0);
 
-        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time);
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car, time, time, currentDate);
         Passenger passenger = new Passenger(user, ride);
         when(passengerService.savePassenger(passenger)).thenReturn(passenger);
 
@@ -90,9 +90,9 @@ public class PassengerControllerTest {
     @Test
     public void testGetUserRides() throws Exception {
         Long userId = 1L;
-        List<Ride> mockRides = new ArrayList<>();
-        mockRides.add(new Ride());
-        mockRides.add(new Ride());
+        List<Passenger> mockRides = new ArrayList<>();
+        mockRides.add(new Passenger());
+        mockRides.add(new Passenger());
 
         when(passengerService.findUserRides(anyLong())).thenReturn(mockRides);
 
@@ -107,9 +107,9 @@ public class PassengerControllerTest {
     @Test
     public void testGetRidePassengers() throws Exception {
         Long rideId = 1L;
-        List<User> mockPassengers = new ArrayList<>();
-        mockPassengers.add(new User());
-        mockPassengers.add(new User());
+        List<Passenger> mockPassengers = new ArrayList<>();
+        mockPassengers.add(new Passenger());
+        mockPassengers.add(new Passenger());
 
         when(passengerService.findPassengersByRideId(anyLong())).thenReturn(mockPassengers);
 

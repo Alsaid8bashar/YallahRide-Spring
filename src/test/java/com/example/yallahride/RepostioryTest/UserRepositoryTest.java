@@ -31,7 +31,7 @@ public class UserRepositoryTest {
     @Rollback(value = false)
     public void testCreateUser() {
         User user = new User("Hassan", "Al-Shannag","male");
-        TravelPreference travelPreference = new TravelPreference("test");
+        TravelPreference travelPreference = new TravelPreference("test","21");
         travelPreferenceRepository.save(travelPreference);
         user.addTravelPreference(travelPreference);
         User tempUser = userRepository.save(user);

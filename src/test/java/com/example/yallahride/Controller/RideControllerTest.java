@@ -48,7 +48,7 @@ public class RideControllerTest {
     @Test
     public void testCreateRide() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time);
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time,currentDate);
         ride.setId(1L);
 
         when(rideService.saveRide(ride)).thenReturn(ride);
@@ -66,7 +66,7 @@ public class RideControllerTest {
     @Test
     public void testUpdateRide() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time);
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time,currentDate);
         ride.setId(1L);
 
         when(rideService.updateRide(ride)).thenReturn(ride);
@@ -86,7 +86,7 @@ public class RideControllerTest {
     public void testFindRideById() throws Exception {
         Long rideId = 1L;
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time);
+        Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time,currentDate);
         ride.setId(rideId);
 
         when(rideService.findRideById(rideId)).thenReturn(ride);
@@ -104,8 +104,8 @@ public class RideControllerTest {
     @Test
     public void testFindAllRides() throws Exception {
         java.util.List<Ride> rides = Arrays.asList(
-                new Ride("Amman", "irbid",currentDate, 4, 2.5, new User(),car,time,time),
-                new Ride("Amman", "irbid",currentDate, 4, 2.5, new User(),car,time,time)
+                new Ride("Amman", "irbid",currentDate, 4, 2.5, new User(),car,time,time,currentDate),
+                new Ride("Amman", "irbid",currentDate, 4, 2.5, new User(),car,time,time,currentDate)
         );
 
         when(rideService.findAllRides()).thenReturn(rides);
@@ -144,7 +144,7 @@ public class RideControllerTest {
     @Test
     public void testFindAllRideReports() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
-        Ride ride = new Ride("Amman", "irbid",currentDate, 4, 2.5, user,car,time,time);
+        Ride ride = new Ride("Amman", "irbid",currentDate, 4, 2.5, user,car,time,time,currentDate);
 
         Set<Report> reports = new HashSet<>();
 

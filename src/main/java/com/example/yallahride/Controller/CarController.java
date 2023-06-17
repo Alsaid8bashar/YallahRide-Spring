@@ -58,6 +58,11 @@ public class CarController {
         return new ResponseEntity<>(carService.getAllCarImages(carId), HttpStatus.OK);
     }
 
+    @GetMapping("/user/{carId}")
+    public ResponseEntity<Collection<Car>> getUserCar(@PathVariable Long carId) {
+        return new ResponseEntity<>(carService.getUserCars(carId), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete-image/{imageId}")
     public ResponseEntity<HttpStatus> deleteCarImage(@PathVariable Long imageId) {
         carService.deleteCarImage(imageId);

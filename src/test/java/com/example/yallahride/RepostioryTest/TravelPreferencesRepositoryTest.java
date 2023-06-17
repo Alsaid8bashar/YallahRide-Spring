@@ -20,13 +20,13 @@ public class TravelPreferencesRepositoryTest {
 
     @BeforeAll
     public void setup() {
-        travelPreference = travelPreferenceRepository.save(new TravelPreference("I like to travel with my dog!"));
+        travelPreference = travelPreferenceRepository.save(new TravelPreference("I like to travel with my dog!","21"));
     }
 
     @Test
     @Order(1)
     public void testCreateTravelPreference() {
-        TravelPreference travelPreference = travelPreferenceRepository.save(new TravelPreference("I am talky"));
+        TravelPreference travelPreference = travelPreferenceRepository.save(new TravelPreference("I am talky","21"));
         Assertions.assertTrue(travelPreference.getId() > 0);
     }
 

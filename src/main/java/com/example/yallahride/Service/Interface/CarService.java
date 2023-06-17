@@ -23,6 +23,8 @@ public interface CarService {
 
     long getNumberOfCars();
 
+     Collection<Car> getUserCars(long id);
+
     Car addCarImage(Long carId, CarImage carImage);
 
     Car addCarImages(Long carId, Collection<CarImage> carImage);

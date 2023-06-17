@@ -1,6 +1,7 @@
 package com.example.yallahride.Entity;
 
 import com.example.yallahride.Entity.Enum.RideStatus;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -39,40 +40,59 @@ public class Ride {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private RideStatus rideStatus;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column(name = "`date`")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "departureDate")
     @NonNull
-    private Date date;
+    private Date departureDate;
     @NonNull
     @Column(name = "seats")
     private int seats;
     @NonNull
     @Column(name = "cost")
     private double cost;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     @NonNull
     private User driver;
 
-    @OneToMany(mappedBy = "ride", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "ride", fetch = FetchType.LAZY)
     @ToString.Exclude
     @JsonIgnore
     private Set<Report> reports = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
     @NonNull
     private Car car;
 
     @Column(name = "arrivalTime")
-    @JsonFormat(pattern = "HH:mm")
+    @JsonFormat(pattern = "hh:mm a")
     @NonNull
     private LocalTime arrivalTime;
 
     @Column(name = "departureTime")
-    @JsonFormat(pattern = "HH:mm")
+    @JsonFormat(pattern = "hh:mm a")
     @NonNull
     private LocalTime departureTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "arrivalData")
+    @NonNull
+    private Date arrivalDate;
+
+    @JsonCreator
+    public Ride(@NonNull String from, @NonNull String to, boolean isInstantBooking, RideStatus rideStatus, @NonNull Date departureDate, double cost, @NonNull User driver, @NonNull Car car, @NonNull LocalTime arrivalTime, @NonNull LocalTime departureTime, @NonNull Date arrivalDate) {
+        this.from = from;
+        this.to = to;
+        this.isInstantBooking = isInstantBooking;
+        this.rideStatus = rideStatus;
+        this.departureDate = departureDate;
+        this.cost = cost;
+        this.driver = driver;
+        this.car = car;
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
+        this.arrivalDate = arrivalDate;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -83,6 +103,7 @@ public class Ride {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFrom(), getTo(), getDate(), getSeats());
+        return Objects.hash(getId(), getFrom(), getTo(), getDepartureDate(), getSeats());
     }
+
 }

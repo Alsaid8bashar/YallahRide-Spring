@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -37,7 +36,7 @@ class TravelPreferenceControllerTest {
 
     @Test
     void createTravelPreferenceTest() throws Exception {
-        TravelPreference travelPreference = new TravelPreference("TEST");
+        TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
 
         when(travelPreferenceService.saveTravelPreference(travelPreference)).thenReturn(travelPreference);
@@ -53,7 +52,7 @@ class TravelPreferenceControllerTest {
 
     @Test
     void updateTravelPreferenceByIdTest() throws Exception {
-        TravelPreference travelPreference = new TravelPreference("TEST");
+        TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
         travelPreference.setDescription("TEST_UPDATED");
         when(travelPreferenceService.findTravelPreferenceById(1L)).thenReturn(travelPreference);
@@ -70,7 +69,7 @@ class TravelPreferenceControllerTest {
 
     @Test
     void findTravelPreferenceByIdTest() throws Exception {
-        TravelPreference travelPreference = new TravelPreference("TEST");
+        TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
 
         when(travelPreferenceService.findTravelPreferenceById(1L)).thenReturn(travelPreference);
@@ -90,7 +89,7 @@ class TravelPreferenceControllerTest {
         List<TravelPreference> travelPreferenceList = new ArrayList<>();
         for(int x = 0; x < 5 ;x++)
         {
-            travelPreferenceList.add(new TravelPreference("Travel preference.." + (x+1)));
+            travelPreferenceList.add(new TravelPreference("Travel preference.." + (x+1),"21"));
             travelPreferenceList.get(x).setId((long) (x+1));
         }
 
@@ -124,7 +123,7 @@ class TravelPreferenceControllerTest {
         List<TravelPreference> travelPreferenceList = new ArrayList<>();
         for(int x = 0; x < 5 ;x++)
         {
-            travelPreferenceList.add(new TravelPreference("Travel preference.." + (x+1)));
+            travelPreferenceList.add(new TravelPreference("Travel preference.." + (x+11),"12"));
             travelPreferenceList.get(x).setId((long) (x+1));
         }
 
