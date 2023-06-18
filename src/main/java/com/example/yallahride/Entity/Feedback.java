@@ -22,8 +22,8 @@ public class Feedback {
     private String feedback;
     @Column(name = "stars")
     private int starts;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @NonNull
-    @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
+    @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     private User user;
 }
