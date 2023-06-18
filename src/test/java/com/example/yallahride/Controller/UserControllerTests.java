@@ -162,7 +162,7 @@ public class UserControllerTests {
     void addTravelPreferenceByUserIdTest() throws Exception {
         User user = new User("Hassan", "Al-Shannag","male");
         user.setId(1L);
-        TravelPreference travelPreference = new TravelPreference("TEST");
+        TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
 
         user.addTravelPreference(travelPreference);
@@ -180,9 +180,9 @@ public class UserControllerTests {
         user.setId(1L);
         List<TravelPreference> travelPreferences = new ArrayList<>(
                 Arrays.asList(
-                        new TravelPreference("TEST1"),
-                        new TravelPreference("TEST2"),
-                        new TravelPreference("TEST3")
+                        new TravelPreference("TEST1","1"),
+                        new TravelPreference("TEST2","21"),
+                        new TravelPreference("TEST3","21")
                 ));
 
         for (var element : travelPreferences) {
@@ -201,7 +201,7 @@ public class UserControllerTests {
         User user = new User("Hassan", "Al-Shannag","male");
 
         user.setId(1L);
-        TravelPreference travelPreference = new TravelPreference("TEST");
+        TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
         user.addTravelPreference(travelPreference);
         user.deleteTravelPreference(travelPreference);

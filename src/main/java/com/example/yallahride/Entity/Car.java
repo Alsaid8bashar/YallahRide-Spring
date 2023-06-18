@@ -1,6 +1,5 @@
 package com.example.yallahride.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -38,17 +37,15 @@ public class Car {
     @Column(name = "model_year")
     @NonNull
     private int modelYear;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     @ToString.Exclude
-    @JsonIgnore
     @NonNull
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "car", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<CarImage> carImages = new HashSet<>();
-
 
     public void addCarImage(CarImage carImage) {
         carImages.add(carImage);

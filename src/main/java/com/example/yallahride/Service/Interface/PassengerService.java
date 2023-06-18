@@ -1,8 +1,7 @@
 package com.example.yallahride.Service.Interface;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Passenger;
-import com.example.yallahride.Entity.Ride;
-import com.example.yallahride.Entity.User;
 
 import java.util.List;
 
@@ -23,10 +22,12 @@ public interface PassengerService {
     void acceptPassenger(Long id);
 
     void rejectPassenger(Long id);
+    void changeBookingStatus(long userId, RideStatus rideStatus);
 
-    List<User> findPassengersByRideId(Long id);
+
+    List<Passenger> findPassengersByRideId(Long id);
 
     List<Passenger> findRideRequests(Long id);
 
-    List<Ride> findUserRides(Long userId);
+    List<Passenger> findUserRides(Long userId);
 }

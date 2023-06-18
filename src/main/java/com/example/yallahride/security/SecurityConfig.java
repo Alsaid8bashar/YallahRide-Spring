@@ -43,6 +43,8 @@ public class SecurityConfig {
                 .requestMatchers("/role/").hasAuthority("ADMIN")
                 .requestMatchers("/ride/**").permitAll()
                 .requestMatchers("/feedback/**").permitAll()
+                .requestMatchers("/car/**").permitAll()
+                .requestMatchers("/passenger/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)

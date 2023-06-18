@@ -95,6 +95,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public Collection<Car> getUserCars(long id) {
+        return carRepository.findByUser_Id(id);
+    }
+
+    @Override
     public void deleteCarImages(Long id) {
         Car car = unwrapCar(carRepository.findById(id), id);
         Iterator<CarImage> carImageIterator = car.getCarImages().iterator();

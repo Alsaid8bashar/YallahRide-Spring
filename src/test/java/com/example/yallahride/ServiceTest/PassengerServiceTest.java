@@ -41,7 +41,7 @@ public class PassengerServiceTest {
         Car car = carRepository.save(new Car("Black", "Ford", "Fusion", "19-89893", 2014, user));
         Date currentDate = new Date();
         LocalTime time = LocalTime.of(10, 30, 0);
-        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time));
+        ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time,currentDate));
         passenger = passengerService.savePassenger(new Passenger(user, ride));
     }
 
