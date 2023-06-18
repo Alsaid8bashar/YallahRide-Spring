@@ -66,12 +66,12 @@ public class Ride {
     private Car car;
 
     @Column(name = "arrivalTime")
-    @JsonFormat(pattern = "hh:mm a")
+    @JsonFormat(pattern = "h:mm a")
     @NonNull
     private LocalTime arrivalTime;
 
     @Column(name = "departureTime")
-    @JsonFormat(pattern = "hh:mm a")
+    @JsonFormat(pattern = "h:mm a")
     @NonNull
     private LocalTime departureTime;
     @JsonFormat(pattern = "yyyy-MM-dd")
