@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,12 +25,17 @@ public class Rate {
     private Date date;
     @NonNull
     private Double rate;
-    @ManyToOne
+
+    private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
     @ToString.Exclude
     @JoinColumn(name = "rater_fk")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     private User rater;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ToString.Exclude
     @JoinColumn(name = "subject_fk")
     private User subject;

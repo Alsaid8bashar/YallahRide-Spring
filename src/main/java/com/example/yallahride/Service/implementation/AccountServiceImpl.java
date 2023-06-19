@@ -105,4 +105,10 @@ public class AccountServiceImpl implements AccountService {
     public Account findAccountByPhoneNumber(String phoneNumber) {
         return unwrapAccount(accountRepository.findByPhoneNumber(phoneNumber), 404L);
     }
+
+    @Override
+    public Account findAccountByUserId(long userId) {
+        return unwrapAccount(accountRepository.findByUser_Id(userId), 404L);
+    }
+
 }

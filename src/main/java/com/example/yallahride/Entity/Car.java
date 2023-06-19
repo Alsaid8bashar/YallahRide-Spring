@@ -29,6 +29,7 @@ public class Car {
     @NonNull
     private String model;
 
+    private long seats;
     @NotBlank
     @Column(name = "license_plate")
     @NonNull

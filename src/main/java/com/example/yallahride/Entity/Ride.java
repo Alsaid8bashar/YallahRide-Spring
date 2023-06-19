@@ -79,6 +79,8 @@ public class Ride {
     @NonNull
     private Date arrivalDate;
 
+
+
     @JsonCreator
     public Ride(@NonNull String from, @NonNull String to, boolean isInstantBooking, RideStatus rideStatus, @NonNull Date departureDate, double cost, @NonNull User driver, @NonNull Car car, @NonNull LocalTime arrivalTime, @NonNull LocalTime departureTime, @NonNull Date arrivalDate) {
         this.from = from;

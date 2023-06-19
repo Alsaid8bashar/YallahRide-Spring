@@ -14,6 +14,7 @@ public interface AccountService {
     List<Account> findAllAccounts();
 
     Account updateAccount(Account account);
+
     Account updateAccountPassword(String newPassword, Long id);
 
     Account findAccountByEmail(String email);
@@ -31,4 +32,7 @@ public interface AccountService {
     void deleteAllAccounts();
 
     long getNumberOfAccount();
+
+    Account findAccountByUserId(long userId);
+
 }
