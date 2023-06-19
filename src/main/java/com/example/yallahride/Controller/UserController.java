@@ -99,5 +99,9 @@ public class UserController {
     public ResponseEntity<User> deleteRole(@PathVariable Long id, @RequestBody Role role) {
         return new ResponseEntity<>(userService.deleteRole(id, role), HttpStatus.NO_CONTENT);
     }
-
+    @PutMapping("/verified/{id}")
+    public ResponseEntity<HttpStatus> verifiedAccount(@PathVariable("id") long id) {
+        userService.verifiedAccountById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

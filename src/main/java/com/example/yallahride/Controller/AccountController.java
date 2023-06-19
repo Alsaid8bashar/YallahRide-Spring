@@ -37,6 +37,7 @@ public class AccountController {
         Long id = Long.valueOf(requestMap.get("id").toString());
         return new ResponseEntity<>(accountService.confirmPassword(hashPassword, id), HttpStatus.OK);
     }
+
     @PutMapping("/update")
     public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
         return new ResponseEntity<>(accountService.updateAccount(account), HttpStatus.OK);
@@ -90,5 +91,8 @@ public class AccountController {
     public ResponseEntity<Long> getNumberOfAccounts() {
         return new ResponseEntity<>(accountService.getNumberOfAccount(), HttpStatus.OK);
     }
+
+
+
 
 }

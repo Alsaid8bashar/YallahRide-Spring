@@ -36,16 +36,17 @@ public class Account implements UserDetails {
     @Column(name = "password_hash", length = 1000)
     private String passwordHash;
     @Column(name = "creation_date")
-    @CreationTimestamp
     private Date date;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @NonNull
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     private User user;
 
     @Column(name = "is_Active")
     private Boolean isActive;
+
+
 
     @Override
     @JsonIgnore

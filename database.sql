@@ -191,10 +191,10 @@ create table Page_Image
 create table Feedback
 (
     feedback_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
-    user_fk MEDIUMINT,
+    user_fk     MEDIUMINT,
     feedback    varchar(4000),
     stars       MEDIUMINT,
-    PRIMARY KEY (page_image_pk),
+    PRIMARY KEY (feedback_pk),
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE
 );
 
@@ -305,10 +305,13 @@ ALTER TABLE Ride
 ALTER TABLE Passenger
     ADD status ENUM ('ACTIVE', 'CANCELED', 'COMPLETED') DEFAULT 'ACTIVE';
 
-UPDATE Passenger p SET p.status ='CANCELED' WHERE p.passenger_pk =12;
+UPDATE Passenger p
+SET p.status ='CANCELED'
+WHERE p.passenger_pk = 12;
 
 ALTER TABLE Ride
     ADD car_fk MEDIUMINT;
+
 
 ALTER TABLE Ride
     ADD arrivalTime TIME;
@@ -326,5 +329,12 @@ ALTER TABLE Ride
         FOREIGN KEY (car_fk)
             REFERENCES Car (car_pk);
 
+ALTER TABLE User
+    ADD isVerified boolean;
 
+ALTER TABLE Car
+    ADD seats MEDIUMINT;
+
+ALTER TABLE Rate
+    ADD description VARCHAR(4000);
 #-----------------END-----------------#

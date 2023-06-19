@@ -130,6 +130,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
+    @Override
+    public void verifiedAccountById(long id) {
+        userRepository.verifiedAccountById(id);
+    }
 
 }
