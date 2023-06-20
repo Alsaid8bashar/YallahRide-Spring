@@ -9,6 +9,7 @@ import com.example.yallahride.Service.Interface.CarImageService;
 import com.example.yallahride.Service.Interface.CarService;
 import com.example.yallahride.Service.Interface.FileService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -37,7 +38,7 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public Car saveCar(Car car) {
+    public Car saveCar(Car car, MultipartFile[] carImages) {
         return carRepository.save(car);
     }
 
