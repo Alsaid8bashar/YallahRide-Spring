@@ -7,6 +7,8 @@ import com.example.yallahride.Service.Interface.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.testng.annotations.Optional;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,10 +33,10 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Car> saveCar(@RequestBody Car car) {
-        return new ResponseEntity<>(carService.saveCar(car), CREATED);
+    public ResponseEntity<Car> saveCar(@RequestPart(value = "car") Car car,
+                                       @Optional(value = "carImages") MultipartFile[] carImages) {
+        return new ResponseEntity<>(carService.saveCar(car,carImages), OK);
     }
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCar(@PathVariable Long id) {

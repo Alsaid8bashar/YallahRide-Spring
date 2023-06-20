@@ -2,13 +2,14 @@ package com.example.yallahride.Service.Interface;
 
 import com.example.yallahride.Entity.Car;
 import com.example.yallahride.Entity.CarImage;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.List;
 
 public interface CarService {
 
-    Car saveCar(Car car);
+    Car saveCar(Car car, MultipartFile[] carImages);
 
 
     Car findCarById(Long id);
