@@ -38,8 +38,18 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public Car saveCar(Car car, MultipartFile[] carImages) {
+    public Car saveCar(Car car) {
         return carRepository.save(car);
+    }
+
+    @Override
+    public Car saveCar(Car car, Collection<MultipartFile> multipartFiles) {
+        for (MultipartFile multipartFile : multipartFiles) {
+            CarImage image = new CarImage();
+            image.setImagePath(fileService.uploadFile(multipartFile));
+            car.addCarImage(image);
+        }
+        return saveCar(car);
     }
 
     @Override
