@@ -33,10 +33,16 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Car> saveCar(@RequestPart(value = "car") Car car,
-                                       @Optional(value = "carImages") MultipartFile[] carImages) {
-        return new ResponseEntity<>(carService.saveCar(car,carImages), OK);
+    public ResponseEntity<Car> saveCar(@RequestPart(value = "car") Car car, @Optional java.util.Optional<Collection<MultipartFile>> multipartFiles) {
+        Car tempCar = null;
+        if (multipartFiles.isPresent()) {
+            tempCar = carService.saveCar(car, multipartFiles.get());
+        } else {
+            tempCar = carService.saveCar(car);
+        }
+        return new ResponseEntity<>(tempCar, OK);
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCar(@PathVariable Long id) {

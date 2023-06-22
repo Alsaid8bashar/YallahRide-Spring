@@ -1,5 +1,6 @@
 package com.example.yallahride.Service.implementation;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.example.yallahride.Service.Interface.FileService;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +54,7 @@ public class AWSS3Service implements FileService {
     @Override
     public void deleteFile(String key) {
         if (key == null)
-           return;
+            return;
 
         boolean fileExists = s3client.doesObjectExist(bucket, key);
         if (fileExists) {
@@ -102,6 +104,7 @@ public class AWSS3Service implements FileService {
         };
     }
 
+
     @Override
     public List<String> getBucketKeys() {
         ObjectListing objectListing = s3client.listObjects(bucket);
@@ -110,5 +113,13 @@ public class AWSS3Service implements FileService {
             keys.add(os.getKey());
         }
         return keys;
+    }
+
+    public String getObjectUrl(String key) {
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket, key)
+                .withMethod(HttpMethod.GET);
+
+        URL url = s3client.generatePresignedUrl(generatePresignedUrlRequest);
+        return url.toString();
     }
 }
