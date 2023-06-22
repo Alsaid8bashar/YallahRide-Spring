@@ -1,6 +1,5 @@
 package com.example.yallahride.Service.implementation;
 
-import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.RideRepository;
@@ -58,10 +57,10 @@ public class RideServiceImpl implements RideService {
         return rideRepository.count();
     }
 
-    @Override
-    public Set<Report> findRideReports(Ride ride) {
-        return ride.getReports();
-    }
+//    @Override
+//    public Set<Report> findRideReports(Ride ride) {
+//        return ride.getReports();
+//    }
 
     @Override
     public Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date) {

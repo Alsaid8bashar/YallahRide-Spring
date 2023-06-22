@@ -22,5 +22,4 @@ public class UserDto {
 
     private double userRate;
 
-
 }

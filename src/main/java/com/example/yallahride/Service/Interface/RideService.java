@@ -1,6 +1,5 @@
 package com.example.yallahride.Service.Interface;
 
-import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
 
 import java.util.Collection;
@@ -24,7 +23,7 @@ public interface RideService {
 
     long getNumberOfRide();
 
-    Set<Report> findRideReports(Ride ride);
+//    Set<Report> findRideReports(Ride ride);
 
     Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date);
 

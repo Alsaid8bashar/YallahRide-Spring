@@ -1,6 +1,5 @@
 package com.example.yallahride.Controller;
 
-import com.example.yallahride.Entity.Report;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +63,10 @@ public class RideController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/reports")
-    public ResponseEntity<Set<Report>> findAllRideReports(@RequestBody Ride ride) {
-        return new ResponseEntity<>(rideService.findRideReports(ride), HttpStatus.OK);
-    }
+//    @GetMapping("/reports")
+//    public ResponseEntity<Set<Report>> findAllRideReports(@RequestBody Ride ride) {
+//        return new ResponseEntity<>(rideService.findRideReports(ride), HttpStatus.OK);
+//    }
 
 
 }

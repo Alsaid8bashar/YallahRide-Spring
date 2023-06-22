@@ -73,7 +73,8 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car addCarImage(Long carId, CarImage carImage) {
         Car car = saveImage(carId, carImage);
-        return saveCar(car);
+//        return saveCar(car);
+        return null;
     }
 
     @Override
@@ -109,7 +110,7 @@ public class CarServiceImpl implements CarService {
             fileService.deleteFile(element.getImagePath());
             carImageIterator.remove();
         }
-        saveCar(car);
+//        saveCar(car);
     }
 
     private Car saveImage(Long carId, CarImage carImage) {

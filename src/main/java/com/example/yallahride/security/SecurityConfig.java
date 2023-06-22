@@ -45,9 +45,16 @@ public class SecurityConfig {
                 .requestMatchers("/rate/**").permitAll()
                 .requestMatchers("/user-dto/**").permitAll()
 
+                .requestMatchers("/report-category/**").permitAll()
+                .requestMatchers("/report-ride/**").permitAll()
+                .requestMatchers("/report-title/**").permitAll()
+                .requestMatchers("/report-user/**").permitAll()
+
                 .requestMatchers("/feedback/**").permitAll()
                 .requestMatchers("/car/**").permitAll()
                 .requestMatchers("/passenger/**").permitAll()
+                .requestMatchers("/admin-dto/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
