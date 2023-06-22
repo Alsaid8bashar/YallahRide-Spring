@@ -37,6 +37,7 @@ create table Account
     password_hash varchar(1000),
     user_id_fk    MEDIUMINT,
     is_Active     boolean   DEFAULT true,
+    is_Deleted     boolean   DEFAULT false,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT UC_Account UNIQUE (email, phone_number),
     PRIMARY KEY (account_pk),
@@ -198,6 +199,23 @@ create table Feedback
     FOREIGN KEY (user_fk) REFERENCES User (user_pk) ON DELETE CASCADE
 );
 
+create table ReportCategory
+(
+    report_category_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    category           varchar(100),
+    is_user_report     boolean,
+    PRIMARY KEY (report_category_pk)
+);
+
+create table Report_Title
+(
+    report_title_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    title           varchar(100),
+    category_fk     MEDIUMINT,
+    FOREIGN KEY (category_fk) REFERENCES ReportCategory (report_category_pk) ON DELETE CASCADE,
+    PRIMARY KEY (report_title_pk)
+);
+
 
 #-----------------RESTING AUTO_INCREMENT FOR ALL TABLES-----------------#
 alter table Account
@@ -272,17 +290,20 @@ drop table User_Role;
 CREATE INDEX idx_email ON Account (email);
 CREATE INDEX idx_phone_number ON Account (phone_number);
 
-#RIDE TABLE
+#RIDE
+TABLE
 CREATE INDEX idx_user_fk ON Ride (user_fk);
 CREATE INDEX idx_from ON Ride (`from`);
 CREATE INDEX idx_to ON Ride (`to`);
 CREATE INDEX idx_date ON Ride (`date`);
 
-#REPORT TABLE
+#REPORT
+TABLE
 CREATE INDEX idx_ride_fk ON Report (ride_fk);
 CREATE INDEX idx_user_fk ON Report (user_fk);
 
-#RATER TABLE
+#RATER
+TABLE
 CREATE INDEX idx_rater_fk ON Rate (rater_fk);
 CREATE INDEX idx_subject_fk ON Rate (subject_fk);
 #-----------------END-----------------#

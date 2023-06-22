@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface CarService {
 
-    Car saveCar(Car car, MultipartFile[] carImages);
+    Car saveCar(Car car, Collection<MultipartFile> multipartFiles);
+    Car saveCar(Car car);
 
 
     Car findCarById(Long id);

@@ -1,5 +1,6 @@
 package com.example.yallahride.Entity;
 
+import com.example.yallahride.Entity.Report.Report;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -54,6 +55,11 @@ public class User {
     @ToString.Include
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "report", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Report> reports = new HashSet<>();
 
 
 

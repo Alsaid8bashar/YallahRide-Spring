@@ -45,6 +45,8 @@ public class Account implements UserDetails {
 
     @Column(name = "is_Active")
     private Boolean isActive;
+    @Column(name = "is_Deleted")
+    private Boolean isDeleted;
 
 
 

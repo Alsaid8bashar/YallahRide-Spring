@@ -55,10 +55,10 @@ public class Ride {
     @NonNull
     private User driver;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "ride", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    @JsonIgnore
-    private Set<Report> reports = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "ride", fetch = FetchType.LAZY)
+//    @ToString.Exclude
+//    @JsonIgnore
+//    private Set<Report> reports = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
