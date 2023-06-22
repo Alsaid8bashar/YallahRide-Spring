@@ -46,7 +46,8 @@ public class CarServiceImpl implements CarService {
     public Car saveCar(Car car, Collection<MultipartFile> multipartFiles) {
         for (MultipartFile multipartFile : multipartFiles) {
             CarImage image = new CarImage();
-            image.setImagePath(fileService.uploadFile(multipartFile));
+            String key=fileService.uploadFile(multipartFile);
+            image.setImagePath(fileService.getObjectUrl(key));
             car.addCarImage(image);
         }
         return saveCar(car);
@@ -123,7 +124,8 @@ public class CarServiceImpl implements CarService {
     }
 
     private Car saveImage(Long carId, CarImage carImage) {
-        carImage.setImagePath(fileService.uploadFile(carImage.getMultipartFile()));
+        String key=fileService.uploadFile(carImage.getMultipartFile());
+        carImage.setImagePath(fileService.getObjectUrl(key));
         Car car = unwrapCar(carRepository.findById(carId), carId);
         car.addCarImage(carImage);
         return car;

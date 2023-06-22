@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .requestMatchers("/ride/**").permitAll()
                 .requestMatchers("/rate/**").permitAll()
                 .requestMatchers("/user-dto/**").permitAll()
+                .requestMatchers("/storage/**").permitAll()
 
                 .requestMatchers("/feedback/**").permitAll()
                 .requestMatchers("/car/**").permitAll()

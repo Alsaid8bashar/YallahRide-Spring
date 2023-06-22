@@ -19,4 +19,6 @@ public interface FileService {
 
     List<String> getBucketKeys();
 
+    String getObjectUrl(String key);
+
 }
