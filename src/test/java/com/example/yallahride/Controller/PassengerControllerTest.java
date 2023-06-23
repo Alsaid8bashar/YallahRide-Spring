@@ -1,6 +1,7 @@
 package com.example.yallahride.Controller;
 
 import com.example.yallahride.Entity.Car;
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
@@ -61,7 +62,7 @@ public class PassengerControllerTest {
         LocalTime time = LocalTime.of(10, 30, 0);
 
         Ride ride = new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car, time, time, currentDate);
-        Passenger passenger = new Passenger(user, ride);
+        Passenger passenger = new Passenger(user, ride, RideStatus.COMPLETED);
         when(passengerService.savePassenger(passenger)).thenReturn(passenger);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/passenger/create")

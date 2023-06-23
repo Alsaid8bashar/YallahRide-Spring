@@ -1,6 +1,7 @@
 package com.example.yallahride.ServiceTest;
 
 import com.example.yallahride.Entity.Car;
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
@@ -42,7 +43,7 @@ public class PassengerServiceTest {
         Date currentDate = new Date();
         LocalTime time = LocalTime.of(10, 30, 0);
         ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car,time,time,currentDate));
-        passenger = passengerService.savePassenger(new Passenger(user, ride));
+        passenger = passengerService.savePassenger(new Passenger(user, ride, RideStatus.COMPLETED));
     }
 
     @Test

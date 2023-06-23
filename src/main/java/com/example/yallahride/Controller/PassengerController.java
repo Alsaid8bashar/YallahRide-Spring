@@ -48,9 +48,9 @@ public class PassengerController {
         return new ResponseEntity<>(OK);
     }
 
-    @PutMapping("/change-booking-status/{passengerId}")
-    public ResponseEntity<HttpStatus> changeBookingStatus(@PathVariable long passengerId, @RequestParam RideStatus rideStatus) {
-        passengerService.changeBookingStatus(passengerId, rideStatus);
+    @PutMapping("/change-booking-status/{passengerId}/{rideId}")
+    public ResponseEntity<HttpStatus> changeBookingStatus(@PathVariable long passengerId, @PathVariable long rideId, @RequestParam RideStatus rideStatus) {
+        passengerService.changeBookingStatus(passengerId, rideId, rideStatus);
         return new ResponseEntity<>(OK);
     }
 

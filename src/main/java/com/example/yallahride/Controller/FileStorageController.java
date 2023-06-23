@@ -30,10 +30,8 @@ public class FileStorageController {
     @GetMapping("/url/{key}")
     public ResponseEntity<Map<String, String>> getObjectUrl(@PathVariable String key) {
         String objectUrl = fileService.getObjectUrl(key);
-
         Map<String, String> response = new HashMap<>();
         response.put("url", objectUrl);
-
         return ResponseEntity.ok(response);
     }
 

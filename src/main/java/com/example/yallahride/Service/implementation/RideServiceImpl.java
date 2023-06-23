@@ -3,20 +3,19 @@ package com.example.yallahride.Service.implementation;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.RideRepository;
-import com.example.yallahride.Service.Interface.FileService;
 import com.example.yallahride.Service.Interface.RideService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RideServiceImpl implements RideService {
 
     final private RideRepository rideRepository;
 
-    @Autowired
-    private FileService fileService;
 
 
     public RideServiceImpl(RideRepository rideRepository) {
@@ -35,8 +34,7 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Ride findRideById(Long id) {
-        Ride ride = unwrapRide(rideRepository.findById(id), id);
-        return ride;
+        return unwrapRide(rideRepository.findById(id), id);
     }
 
     @Override

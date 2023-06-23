@@ -216,6 +216,14 @@ create table Report_Title
     PRIMARY KEY (report_title_pk)
 );
 
+create table Report_Title
+(
+    report_title_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    title           varchar(100),
+    category_fk     MEDIUMINT,
+    FOREIGN KEY (category_fk) REFERENCES ReportCategory (report_category_pk) ON DELETE CASCADE,
+    PRIMARY KEY (report_title_pk)
+);
 
 #-----------------RESTING AUTO_INCREMENT FOR ALL TABLES-----------------#
 alter table Account

@@ -16,7 +16,10 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -117,9 +120,11 @@ public class AWSS3Service implements FileService {
 
     public String getObjectUrl(String key) {
         GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket, key)
-                .withMethod(HttpMethod.GET);
+                .withMethod(HttpMethod.GET)
+                .withExpiration(Date.from(Instant.now().plus(Duration.ofDays(7))));
 
         URL url = s3client.generatePresignedUrl(generatePresignedUrlRequest);
         return url.toString();
     }
+
 }
