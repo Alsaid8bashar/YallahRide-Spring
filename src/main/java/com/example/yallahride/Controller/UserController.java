@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.testng.annotations.Optional;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,8 +25,12 @@ public class UserController {
         return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
+
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestPart(value = "user") User user, @Optional java.util.Optional<MultipartFile> multipartFiles) {
+        if (multipartFiles.isPresent()) {
+            user.setMultipartFile(multipartFiles.get());
+        }
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
@@ -99,6 +105,7 @@ public class UserController {
     public ResponseEntity<User> deleteRole(@PathVariable Long id, @RequestBody Role role) {
         return new ResponseEntity<>(userService.deleteRole(id, role), HttpStatus.NO_CONTENT);
     }
+
     @PutMapping("/verified/{id}")
     public ResponseEntity<HttpStatus> verifiedAccount(@PathVariable("id") long id) {
         userService.verifiedAccountById(id);

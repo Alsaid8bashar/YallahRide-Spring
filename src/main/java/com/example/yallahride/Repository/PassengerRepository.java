@@ -22,10 +22,10 @@ public interface PassengerRepository extends JpaRepository<Passenger, Long> {
     void acceptPassenger(@Param("id") long id);
 
     @Modifying
-    @Query("UPDATE Passenger p SET p.rideStatus = :status WHERE p.id = :userId")
-    void cancelBookingByUserId(@Param("userId") Long userId, @Param("status") RideStatus status);
+    @Query("UPDATE Passenger p SET p.rideStatus = :status WHERE p.id = :userId and p.ride.id = :rideId")
+    int cancelBookingByUserId(@Param("userId") Long userId, @Param("rideId") Long rideId, @Param("status") RideStatus status);
 
-    @Query("SELECT p FROM Passenger p JOIN p.user u WHERE u.id = :userId")
+    @Query("SELECT p FROM Passenger p JOIN p.user u WHERE u.id = :userId and p.isAccepted=true")
     List<Passenger> findUserRide(@Param("userId") Long userId);
 
 }

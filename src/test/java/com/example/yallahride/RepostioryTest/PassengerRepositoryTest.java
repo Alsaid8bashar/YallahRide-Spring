@@ -2,6 +2,7 @@ package com.example.yallahride.RepostioryTest;
 
 
 import com.example.yallahride.Entity.Car;
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Entity.User;
@@ -47,7 +48,7 @@ public class PassengerRepositoryTest {
         LocalTime time = LocalTime.of(10, 30, 0);
         //TODO
         ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5, 2.5, user, car, time, time,currentDate));
-        passenger = new Passenger(user, ride);
+        passenger = new Passenger(user, ride, RideStatus.COMPLETED);
         passenger.setAccepted(true);
         passenger = passengerRepository.save(passenger);
     }
@@ -55,7 +56,7 @@ public class PassengerRepositoryTest {
     @Test
     @Order(1)
     public void addPassenger() {
-        Passenger passenger = new Passenger(user, ride);
+        Passenger passenger = new Passenger(user, ride, RideStatus.COMPLETED);
         passenger.setAccepted(true);
         passengerRepository.save(passenger);
         Assertions.assertTrue(passengerRepository.findById(passenger.getId()).isPresent());

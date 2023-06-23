@@ -39,6 +39,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         if (user.getMultipartFile() != null) {
+            if(user.getImagePath()!=null){
+//                fileService.d
+            }
             String key = fileService.uploadFile(user.getMultipartFile());
             user.setImagePath(fileService.getObjectUrl(key));
         }
@@ -47,8 +50,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-        User user = unwrapUser(userRepository.findById(id), id);
-        return user;
+
+        return unwrapUser(userRepository.findById(id), id);
+
     }
 
     @Override

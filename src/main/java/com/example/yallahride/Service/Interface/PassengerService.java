@@ -22,8 +22,7 @@ public interface PassengerService {
     void acceptPassenger(Long id);
 
     void rejectPassenger(Long id);
-    void changeBookingStatus(long userId, RideStatus rideStatus);
-
+    void changeBookingStatus(long userId, long rideId, RideStatus rideStatus);
 
     List<Passenger> findPassengersByRideId(Long id);
 
