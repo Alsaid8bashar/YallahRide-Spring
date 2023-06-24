@@ -107,7 +107,7 @@ public class UserServiceTest {
 
     @AfterAll
     public void cleanup() {
-        userService.deleteUserById(user.getId());
+//        userService.deleteUserById(user.getId());
     }
 
 }

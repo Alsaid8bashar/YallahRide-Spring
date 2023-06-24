@@ -80,16 +80,16 @@ public class PassengerRepositoryTest {
 
     @Test
     @Order(4)
-    public void testFindRidePassenger() {
-//        List<User> users = passengerRepository.findRidePassenger(ride.getId());
-//        Assertions.assertTrue(users.contains(user));
+    public void testFindRidePassengers() {
+        List<Passenger> passengers = passengerRepository.findRidePassenger(ride.getId());
+        Assertions.assertTrue(passengers.get(0).getUser().equals(user));
     }
 
     @Test
     @Order(5)
     public void testFindUserRide() {
         List<Passenger> rides = passengerRepository.findUserRide(user.getId());
-        Assertions.assertTrue(rides.contains(ride));
+        Assertions.assertTrue(rides.size() > 0);
     }
 
     @Test

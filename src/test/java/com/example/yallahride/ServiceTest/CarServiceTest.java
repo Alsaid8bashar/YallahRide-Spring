@@ -33,23 +33,32 @@ public class CarServiceTest {
     public void setup() {
         user = userService.saveUser(new User("Hassan", "Al-Shannag","male"));
         car = carService.saveCar(new Car("Black", "Ford", "Fusion",
-                "19-$#$#$#", 2014, user));
+                "19-$#$dd#sd$#", 2014, user));
     }
 
     @Test
     @Order(1)
     public void testAddCarImage() {
-        CarImage carImage = new CarImage();
-        carImage.setCar(car);
-        carImage.setMultipartFile(new MockMultipartFile("carImage1.png","carImage1.png".getBytes()));
-
+        CarImage carImage1 = new CarImage();
+        carImage1.setMultipartFile(new MockMultipartFile("carImage1.png","carImage1.png".getBytes()));
+        carImage1 = carImageService.saveCarImage(carImage1);
+        carImage1.setCar(car);
 
         CarImage carImage2 = new CarImage();
-        carImage.setCar(car);
         carImage2.setMultipartFile(new MockMultipartFile("carImage2.png", "carImage2.png".getBytes()));
+        carImageService.saveCarImage(carImage2);
+        carImage2 = carImageService.saveCarImage(carImage2);
+        carImage2.setCar(car);
 
-        carService.addCarImage(car.getId(), carImage);
+
+
+
+        carService.addCarImage(car.getId(), carImage1);
         carService.addCarImage(car.getId(), carImage2);
+
+        car = carService.saveCar(car);
+
+        System.out.println("car = " + car);
         Assertions.assertTrue(carService.getAllCarImages(car.getId()).size() > 0);
     }
 

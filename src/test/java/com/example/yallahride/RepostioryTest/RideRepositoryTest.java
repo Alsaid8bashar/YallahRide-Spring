@@ -60,17 +60,18 @@ public class RideRepositoryTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     public void testSearchForRide() {
         User user = userRepository.save(new User("Ahmad", "Mouhsn", "male"));
         Date currentDate = new Date();
         Ride ride = rideRepository.save(new Ride("Irbid", "Amman", currentDate, 5,2.5, user,car,time,time,currentDate));
         List<Ride> tempRide = (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(ride.getFrom(), ride.getTo(), ride.getDepartureDate());
+        System.out.println("sdf");
         Assertions.assertTrue(tempRide.contains(ride));
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @Rollback(value = false)
     public void testUpdateRide() {
         Optional<Ride> optionalRide = rideRepository.findById(ride.getId());
@@ -80,7 +81,7 @@ public class RideRepositoryTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Rollback(value = false)
     public void testFindAllRides() {
         List<Ride> rideList = rideRepository.findAll();
@@ -88,7 +89,7 @@ public class RideRepositoryTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     public void testDeleteRideByID() {
         rideRepository.deleteById(ride.getId());
         Optional<Ride> optionalRide = rideRepository.findById(ride.getId());
@@ -96,7 +97,7 @@ public class RideRepositoryTest {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     public void testDeleteAllRides() {
         rideRepository.deleteAll();
         Assertions.assertTrue(rideRepository.count() == 0);

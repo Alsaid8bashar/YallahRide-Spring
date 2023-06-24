@@ -50,7 +50,7 @@ public class PassengerServiceTest {
     @Order(1)
     public void acceptPassenger() {
        passengerService.acceptPassenger(passenger.getId());
-//        Assertions.assertTrue(tempPassenger.isAccepted());
+        Assertions.assertTrue(passenger.isAccepted());
     }
 
     @Test
