@@ -40,7 +40,6 @@ public class AWSS3Service implements FileService {
     @Override
     public String uploadFile(MultipartFile multipartFile) {
         String key = UUID.randomUUID() + multipartFile.getOriginalFilename();
-
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getSize());
         objectMetadata.setContentType(multipartFile.getContentType());

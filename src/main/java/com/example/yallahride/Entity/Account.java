@@ -3,7 +3,6 @@ package com.example.yallahride.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,7 +37,7 @@ public class Account implements UserDetails {
     @Column(name = "creation_date")
     private Date date;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
     @NonNull
     @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk")
     private User user;
