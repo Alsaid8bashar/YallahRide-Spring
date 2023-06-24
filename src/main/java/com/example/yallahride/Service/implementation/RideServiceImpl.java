@@ -69,7 +69,8 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date) {
-        return rideRepository.searchRidesByFromAndToAndDate(from, to, date);
+        List<Ride> rides= (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(from, to, date);
+        return rides;
     }
 
     public Collection<Ride> findDriverRides(long driverId) {

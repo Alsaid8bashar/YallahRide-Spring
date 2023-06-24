@@ -71,19 +71,22 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public List<Passenger> findPassengersByRideId(Long id) {
-        System.out.println(passengerRepository.findRidePassenger(id));
-        return passengerRepository.findRidePassenger(id);
+        List<Passenger> passengers = passengerRepository.findByRide_Id(id);
+        return passengers;
     }
 
     @Override
     public List<Passenger> findRideRequests(Long id) {
-        return passengerRepository.findRideRequests(id);
+        List<Passenger> passengers = passengerRepository.findByRide_IdAndIsAcceptedFalse(id);
+        return passengers;
     }
 
 
     @Override
     public List<Passenger> findUserRides(Long userId) {
-        return passengerRepository.findUserRide(userId);
+        List<Passenger> passengers = passengerRepository.findByUser_IdAndIsAcceptedTrue(userId);
+
+        return passengers;
     }
 
     private Passenger unwrapPassenger(Optional<Passenger> entity, Long id) {

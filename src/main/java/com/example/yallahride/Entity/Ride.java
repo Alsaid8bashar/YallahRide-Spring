@@ -3,6 +3,7 @@ package com.example.yallahride.Entity;
 import com.example.yallahride.Entity.Enum.RideStatus;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
@@ -47,7 +48,7 @@ public class Ride {
     @NonNull
     @Column(name = "cost")
     private double cost;
-    @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_fk", referencedColumnName = "user_pk")
     @NonNull
     private User driver;
@@ -57,7 +58,8 @@ public class Ride {
 //    @JsonIgnore
 //    private Set<Report> reports = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "car_fk", referencedColumnName = "car_pk")
     @NonNull
     private Car car;

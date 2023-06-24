@@ -10,12 +10,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
+    List<Passenger> findByUser_IdAndIsAcceptedTrue(Long id);
+    List<Passenger> findByRide_IdAndIsAcceptedTrue(Long id);
+    List<Passenger> findByRide_IdAndIsAcceptedFalse(Long id);
+    List<Passenger> findByRide_Id(Long id);
 
-    @Query("SELECT p FROM  Passenger p  WHERE p.ride.id = :rideId AND p.isAccepted =true")
-    List<Passenger> findRidePassenger(@Param("rideId") Long rideId);
 
-    @Query("SELECT p FROM Passenger p WHERE p.ride.id = :rideId AND (p.isAccepted = false )")
-    List<Passenger> findRideRequests(@Param("rideId") Long rideId);
 
     @Modifying
     @Query("UPDATE Passenger p SET p.isAccepted = true WHERE p.id = :id")
@@ -25,7 +25,5 @@ public interface PassengerRepository extends JpaRepository<Passenger, Long> {
     @Query("UPDATE Passenger p SET p.rideStatus = :status WHERE p.id = :userId and p.ride.id = :rideId")
     int cancelBookingByUserId(@Param("userId") Long userId, @Param("rideId") Long rideId, @Param("status") RideStatus status);
 
-    @Query("SELECT p FROM Passenger p JOIN p.user u WHERE u.id = :userId and p.isAccepted=true")
-    List<Passenger> findUserRide(@Param("userId") Long userId);
 
 }
