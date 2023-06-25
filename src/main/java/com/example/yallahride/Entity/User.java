@@ -49,17 +49,16 @@ public class User {
     @JoinTable(name = "User_Preference", joinColumns = @JoinColumn(name = "user_id_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "travel_preference_fk", referencedColumnName = "id_pk"))
     private Set<TravelPreference> travelPreferences = new HashSet<>();
 
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Include
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "user_pk"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "role_pk"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "report", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    @JsonIgnore
-    private Set<Report> reports = new HashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "report", cascade = CascadeType.ALL)
+//    @ToString.Exclude
+//    @JsonIgnore
+//    private Set<Report> reports = new HashSet<>();
 
 
     public void addRole(Role role) {
