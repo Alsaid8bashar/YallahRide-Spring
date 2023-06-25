@@ -1,11 +1,11 @@
 package com.example.yallahride.Service.Interface;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Ride;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public interface RideService {
 
@@ -29,4 +29,5 @@ public interface RideService {
 
     Collection<Ride> findDriverRides(long driverId);
 
+    void changeRideStatus( long rideId, RideStatus rideStatus);
 }

@@ -1,5 +1,6 @@
 package com.example.yallahride.Controller;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Service.Interface.RideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("ride")
@@ -40,8 +42,15 @@ public class RideController {
     public ResponseEntity<Collection<Ride>> searchRidesByFromAndToAndDate(@RequestParam String from, @RequestParam String to, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         return new ResponseEntity<>(rideService.searchRidesByFromAndToAndDate(from, to, date), HttpStatus.OK);
     }
+
+    @PutMapping("/change-ride-status/{rideId}")
+    public ResponseEntity<HttpStatus> changeBookingStatus(@PathVariable long rideId, @RequestParam RideStatus rideStatus) {
+        rideService.changeRideStatus(rideId, rideStatus);
+        return new ResponseEntity<>(OK);
+    }
+
     @GetMapping("/driver-rides/{id}")
-    public ResponseEntity<Collection<Ride>> findDriverRide(@PathVariable("id") Long id){
+    public ResponseEntity<Collection<Ride>> findDriverRide(@PathVariable("id") Long id) {
         return new ResponseEntity<>(rideService.findDriverRides(id), HttpStatus.OK);
 
     }

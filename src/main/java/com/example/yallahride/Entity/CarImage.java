@@ -31,6 +31,6 @@ public class CarImage {
 
     @PreRemove
     private void deleteImageFromCar() {
-        car.deleteCarImage(this);
+//        car.deleteCarImage(this);
     }
 }

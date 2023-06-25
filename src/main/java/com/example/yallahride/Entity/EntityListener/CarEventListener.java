@@ -18,6 +18,6 @@ public class CarEventListener {
         for (CarImage k : car.getCarImages()) {
             keys.add(k.getImagePath());
         }
-        fileService.deleteFiles(keys);
+//        fileService.deleteFiles(keys);
     }
 }

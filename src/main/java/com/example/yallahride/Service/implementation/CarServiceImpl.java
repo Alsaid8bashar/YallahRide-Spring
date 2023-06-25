@@ -71,7 +71,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCarById(Long id) {
-        carEventListener.onCarRemoval(unwrapCar(carRepository.findById(id), id));
+//        carEventListener.onCarRemoval(unwrapCar(carRepository.findById(id), id));
         carRepository.deleteById(id);
     }
 

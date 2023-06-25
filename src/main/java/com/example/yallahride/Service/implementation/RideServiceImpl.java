@@ -1,10 +1,15 @@
 package com.example.yallahride.Service.implementation;
 
+import com.example.yallahride.Entity.Enum.RideStatus;
+import com.example.yallahride.Entity.Passenger;
 import com.example.yallahride.Entity.Ride;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
 import com.example.yallahride.Repository.RideRepository;
+import com.example.yallahride.Service.Interface.PassengerService;
 import com.example.yallahride.Service.Interface.RideService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Date;
@@ -16,6 +21,8 @@ public class RideServiceImpl implements RideService {
 
     final private RideRepository rideRepository;
 
+    @Autowired
+    PassengerService passengerService;
 
 
     public RideServiceImpl(RideRepository rideRepository) {
@@ -69,11 +76,21 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Collection<Ride> searchRidesByFromAndToAndDate(String from, String to, Date date) {
-        List<Ride> rides= (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(from, to, date);
+        List<Ride> rides = (List<Ride>) rideRepository.searchRidesByFromAndToAndDate(from, to, date);
         return rides;
     }
 
     public Collection<Ride> findDriverRides(long driverId) {
         return rideRepository.findDriverRide(driverId);
+    }
+
+    @Override
+    @Transactional
+    public void changeRideStatus(long rideId, RideStatus rideStatus) {
+        java.util.List<Passenger> passengers = passengerService.findPassengersByRideId(rideId);
+        for (Passenger passenger : passengers) {
+            passengerService.changeBookingStatus(passenger.getUser().getId(), rideId, rideStatus);
+        }
+        rideRepository.changeBookingStatusByRideId(rideId, rideStatus);
     }
 }
