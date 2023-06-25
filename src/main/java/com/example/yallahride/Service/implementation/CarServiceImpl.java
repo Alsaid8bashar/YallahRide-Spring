@@ -47,6 +47,7 @@ public class CarServiceImpl implements CarService {
         for (MultipartFile multipartFile : multipartFiles) {
             CarImage image = new CarImage();
             String key=fileService.uploadFile(multipartFile);
+            image.setKey(key);
             image.setImagePath(fileService.getObjectUrl(key));
             car.addCarImage(image);
         }

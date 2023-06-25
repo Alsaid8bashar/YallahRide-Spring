@@ -64,10 +64,12 @@ create table Car_Images
 (
     id_pk      MEDIUMINT NOT NULL AUTO_INCREMENT,
     image_path varchar(4000),
+    key varchar(4000),
     car_fk     MEDIUMINT,
     PRIMARY KEY (id_pk),
     FOREIGN KEY (car_fk) REFERENCES Car (car_pk) ON DELETE CASCADE
 );
+
 
 create table Travel_Preference
 (
