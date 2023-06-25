@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AccountService {
 
+    void deactivateUserById(long userId);
+
     Account saveAccount(Account account);
 
     Account findAccountById(Long id);

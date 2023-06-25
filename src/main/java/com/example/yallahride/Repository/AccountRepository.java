@@ -5,12 +5,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
+    @Transactional
+    @Modifying
+    @Query("update Account a set a.isActive = false where a.user.id = ?1")
+    void deactivateUserByUserId(long userId);
+
     Optional<Account> findByUser_Id(Long id);
+
     Optional<Account> findByPhoneNumberIgnoreCase(String phoneNumber);
+
     Optional<Account> findByEmailIgnoreCase(String email);
 
     Optional<Account> findByPhoneNumber(String phoneNumber);

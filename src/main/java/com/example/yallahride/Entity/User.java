@@ -41,6 +41,8 @@ public class User {
     @Column(name = "gender")
     @NonNull
     private String gender;
+    @Column(name = "Warnings")
+    private long warnings;
 
     @Column(name = "isVerified")
     private boolean isVerified;
