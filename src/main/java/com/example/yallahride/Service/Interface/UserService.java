@@ -38,7 +38,8 @@ public interface UserService {
 
     User deleteRole(Long userId, Role role);
 
-
     void verifiedAccountById(long id);
+
+    User saveUserTravelPrefernces(TravelPreference[] travelPreferences, Long id);
 
 }

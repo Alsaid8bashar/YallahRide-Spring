@@ -62,7 +62,6 @@ public class User {
     private Set<Report> reports = new HashSet<>();
 
 
-
     public void addRole(Role role) {
         roles.add(role);
     }
@@ -72,12 +71,20 @@ public class User {
     }
 
 
-    public boolean addTravelPreference(TravelPreference travelPreference) {
-        return travelPreferences.add(travelPreference);
+    public boolean addTravelPreferences(TravelPreference[] newTravelPreferences) {
+        for (int x = 0; x < newTravelPreferences.length; x++) {
+            travelPreferences.add(newTravelPreferences[x]);
+        }
+        return true;
     }
 
     public boolean deleteTravelPreference(TravelPreference travelPreference) {
         return travelPreferences.remove(travelPreference);
+    }
+
+    public boolean deleteAllTravelPreference() {
+        travelPreferences.clear();
+        return true;
     }
 
     @Override

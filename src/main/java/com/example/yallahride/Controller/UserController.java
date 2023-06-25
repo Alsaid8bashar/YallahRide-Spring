@@ -4,6 +4,7 @@ import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Service.Interface.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.testng.annotations.Optional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("user")
@@ -68,6 +70,14 @@ public class UserController {
     @PostMapping("/activate/{id}")
     public ResponseEntity<User> activateUserById(@PathVariable Long id) {
         return new ResponseEntity<>(userService.activateUserById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/save-travel-preferences")
+    public ResponseEntity<User> saveUserTravelPreferences(@RequestBody Map<String, Object> request) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TravelPreference[] travelPreferences = objectMapper.convertValue(request.get("travelPreferences"), TravelPreference[].class);
+        Long id = objectMapper.convertValue(request.get("id"), Long.class);
+        return new ResponseEntity<>(userService.saveUserTravelPrefernces(travelPreferences, id), HttpStatus.OK);
     }
 
     @PostMapping("/deactivate/{id}")

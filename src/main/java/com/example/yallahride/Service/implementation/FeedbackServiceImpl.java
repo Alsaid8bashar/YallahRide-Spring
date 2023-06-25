@@ -18,7 +18,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     static Feedback unwrapFeedback(Optional<Feedback> feedback, Long id) {
         if (feedback.isPresent()) return feedback.get();
-        else throw new EntityNotFoundException(id, User.class);
+        else throw new EntityNotFoundException(id, Feedback.class);
     }
 
     @Override
