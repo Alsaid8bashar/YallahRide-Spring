@@ -147,6 +147,11 @@
         </dependency>
         <!--    SendGrip Dependencies-->
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
         <dependency>

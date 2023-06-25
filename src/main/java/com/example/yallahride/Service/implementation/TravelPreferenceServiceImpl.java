@@ -66,6 +66,7 @@ public class TravelPreferenceServiceImpl implements TravelPreferenceService {
         travelPreferenceRepository.deleteAll();
     }
 
+
     @Override
     public void deleteTravelPreferenceById(Long id) {
         travelPreferenceRepository.deleteById(id);

@@ -5,6 +5,7 @@ import com.example.yallahride.Entity.Role;
 import com.example.yallahride.Entity.TravelPreference;
 import com.example.yallahride.Entity.User;
 import com.example.yallahride.Exceptions.EntityNotFoundException;
+import com.example.yallahride.Repository.TravelPreferenceRepository;
 import com.example.yallahride.Repository.UserRepository;
 import com.example.yallahride.Service.Interface.FileService;
 import com.example.yallahride.Service.Interface.UserService;
@@ -19,17 +20,16 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    final private UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    TravelPreferenceRepository travelPreferenceRepository;
     @Autowired
     FileService fileService;
 
     @Autowired
     UserEventListener userEventListener;
 
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     static User unwrapUser(Optional<User> user, Long id) {
         if (user.isPresent()) return user.get();
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         if (user.getMultipartFile() != null) {
-            if(user.getImagePath()!=null){
+            if (user.getImagePath() != null) {
 //                fileService.d
             }
             String key = fileService.uploadFile(user.getMultipartFile());
@@ -50,9 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-
         return unwrapUser(userRepository.findById(id), id);
-
     }
 
     @Override
@@ -98,9 +96,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addTravelPreference(Long userId, TravelPreference travelPreference) {
-        User user = findUserById(userId);
-        user.addTravelPreference(travelPreference);
-        return saveUser(user);
+//        User user = findUserById(userId);
+//        user.addTravelPreference(travelPreference);
+//        return saveUser(user);
+        return null;
     }
 
     @Override
@@ -139,6 +138,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void verifiedAccountById(long id) {
         userRepository.verifiedAccountById(id);
+    }
+
+    @Override
+    public User saveUserTravelPrefernces(TravelPreference[] travelPreferences, Long id) {
+        User user = findUserById(id);
+        user.deleteAllTravelPreference();
+        user.addTravelPreferences(travelPreferences);
+        return userRepository.save(user);
     }
 
 }
