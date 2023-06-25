@@ -28,6 +28,8 @@ public class CarImage {
     private Car car;
     @Column(name = "image_path")
     private String imagePath;
+    @Column(name = "`key`")
+    private String key;
 
     @PreRemove
     private void deleteImageFromCar() {
