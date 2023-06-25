@@ -358,7 +358,8 @@ ALTER TABLE Ride
 ALTER TABLE Ride
     ADD CONSTRAINT ride_car_fk
         FOREIGN KEY (car_fk)
-            REFERENCES Car (car_pk);
+            REFERENCES Car (car_pk)
+            ON DELETE CASCADE;
 
 ALTER TABLE User
     ADD isVerified boolean;
