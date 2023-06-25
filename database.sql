@@ -344,6 +344,9 @@ ALTER TABLE Ride
     ADD car_fk MEDIUMINT;
 
 
+ALTER TABLE User
+    ADD COLUMN warnings MEDIUMINT DEFAULT 0;
+
 ALTER TABLE Ride
     ADD arrivalTime TIME;
 

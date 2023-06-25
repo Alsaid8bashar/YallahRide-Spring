@@ -92,7 +92,11 @@ public class AccountController {
         return new ResponseEntity<>(accountService.getNumberOfAccount(), HttpStatus.OK);
     }
 
-
+    @PutMapping("/deactivate/{userId}")
+    public ResponseEntity<HttpStatus> deactivateUserById(@PathVariable long userId) {
+        accountService.deactivateUserById(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }

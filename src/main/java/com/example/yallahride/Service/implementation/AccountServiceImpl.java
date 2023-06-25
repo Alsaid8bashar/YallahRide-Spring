@@ -23,7 +23,6 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     RoleService roleService;
 
-
     static Account unwrapAccount(Optional<Account> account, Long id) {
         if (account.isPresent()) return account.get();
         else throw new EntityNotFoundException(id, Account.class);
@@ -109,6 +108,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findAccountByUserId(long userId) {
         return unwrapAccount(accountRepository.findByUser_Id(userId), 404L);
+    }
+
+    @Override
+    public void deactivateUserById(long userId) {
+        accountRepository.deactivateUserByUserId(userId);
     }
 
 }
