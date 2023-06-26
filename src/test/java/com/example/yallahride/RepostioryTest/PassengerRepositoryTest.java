@@ -81,14 +81,14 @@ public class PassengerRepositoryTest {
     @Test
     @Order(4)
     public void testFindRidePassengers() {
-        List<Passenger> passengers = passengerRepository.findRidePassenger(ride.getId());
+        List<Passenger> passengers = passengerRepository.findByRide_Id(ride.getId());
         Assertions.assertTrue(passengers.get(0).getUser().equals(user));
     }
 
     @Test
     @Order(5)
     public void testFindUserRide() {
-        List<Passenger> rides = passengerRepository.findUserRide(user.getId());
+        List<Passenger> rides = passengerRepository.findByUser_IdAndIsAcceptedTrue(user.getId());
         Assertions.assertTrue(rides.size() > 0);
     }
 

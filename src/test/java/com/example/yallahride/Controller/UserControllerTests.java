@@ -165,7 +165,7 @@ public class UserControllerTests {
         TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
 
-        user.addTravelPreference(travelPreference);
+//        user.addTravelPreference(travelPreference);
         when(userService.addTravelPreference(user.getId(), travelPreference)).thenReturn(user);
         mockMvc.perform(post("/user/travel_preferences/{id}", user.getId()).contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(travelPreference)))
@@ -186,7 +186,7 @@ public class UserControllerTests {
                 ));
 
         for (var element : travelPreferences) {
-            user.addTravelPreference(element);
+//            user.addTravelPreference(element);
         }
 
         when(userService.getUserTravelPreferences(user.getId())).thenReturn(user.getTravelPreferences());
@@ -203,7 +203,7 @@ public class UserControllerTests {
         user.setId(1L);
         TravelPreference travelPreference = new TravelPreference("TEST","21");
         travelPreference.setId(1L);
-        user.addTravelPreference(travelPreference);
+//        user.addTravelPreference(travelPreference);
         user.deleteTravelPreference(travelPreference);
 
         when(userService.deleteTravelPreference(user.getId(), travelPreference)).thenReturn(user);

@@ -33,7 +33,6 @@ public class UserRepositoryTest {
         User user = new User("Hassan", "Al-Shannag","male");
         TravelPreference travelPreference = new TravelPreference("test","21");
         travelPreferenceRepository.save(travelPreference);
-        user.addTravelPreference(travelPreference);
         User tempUser = userRepository.save(user);
         Assertions.assertTrue(userRepository.findById(tempUser.getId()).get().getTravelPreferences().size() > 0);
         tempUser.deleteTravelPreference(travelPreference);
