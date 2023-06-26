@@ -65,7 +65,6 @@ public class AccountControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(account)))
                 .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.email").value("basharalsaid@gmail.com"));
                 .andDo(print());
     }
 
@@ -82,7 +81,6 @@ public class AccountControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(account)))
                 .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.email").value("basharalsaid22@gmail.com"));
                 .andDo(print());
 
     }
