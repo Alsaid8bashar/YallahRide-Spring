@@ -89,7 +89,8 @@ public class RideServiceImpl implements RideService {
     public void changeRideStatus(long rideId, RideStatus rideStatus) {
         java.util.List<Passenger> passengers = passengerService.findPassengersByRideId(rideId);
         for (Passenger passenger : passengers) {
-            passengerService.changeBookingStatus(passenger.getUser().getId(), rideId, rideStatus);
+            passenger.setRideStatus(rideStatus);
+            passengerService.savePassenger(passenger);
         }
         rideRepository.changeBookingStatusByRideId(rideId, rideStatus);
     }

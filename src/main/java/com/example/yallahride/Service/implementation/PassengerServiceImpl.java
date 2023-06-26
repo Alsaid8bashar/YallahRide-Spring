@@ -65,7 +65,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public void changeBookingStatus(long userId, long rideId, RideStatus rideStatus) {
+    public void changeBookingStatus(Long userId, Long rideId, RideStatus rideStatus) {
         passengerRepository.cancelBookingByUserId(userId, rideId, rideStatus);
     }
 
