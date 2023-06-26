@@ -25,8 +25,7 @@ public class ReportRideController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ReportRide> saveReportRide(@ModelAttribute ReportRide reportRide) {
-        Report report = reportRide;
+    public ResponseEntity<ReportRide> saveReportRide(@RequestBody ReportRide reportRide) {
         return new ResponseEntity<>(reportRideService.saveReportRide(reportRide), CREATED);
     }
 

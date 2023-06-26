@@ -13,7 +13,7 @@ import lombok.ToString;
 @Table(name = "Report_Ride")
 public class ReportRide extends Report {
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "ride_fk", referencedColumnName = "ride_pk")
     private Ride ride;
 
